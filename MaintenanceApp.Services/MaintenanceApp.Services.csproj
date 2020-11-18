@@ -54,11 +54,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MachineService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MaintenanceApp.Data\MaintenanceApp.Data.csproj">
+      <Project>{1af1356f-b70c-43fb-8380-32cd7d89757f}</Project>
+      <Name>MaintenanceApp.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MaintenanceApp.Models\MaintenanceApp.Models.csproj">
+      <Project>{a4268f8b-8f81-41ac-8669-af6800f7df19}</Project>
+      <Name>MaintenanceApp.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
