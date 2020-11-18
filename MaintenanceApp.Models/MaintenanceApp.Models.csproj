@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Building\BuildingCreateAndUpdate.cs" />
     <Compile Include="MachineCreate.cs" />
     <Compile Include="MachineEdit.cs" />
     <Compile Include="MachineListItem.cs" />
@@ -63,5 +64,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
