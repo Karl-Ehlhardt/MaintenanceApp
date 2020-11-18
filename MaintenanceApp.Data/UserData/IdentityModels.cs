@@ -3,6 +3,7 @@ using System.Data.Entity.ModelConfiguration;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using MaintenanceApp.Data.MaintenanceData;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -33,7 +34,7 @@ namespace MaintenanceApp.Data.UserData
             return new ApplicationDbContext();
         }
 
-        //public DbSet<Note> Notes { get; set; }
+        public DbSet<Building> Buildings { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
