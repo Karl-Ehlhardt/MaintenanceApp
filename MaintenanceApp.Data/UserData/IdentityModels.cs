@@ -54,4 +54,11 @@ namespace MaintenanceApp.Data.UserData
             HasKey(iul => iul.UserId);
         }
     }
+    public class IdentityUserRoleConfiguration : EntityTypeConfiguration<IdentityUserRole>
+    {
+        public IdentityUserRoleConfiguration()
+        {
+            HasKey(iur => iur.UserId);
+        }
+    }
 }
