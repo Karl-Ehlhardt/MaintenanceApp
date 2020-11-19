@@ -54,7 +54,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\AdminCreate.cs" />
+    <Compile Include="Admin\AdminList.cs" />
+    <Compile Include="Admin\AdminUpdate.cs" />
     <Compile Include="Building\BuildingCreateAndUpdate.cs" />
+    <Compile Include="MachineCreate.cs" />
+    <Compile Include="MachineEdit.cs" />
+    <Compile Include="MachineListItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

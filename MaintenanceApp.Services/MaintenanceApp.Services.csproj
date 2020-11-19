@@ -63,7 +63,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminService.cs" />
     <Compile Include="BuildingService.cs" />
+    <Compile Include="MachineService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -72,11 +74,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MaintenanceApp.Data\MaintenanceApp.Data.csproj">
-      <Project>{1AF1356F-B70C-43FB-8380-32CD7D89757F}</Project>
+      <Project>{1af1356f-b70c-43fb-8380-32cd7d89757f}</Project>
       <Name>MaintenanceApp.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\MaintenanceApp.Models\MaintenanceApp.Models.csproj">
-      <Project>{A4268F8B-8F81-41AC-8669-AF6800F7DF19}</Project>
+      <Project>{a4268f8b-8f81-41ac-8669-af6800f7df19}</Project>
       <Name>MaintenanceApp.Models</Name>
     </ProjectReference>
   </ItemGroup>
