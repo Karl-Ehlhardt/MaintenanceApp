@@ -11,8 +11,7 @@ namespace MaintenanceApp.Data.MaintenanceData
     {
         [Key]
         public int AdminId { get; set; }
-
         public string AdminName { get; set; }
-        
+
     }
 }
