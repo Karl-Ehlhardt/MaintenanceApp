@@ -87,6 +87,7 @@
     <Compile Include="MaintenanceData\Admin.cs" />
     <Compile Include="MaintenanceData\Area.cs" />
     <Compile Include="MaintenanceData\Building.cs" />
+    <Compile Include="MaintenanceData\MaintenanceTask.cs" />
     <Compile Include="MaintenanceData\Machine.cs" />
     <Compile Include="MaintenanceData\MachinesInArea.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

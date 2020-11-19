@@ -10,6 +10,7 @@ namespace MaintenanceApp.Models.Building
     public class BuildingCreateAndUpdate
     {
         [Required]
-        public string Name { get; set; }
+        [MaxLength(50, ErrorMessage = "Name of a Building cannot be greater than 50 characters")]
+        public string BuildingName { get; set; }
     }
 }

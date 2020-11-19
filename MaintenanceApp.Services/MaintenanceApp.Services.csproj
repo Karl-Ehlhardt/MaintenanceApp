@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminService.cs" />
+    <Compile Include="MaintenanceTaskService.cs" />
     <Compile Include="AreaService.cs" />
     <Compile Include="BuildingService.cs" />
     <Compile Include="MachineService.cs" />

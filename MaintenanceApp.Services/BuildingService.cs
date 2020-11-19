@@ -33,7 +33,7 @@ namespace MaintenanceApp.Services
             var entity =
                 new Building()
                 {
-                    Name = model.Name,
+                    BuildingName = model.BuildingName,
                 };
 
             _context.Buildings.Add(entity);
@@ -52,7 +52,7 @@ namespace MaintenanceApp.Services
                 new Building
                 {
                     BuildingId = e.BuildingId,
-                    Name = e.Name
+                    BuildingName = e.BuildingName
                 }).ToListAsync();
 
             return query;
@@ -71,7 +71,7 @@ namespace MaintenanceApp.Services
                 new Building
                 {
                     BuildingId = q.BuildingId,
-                    Name = q.Name
+                    BuildingName = q.BuildingName
                 }).ToListAsync();
 
             return query;
@@ -86,7 +86,7 @@ namespace MaintenanceApp.Services
                 _context.
                 Buildings.
                 Single(e => e.BuildingId == id);
-            entity.Name = model.Name;
+            entity.BuildingName = model.BuildingName;
 
             return await _context.SaveChangesAsync() == 1;
         }
