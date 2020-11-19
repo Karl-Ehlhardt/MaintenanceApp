@@ -7,7 +7,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Web.Http;
 
 namespace MaintenanceApp.Services
 {
@@ -75,13 +75,13 @@ namespace MaintenanceApp.Services
         //==========================GET INGREDIENT BY NAME===============================//
 
 
-        public async Task<List<AdminList>> GetAdminByName([FromUri] string name)
+        public async Task<List<AdminList>> GetAdminById([FromUri] int id)
         {
             var query =
                 await
                 _context
                 .Admins
-                .Where(e => e.AdminName == name)
+                .Where(e => e.AdminId == id)
                 .Select(
                     e =>
                     new AdminList()
@@ -99,12 +99,12 @@ namespace MaintenanceApp.Services
         //==========================UPDATE INGREDIENT BY NAME===============================//
 
 
-        public async Task<bool> UpdateAdminByName([FromUri] string name, [FromBody] AdminUpdate model)
+        public async Task<bool> UpdateAdminById([FromUri] int id, [FromBody] AdminUpdate model)
         {
             var entity =
                 _context
                 .Admins
-                .Single(e => e.AdminName == name);
+                .Single(e => e.AdminId == id);
             entity.AdminName = model.AdminName;
 
             return await _context.SaveChangesAsync() == 1;
