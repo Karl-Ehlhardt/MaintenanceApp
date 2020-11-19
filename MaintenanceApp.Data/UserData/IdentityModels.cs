@@ -35,6 +35,7 @@ namespace MaintenanceApp.Data.UserData
         }
 
         public DbSet<Building> Buildings { get; set; }
+        public DbSet<Machine> Machines { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
