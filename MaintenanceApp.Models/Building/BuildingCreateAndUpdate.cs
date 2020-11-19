@@ -11,6 +11,6 @@ namespace MaintenanceApp.Models.Building
     {
         [Required]
         [MaxLength(50, ErrorMessage = "Name of a Building cannot be greater than 50 characters")]
-        public string Name { get; set; }
+        public string BuildingName { get; set; }
     }
 }
