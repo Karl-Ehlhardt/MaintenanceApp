@@ -1,6 +1,8 @@
 ﻿using MaintenanceApp.Data.MaintenanceData;
 using MaintenanceApp.Data.UserData;
 using MaintenanceApp.Models;
+using MaintenanceApp.Models.Machine;
+using MaintenanceApp.Models.Task;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -31,7 +33,8 @@ namespace MaintenanceApp.Services
             Machine machine =
                 new Machine()
                 {
-                    MachineName = model.MachineName
+                    MachineName = model.MachineName,
+                    AreaId = model.AreaId
                 };
 
             _context.Machines.Add(machine);
@@ -50,7 +53,8 @@ namespace MaintenanceApp.Services
                     new MachineListItem()
                     {
                         MachineId = m.MachineId,
-                        MachineName = m.MachineName
+                        MachineName = m.MachineName,
+                        AreaId = m.AreaId
                     }
                     ).ToListAsync();
             return query;
@@ -69,7 +73,8 @@ namespace MaintenanceApp.Services
                     new MachineListItem()
                     {
                         MachineId = m.MachineId,
-                        MachineName = m.MachineName
+                        MachineName = m.MachineName,
+                        AreaId = m.AreaId
                     }
                     ).ToListAsync();
             return query;
@@ -83,6 +88,25 @@ namespace MaintenanceApp.Services
                 .Machines
                 .Single(m => m.MachineId == id);
             machine.MachineName = model.MachineName;
+            machine.AreaId = model.AreaId;
+
+            return await _context.SaveChangesAsync() == 1;
+        }
+
+        //[ActionName("AssignAllTaskForMachineById")]
+        public async Task<bool> AssignAllTaskForMachineById([FromUri] int id, [FromBody] MaintenanceTaskAssign model)
+        {
+
+            var query =
+                _context
+                .Tasks
+                .Where(m => m.MachineId == id)
+                .ToList();
+
+            foreach (MaintenanceTask entity in query)
+            {
+                entity.ApplicationUserId = model.ApplicationUserId;
+            }
 
             return await _context.SaveChangesAsync() == 1;
         }

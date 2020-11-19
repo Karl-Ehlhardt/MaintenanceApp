@@ -1,5 +1,6 @@
 ﻿using MaintenanceApp.Data.MaintenanceData;
 using MaintenanceApp.Data.UserData;
+using MaintenanceApp.Models;
 using MaintenanceApp.Models.Building;
 using System;
 using System.Collections.Generic;
@@ -35,34 +36,13 @@ namespace MaintenanceApp.Services
                 {
                     MaintenanceTaskName = model.MaintenanceTaskName,
                     MaintenanceTaskDescription = model.MaintenanceTaskDescription,
-                    MaintenanceTaskInterval = model.MaintenanceTaskInterval
+                    MaintenanceTaskInterval = model.MaintenanceTaskInterval,
+                    MachineId = model.MachineId
                 };
 
             _context.Tasks.Add(entity);
             return await _context.SaveChangesAsync() == 1;
         }
-
-        //==========================Read===============================//
-
-        //We need the joining table for this
-        //[HttpGet]
-        //[ActionName("AllTasksForMachine")]
-        //public async Task<List<MaintenanceTaskListItem>> GetMaintenanceTaskByMachineId([FromUri] int id)
-        //{
-        //    var query =
-        //        await _context.
-        //        Tasks.
-        //        Where(q => q.BuildingId == id).
-        //        Select(q =>
-        //        new MaintenanceTaskListItem
-        //        {
-        //            BuildingId = q.BuildingId,
-        //            BuildingName = q.BuildingName
-        //        }).ToListAsync();
-
-        //    return query;
-        //}
-
 
         public async Task<List<MaintenanceTaskListItem>> GetMaintenanceTaskById([FromUri] int id)
         {
@@ -77,7 +57,8 @@ namespace MaintenanceApp.Services
                     MaintenanceTaskName = q.MaintenanceTaskName,
                     MaintenanceTaskDescription = q.MaintenanceTaskDescription,
                     MaintenanceTaskInterval = q.MaintenanceTaskInterval,
-                    ApplicationUserId = q.ApplicationUserId
+                    ApplicationUserId = q.ApplicationUserId,
+                    MachineId = q.MachineId
                 }).ToListAsync();
 
             return query;
@@ -94,6 +75,7 @@ namespace MaintenanceApp.Services
             entity.MaintenanceTaskName = model.MaintenanceTaskName;
             entity.MaintenanceTaskDescription = model.MaintenanceTaskDescription;
             entity.MaintenanceTaskInterval = model.MaintenanceTaskInterval;
+            entity.MachineId = model.MachineId;
 
             return await _context.SaveChangesAsync() == 1;
         }
@@ -110,20 +92,6 @@ namespace MaintenanceApp.Services
             return await _context.SaveChangesAsync() == 1;
         }
 
-        //[HttpPut]
-        //[ActionName("AssignAllTasksForMachineById")]
-        //public async Task<bool> AssignMaintenanceTaskById([FromUri] int id, [FromBody] MaintenanceTaskAssign model)
-        //{
-        //    var entity =
-        //        _context.
-        //        Tasks.
-        //        Single(e => e.MaintenanceTaskId == id);
-        //    entity.MaintenanceTaskName = model.MaintenanceTaskName;
-        //    entity.MaintenanceTaskDescription = model.MaintenanceTaskDescription;
-        //    entity.MaintenanceTaskInterval = model.MaintenanceTaskInterval;
-
-        //    return await _context.SaveChangesAsync() == 1;
-        //}
 
         //==========================Delete===============================//
 

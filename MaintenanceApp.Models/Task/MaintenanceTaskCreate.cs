@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaintenanceApp.Data.MaintenanceData
+namespace MaintenanceApp.Models.Task
 {
     public class MaintenanceTaskCreate
     {
@@ -22,5 +22,9 @@ namespace MaintenanceApp.Data.MaintenanceData
 
         [Required]
         public TimeSpan MaintenanceTaskInterval { get; set; }
+
+        [Required]
+        [ForeignKey(nameof(Data.MaintenanceData.Machine))]
+        public int MachineId { get; set; }
     }
 }

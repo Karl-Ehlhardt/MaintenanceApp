@@ -1,4 +1,6 @@
 ﻿using MaintenanceApp.Models;
+using MaintenanceApp.Models.Machine;
+using MaintenanceApp.Models.Task;
 using MaintenanceApp.Services;
 using Microsoft.AspNet.Identity;
 using System;
@@ -87,6 +89,28 @@ namespace MaintenanceApp.WebAPI.Controllers
             }
 
             return Ok();
+        }
+
+        [ActionName("AssignAllTaskForMachineById")]
+        public async Task<IHttpActionResult> AssignAllTaskForMachineById([FromUri] int id, [FromBody] MaintenanceTaskAssign model)
+        {
+            //check if model is valid
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState); //404
+            }
+
+            //instantiate service
+            MachineService service = CreateMachineService();
+
+            //check if updated
+            if (await service.AssignAllTaskForMachineById(id, model) == false)
+            {
+                return InternalServerError();
+            }
+
+            return Ok("All Tasks Assigned");
+
         }
 
         //======Delete=====//
