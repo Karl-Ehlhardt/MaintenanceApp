@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaintenanceApp.Data.MaintenanceData
+namespace MaintenanceApp.Models.Task
 {
     public class MaintenanceTaskListItem
     {
@@ -22,5 +22,7 @@ namespace MaintenanceApp.Data.MaintenanceData
 
         [ForeignKey(nameof(ApplicationUser))]
         public int ApplicationUserId { get; set; }
+
+        public int MachineId { get; set; }
     }
 }

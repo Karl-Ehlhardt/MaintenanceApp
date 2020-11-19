@@ -25,5 +25,13 @@ namespace MaintenanceApp.Data.MaintenanceData
 
         [ForeignKey(nameof(ApplicationUser))]
         public int ApplicationUserId { get; set; }
+
+        [ForeignKey(nameof(ApplicationUserId))]
+        public virtual ApplicationUser ApplicationUserDisplay { get; set; }
+
+        [Required]
+        [ForeignKey(nameof(Machine))]
+        public int MachineId { get; set; }
+
     }
 }

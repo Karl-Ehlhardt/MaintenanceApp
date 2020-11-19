@@ -31,7 +31,8 @@ namespace MaintenanceApp.Services
             Area area =
                 new Area()
                 {
-                    AreaName = model.AreaName
+                    AreaName = model.AreaName,
+                    BuildingId = model.BuildingId
                 };
 
             _context.Areas.Add(area);
@@ -50,7 +51,8 @@ namespace MaintenanceApp.Services
                     new AreaListItem()
                     {
                         AreaId = a.AreaId,
-                        AreaName = a.AreaName
+                        AreaName = a.AreaName,
+                        BuildingId = a.BuildingId
                     }).ToListAsync();
             return query;
         }
@@ -68,7 +70,8 @@ namespace MaintenanceApp.Services
                     new AreaListItem()
                     {
                         AreaId = a.AreaId,
-                        AreaName = a.AreaName
+                        AreaName = a.AreaName,
+                        BuildingId = a.BuildingId
                     }).ToListAsync();
             return query;
         }
@@ -81,6 +84,7 @@ namespace MaintenanceApp.Services
                 .Areas
                 .Single(a => a.AreaId == id);
             area.AreaName = model.AreaName;
+            area.BuildingId = model.BuildingId;
 
             return await _context.SaveChangesAsync() == 1;
         }

@@ -4,11 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaintenanceApp.Models
+namespace MaintenanceApp.Models.Machine
 {
     public class MachineListItem
     {
         public int MachineId { get; set; }
+
         public string MachineName { get; set; }
+
+        public int AreaId { get; set; }
     }
 }
