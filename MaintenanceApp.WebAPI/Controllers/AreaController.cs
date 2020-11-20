@@ -64,6 +64,17 @@ namespace MaintenanceApp.WebAPI.Controllers
             return Ok(result);
         }
 
+        [HttpGet]
+        [ActionName("GetAllTasksInAreaById")]
+        public async Task<IHttpActionResult> GetAllTasksInAreaById([FromUri] int id)
+        {
+            AreaService service = CreateAreaService();
+
+            var result = await service.GetAllTasksInAreaById(id);
+
+            return Ok(result);
+        }
+
         //======Update====//
         [HttpPut]
         public async Task<IHttpActionResult> UpdateArea([FromUri] int id, [FromBody] AreaEdit model)

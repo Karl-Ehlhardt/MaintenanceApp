@@ -69,6 +69,18 @@ namespace MaintenanceApp.WebAPI.Controllers
             return Ok(machine);
         }
 
+
+        [HttpGet]
+        [ActionName("GetAllTasksForMachineById")]
+        public async Task<IHttpActionResult> GetAllTasksForMachineById([FromUri] int id)
+        {
+            MachineService service = CreateMachineService();
+
+            var result = await service.GetAllTasksForMachineById(id);
+
+            return Ok(result);
+        }
+
         //=====Update=====//
         [HttpPut]
         public async Task<IHttpActionResult> UpdateMachine([FromUri] int id, [FromBody] MachineEdit model)

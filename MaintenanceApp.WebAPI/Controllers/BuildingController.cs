@@ -72,6 +72,19 @@ namespace MaintenanceApp.WebAPI.Controllers
             }
         }
 
+        [ActionName("GetAllTasksInBuildingById")]
+        public async Task<IHttpActionResult> GetAllTasksForBuildingsById([FromUri] int id)
+        {
+            {
+                BuildingService service = CreateBuildingService();
+
+                //return the values as an ienumerable
+                IEnumerable<BuildingGetAllMaintenceTasks> building = await service.GetAllTasksInBuildingById(id);
+
+                return Ok(building);
+            }
+        }
+
         [HttpPut]
         public async Task<IHttpActionResult> Update([FromUri] int id, [FromBody] BuildingCreateAndUpdate model)
         {

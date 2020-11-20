@@ -1,6 +1,8 @@
 ﻿using MaintenanceApp.Data.MaintenanceData;
 using MaintenanceApp.Data.UserData;
 using MaintenanceApp.Models.Area;
+using MaintenanceApp.Models.Machine;
+using MaintenanceApp.Models.Task;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -73,6 +75,45 @@ namespace MaintenanceApp.Services
                         AreaName = a.AreaName,
                         BuildingId = a.BuildingId
                     }).ToListAsync();
+            return query;
+        }
+
+        //[ActionName("GetAllTasksInAreaById")]
+        public async Task<List<AreaGetAllMaintenceTasks>> GetAllTasksInAreaById([FromUri] int id)
+        {
+            var query =
+                await _context.
+                        Areas.
+                        Where(a => a.AreaId == id).
+                        Select(a =>
+                        new AreaGetAllMaintenceTasks
+                        {
+                            AreaId = a.AreaId,
+                            AreaName = a.AreaName,
+                            MachineGetAllMaintenceTasks = _context.
+                            Machines.
+                            Where(m => m.AreaId == a.AreaId).
+                            Select(m =>
+                            new MachineGetAllMaintenceTasks
+                            {
+                                MachineId = m.MachineId,
+                                MachineName = m.MachineName,
+                                MaintenanceTaskList = _context.
+                                    Tasks.
+                                    Where(t => t.MachineId == m.MachineId).
+                                    Select(t =>
+                                    new MaintenanceTaskListItem
+                                    {
+                                        MaintenanceTaskId = t.MaintenanceTaskId,
+                                        MaintenanceTaskName = t.MaintenanceTaskName,
+                                        MaintenanceTaskDescription = t.MaintenanceTaskDescription,
+                                        MaintenanceTaskInterval = t.MaintenanceTaskInterval,
+                                        ApplicationUserId = t.ApplicationUserId,
+                                        MachineId = t.MachineId,
+                                    }).ToList()
+                            }).ToList()
+                }).ToListAsync();
+
             return query;
         }
 

@@ -1,6 +1,9 @@
 ﻿using MaintenanceApp.Data.MaintenanceData;
 using MaintenanceApp.Data.UserData;
+using MaintenanceApp.Models.Area;
 using MaintenanceApp.Models.Building;
+using MaintenanceApp.Models.Machine;
+using MaintenanceApp.Models.Task;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -48,7 +51,7 @@ namespace MaintenanceApp.Services
             var query =
                 await _context.
                 Buildings.
-                Select(e=>
+                Select(e =>
                 new Building
                 {
                     BuildingId = e.BuildingId,
@@ -72,6 +75,54 @@ namespace MaintenanceApp.Services
                 {
                     BuildingId = q.BuildingId,
                     BuildingName = q.BuildingName
+                }).ToListAsync();
+
+            return query;
+        }
+
+        //[ActionName("GetAllTasksInBuildingById")]
+        public async Task<List<BuildingGetAllMaintenceTasks>> GetAllTasksInBuildingById([FromUri] int id)
+        {
+            var query =
+                await _context.
+                Buildings.
+                Where(q => q.BuildingId == id).
+                Select(q =>
+                new BuildingGetAllMaintenceTasks
+                {
+                    BuildingName = q.BuildingName,
+                    AreaGetAllMaintenceTasks = _context.
+                        Areas.
+                        Where(a => a.BuildingId == q.BuildingId).
+                        Select(a =>
+                        new AreaGetAllMaintenceTasks
+                        {
+                            AreaId = a.AreaId,
+                            AreaName = a.AreaName,
+                            MachineGetAllMaintenceTasks = _context.
+                            Machines.
+                            Where(m => m.AreaId == a.AreaId).
+                            Select(m =>
+                            new MachineGetAllMaintenceTasks
+                            {
+                                MachineId = m.MachineId,
+                                MachineName = m.MachineName,
+                                MaintenanceTaskList = _context.
+                                    Tasks.
+                                    Where(t => t.MachineId == m.MachineId).
+                                    Select(t =>
+                                    new MaintenanceTaskListItem
+                                    {
+                                        MaintenanceTaskId = t.MaintenanceTaskId,
+                                        MaintenanceTaskName = t.MaintenanceTaskName,
+                                        MaintenanceTaskDescription = t.MaintenanceTaskDescription,
+                                        MaintenanceTaskInterval = t.MaintenanceTaskInterval,
+                                        ApplicationUserId = t.ApplicationUserId,
+                                        MachineId = t.MachineId,
+
+                                    }).ToList()
+                            }).ToList()
+                        }).ToList()
                 }).ToListAsync();
 
             return query;
