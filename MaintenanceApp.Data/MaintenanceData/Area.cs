@@ -17,7 +17,8 @@ namespace MaintenanceApp.Data.MaintenanceData
         public string AreaName { get; set; }
 
         [Required]
-        [ForeignKey(nameof(Building))]
+        [ForeignKey(nameof(BuildingId))]
         public int BuildingId { get; set; }
+        
     }
 }
