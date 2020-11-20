@@ -80,6 +80,36 @@ namespace MaintenanceApp.Services
             return query;
         }
 
+        //[ActionName("GetAllTasksForMachineById")]
+        public async Task<List<MachineGetAllMaintenceTasks>> GetAllTasksForMachineById([FromUri] int id)
+        {
+            var query =
+                await _context.
+                            Machines.
+                            Where(m => m.MachineId == id).
+                            Select(m =>
+                            new MachineGetAllMaintenceTasks
+                            {
+                                MachineId = m.MachineId,
+                                MachineName = m.MachineName,
+                                MaintenanceTaskList = _context.
+                                    Tasks.
+                                    Where(t => t.MachineId == m.MachineId).
+                                    Select(t =>
+                                    new MaintenanceTaskListItem
+                                    {
+                                        MaintenanceTaskId = t.MaintenanceTaskId,
+                                        MaintenanceTaskName = t.MaintenanceTaskName,
+                                        MaintenanceTaskDescription = t.MaintenanceTaskDescription,
+                                        MaintenanceTaskInterval = t.MaintenanceTaskInterval,
+                                        ApplicationUserId = t.ApplicationUserId,
+                                        MachineId = t.MachineId,
+                                    }).ToList()
+                        }).ToListAsync();
+
+            return query;
+        }
+
         //Edit Machine
         public async Task<bool> UpdateMachineById([FromUri]int id, [FromBody] MachineEdit model)
         {
