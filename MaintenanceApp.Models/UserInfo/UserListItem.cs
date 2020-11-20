@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaintenanceApp.Data.MaintenanceData
+namespace MaintenanceApp.Models.UserInfo
 {
-    public class UserInfo
+    public class UserListItem
     {
         [Key]
         public int UserInfoId { get; set; }
-        
+
         public string UserName { get; set; }
         public DateTimeOffset StartDate { get; set; }
         [Required]
