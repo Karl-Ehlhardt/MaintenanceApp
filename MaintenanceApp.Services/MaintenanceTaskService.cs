@@ -2,6 +2,7 @@
 using MaintenanceApp.Data.UserData;
 using MaintenanceApp.Models;
 using MaintenanceApp.Models.Building;
+using MaintenanceApp.Models.Task;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;

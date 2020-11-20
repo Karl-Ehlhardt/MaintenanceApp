@@ -27,7 +27,8 @@ namespace MaintenanceApp.WebAPI
             );
             config.Routes.MapHttpRoute(
                 name: "ControllerAndAction",
-                routeTemplate: "api/{controller}/{action}/{id}"
+                routeTemplate: "api/{controller}/{action}/{id}",
+                defaults: new { id = RouteParameter.Optional }
                 );
         }
     }
