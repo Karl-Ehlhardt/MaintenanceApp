@@ -48,6 +48,11 @@ namespace MaintenanceApp.WebAPI.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+        public DateTimeOffset StartDate { get; set; }
+
+        public bool Admin { get; set; }
+        public bool Active { get; set; }
+        public int AreaId { get; set; }
     }
 
     public class RegisterExternalBindingModel

@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Security.Claims;
@@ -20,6 +21,13 @@ namespace MaintenanceApp.Data.UserData
             // Add custom user claims here
             return userIdentity;
         }
+
+        public DateTimeOffset StartDate { get; set; }
+        public bool Admin { get; set; }
+        public int AreaId { get; set; }
+        public bool Active { get; set; }
+        public DateTimeOffset InactiveDate { get; set; }
+        public DateTimeOffset ReactivatedDate { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
