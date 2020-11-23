@@ -86,4 +86,22 @@ namespace MaintenanceApp.WebAPI.Models
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
+
+    public class ChangeAdminModel
+    {
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Current password")]
+        public string OldPassword { get; set; }
+
+        [Required]
+        [Display(Name = "Admin")]
+        public bool Admin { get; set; }
+    }
+
+
+
+
+
+
 }
