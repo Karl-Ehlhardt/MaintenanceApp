@@ -8,7 +8,6 @@ namespace MaintenanceApp.Models.Admin
 {
     public class AdminCreate
     {
-        public int AdminId { get; set; }
         public string AdminEmail { get; set; }
         public string AdminName { get; set; }
     }
