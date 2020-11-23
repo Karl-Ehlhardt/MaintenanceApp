@@ -7,13 +7,13 @@ namespace MaintenanceApp.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class dfs : IMigrationMetadata
+    public sealed partial class migchange1 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(dfs));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(migchange1));
         
         string IMigrationMetadata.Id
         {
-            get { return "202011231705338_dfs"; }
+            get { return "202011231950594_mig-change-1"; }
         }
         
         string IMigrationMetadata.Source

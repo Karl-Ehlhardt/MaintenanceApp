@@ -214,6 +214,7 @@
     <Compile Include="Controllers\MachineController.cs" />
     <Compile Include="Controllers\MachinesInAreaController.cs" />
     <Compile Include="Controllers\TasksForMachineController.cs" />
+    <Compile Include="Controllers\UserInfoController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

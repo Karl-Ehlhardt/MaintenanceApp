@@ -89,19 +89,11 @@
     <Compile Include="MaintenanceData\Building.cs" />
     <Compile Include="MaintenanceData\MaintenanceTask.cs" />
     <Compile Include="MaintenanceData\Machine.cs" />
-    <Compile Include="Migrations\202011231651563_StartFix.cs" />
-    <Compile Include="Migrations\202011231651563_StartFix.Designer.cs">
-      <DependentUpon>202011231651563_StartFix.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202011231705338_dfs.cs" />
-    <Compile Include="Migrations\202011231705338_dfs.Designer.cs">
-      <DependentUpon>202011231705338_dfs.cs</DependentUpon>
-    </Compile>
     <Compile Include="MaintenanceData\TasksForMachine.cs" />
     <Compile Include="MaintenanceData\UserInfo.cs" />
-    <Compile Include="Migrations\202011231905530_migchange2.cs" />
-    <Compile Include="Migrations\202011231905530_migchange2.Designer.cs">
-      <DependentUpon>202011231905530_migchange2.cs</DependentUpon>
+    <Compile Include="Migrations\202011231950594_mig-change-1.cs" />
+    <Compile Include="Migrations\202011231950594_mig-change-1.Designer.cs">
+      <DependentUpon>202011231950594_mig-change-1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -112,14 +104,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202011231651563_StartFix.resx">
-      <DependentUpon>202011231651563_StartFix.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202011231705338_dfs.resx">
-      <DependentUpon>202011231705338_dfs.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202011231905530_migchange2.resx">
-      <DependentUpon>202011231905530_migchange2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202011231950594_mig-change-1.resx">
+      <DependentUpon>202011231950594_mig-change-1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
