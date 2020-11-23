@@ -20,8 +20,22 @@ namespace MaintenanceApp.Services
             _userId = userId;
         }
 
-        
 
+
+        public bool IsAdmin([FromUri] int id)
+        {
+            bool adm = false;
+
+            foreach(Admin admin in _context.Admins)
+            {
+                if(admin.AdminId == id)
+                {
+                    adm = true;
+                }
+            }
+
+            return adm;
+        }
         
 
 
