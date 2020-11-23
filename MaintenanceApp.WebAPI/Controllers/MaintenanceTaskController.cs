@@ -82,28 +82,28 @@ namespace MaintenanceApp.WebAPI.Controllers
                 return Ok("Task Updated");
             }
         }
-        [HttpPut]
-        [ActionName("AssignTaskById")]
-        public async Task<IHttpActionResult> AssignMaintenanceTaskById([FromUri] int id, [FromBody] MaintenanceTaskAssign model)
-        {
-            {
-                //check if model is valid
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
+        //[HttpPut]
+        //[ActionName("AssignTaskById")]
+        //public async Task<IHttpActionResult> AssignMaintenanceTaskById([FromUri] int id, [FromBody] MaintenanceTaskAssign model)
+        //{
+        //    {
+        //        //check if model is valid
+        //        if (!ModelState.IsValid)
+        //        {
+        //            return BadRequest(ModelState);
+        //        }
 
-                //instantiate the service
-                MaintenanceTaskService service = CreateMaintenanceTaskService();
+        //        //instantiate the service
+        //        MaintenanceTaskService service = CreateMaintenanceTaskService();
 
-                if (await service.AssignMaintenanceTaskById(id, model) == false)
-                {
-                    return InternalServerError();
-                }
+        //        if (await service.AssignMaintenanceTaskById(id, model) == false)
+        //        {
+        //            return InternalServerError();
+        //        }
 
-                return Ok("Task Assigned");
-            }
-        }
+        //        return Ok("Task Assigned");
+        //    }
+        //}
 
         [HttpDelete]
         public async Task<IHttpActionResult> DeleteMaintenanceTask([FromUri] int id)

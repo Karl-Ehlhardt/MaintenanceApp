@@ -102,7 +102,7 @@ namespace MaintenanceApp.Services
                                         MaintenanceTaskName = t.MaintenanceTaskName,
                                         MaintenanceTaskDescription = t.MaintenanceTaskDescription,
                                         MaintenanceTaskInterval = t.MaintenanceTaskInterval,
-                                        ApplicationUserId = t.ApplicationUserId,
+                                        //ApplicationUserId = t.ApplicationUserId,
                                         MachineId = t.MachineId,
                                     }).ToList()
                         }).ToListAsync();
@@ -124,22 +124,22 @@ namespace MaintenanceApp.Services
         }
 
         //[ActionName("AssignAllTaskForMachineById")]
-        public async Task<bool> AssignAllTaskForMachineById([FromUri] int id, [FromBody] MaintenanceTaskAssign model)
-        {
+        //public async Task<bool> AssignAllTaskForMachineById([FromUri] int id, [FromBody] MaintenanceTaskAssign model)
+        //{
 
-            var query =
-                _context
-                .Tasks
-                .Where(m => m.MachineId == id)
-                .ToList();
+        //    var query =
+        //        _context
+        //        .Tasks
+        //        .Where(m => m.MachineId == id)
+        //        .ToList();
 
-            foreach (MaintenanceTask entity in query)
-            {
-                entity.ApplicationUserId = model.ApplicationUserId;
-            }
+        //    foreach (MaintenanceTask entity in query)
+        //    {
+        //        entity.ApplicationUserId = model.ApplicationUserId;
+        //    }
 
-            return await _context.SaveChangesAsync() == 1;
-        }
+        //    return await _context.SaveChangesAsync() == 1;
+        //}
 
 
         //Delete machine by id
