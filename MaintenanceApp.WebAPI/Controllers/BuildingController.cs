@@ -60,6 +60,7 @@ namespace MaintenanceApp.WebAPI.Controllers
             }
         }
 
+        [HttpGet]
         public async Task<IHttpActionResult> GetAllBuildingsById([FromUri] int id)
         {
             {
@@ -72,6 +73,7 @@ namespace MaintenanceApp.WebAPI.Controllers
             }
         }
 
+        [HttpGet]
         [ActionName("GetAllTasksInBuildingById")]
         public async Task<IHttpActionResult> GetAllTasksForBuildingsById([FromUri] int id)
         {

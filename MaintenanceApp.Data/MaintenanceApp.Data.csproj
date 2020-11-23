@@ -89,14 +89,6 @@
     <Compile Include="MaintenanceData\Building.cs" />
     <Compile Include="MaintenanceData\MaintenanceTask.cs" />
     <Compile Include="MaintenanceData\Machine.cs" />
-    <Compile Include="Migrations\202011231651563_StartFix.cs" />
-    <Compile Include="Migrations\202011231651563_StartFix.Designer.cs">
-      <DependentUpon>202011231651563_StartFix.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202011231705338_dfs.cs" />
-    <Compile Include="Migrations\202011231705338_dfs.Designer.cs">
-      <DependentUpon>202011231705338_dfs.cs</DependentUpon>
-    </Compile>
     <Compile Include="MaintenanceData\TasksForMachine.cs" />
     <Compile Include="MaintenanceData\UserInfo.cs" />
     <Compile Include="Migrations\202011231905530_migchange2.cs" />
