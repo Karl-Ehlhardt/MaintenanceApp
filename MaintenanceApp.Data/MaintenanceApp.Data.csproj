@@ -118,9 +118,6 @@
     <EmbeddedResource Include="Migrations\202011231705338_dfs.resx">
       <DependentUpon>202011231705338_dfs.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202011231843116_devpull22.resx">
-      <DependentUpon>202011231843116_devpull22.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
