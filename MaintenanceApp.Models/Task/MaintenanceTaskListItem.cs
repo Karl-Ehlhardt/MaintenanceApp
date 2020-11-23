@@ -21,7 +21,7 @@ namespace MaintenanceApp.Models.Task
         public TimeSpan MaintenanceTaskInterval { get; set; }
 
         [ForeignKey(nameof(ApplicationUser))]
-        public Guid ApplicationUserId { get; set; }
+        public string ApplicationUserId { get; set; }
 
         public int MachineId { get; set; }
     }

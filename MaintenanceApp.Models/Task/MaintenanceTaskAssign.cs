@@ -14,6 +14,6 @@ namespace MaintenanceApp.Models.Task
 
         [Required]
         [ForeignKey(nameof(ApplicationUser))]
-        public Guid ApplicationUserId { get; set; }
+        public string ApplicationUserId { get; set; }
     }
 }

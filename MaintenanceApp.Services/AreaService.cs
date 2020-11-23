@@ -108,7 +108,7 @@ namespace MaintenanceApp.Services
                                         MaintenanceTaskName = t.MaintenanceTaskName,
                                         MaintenanceTaskDescription = t.MaintenanceTaskDescription,
                                         MaintenanceTaskInterval = t.MaintenanceTaskInterval,
-                                        //ApplicationUserId = t.ApplicationUserId,
+                                        ApplicationUserId = t.ApplicationUserId,
                                         MachineId = t.MachineId,
                                     }).ToList()
                             }).ToList()

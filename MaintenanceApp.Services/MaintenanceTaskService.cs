@@ -82,16 +82,16 @@ namespace MaintenanceApp.Services
         }
 
         //[ActionName("AssignTaskById")]
-        //public async Task<bool> AssignMaintenanceTaskById([FromUri] int id, [FromBody] MaintenanceTaskAssign model)
-        //{
-        //    var entity =
-        //        _context.
-        //        Tasks.
-        //        Single(e => e.MaintenanceTaskId == id);
-        //    entity.ApplicationUserId = model.ApplicationUserId;
+        public async Task<bool> AssignMaintenanceTaskById([FromUri] int id, [FromBody] MaintenanceTaskAssign model)
+        {
+            var entity =
+                _context.
+                Tasks.
+                Single(e => e.MaintenanceTaskId == id);
+            entity.ApplicationUserId = model.ApplicationUserId;
 
-        //    return await _context.SaveChangesAsync() == 1;
-        //}
+            return await _context.SaveChangesAsync() == 1;
+        }
 
 
         //==========================Delete===============================//

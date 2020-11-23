@@ -23,10 +23,10 @@ namespace MaintenanceApp.Data.MaintenanceData
         [Required]
         public TimeSpan MaintenanceTaskInterval { get; set; }
 
-        //public Guid ApplicationUserId { get; set; }
+        public string ApplicationUserId { get; set; }
 
-        //[ForeignKey(nameof(ApplicationUserId))]
-        //public virtual ApplicationUser ApplicationUserDisplay { get; set; }
+        [ForeignKey(nameof(ApplicationUserId))]
+        public virtual ApplicationUser ApplicationUserDisplay { get; set; }
 
         [Required]
         [ForeignKey(nameof(Machine))]
