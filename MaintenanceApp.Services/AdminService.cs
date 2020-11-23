@@ -33,7 +33,6 @@ namespace MaintenanceApp.Services
                     adm = true;
                 }
             }
-
             return adm;
         }
         
@@ -53,6 +52,7 @@ namespace MaintenanceApp.Services
                 new Admin()
                 {
                     AdminName = model.AdminName,
+                    AdminEmail = model.AdminEmail
                 };
 
             _context.Admins.Add(entity);
@@ -101,6 +101,11 @@ namespace MaintenanceApp.Services
 
         public async Task<bool> UpdateAdmin([FromUri] int id, [FromBody] AdminUpdate model)
         {
+            if (IsAdmin(id) == false)
+            {
+                return false;
+            }
+
             var entity =
                 _context.
                 Admins.
