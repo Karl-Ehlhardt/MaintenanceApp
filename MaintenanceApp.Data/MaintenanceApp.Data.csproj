@@ -91,6 +91,7 @@
     <Compile Include="MaintenanceData\Machine.cs" />
     <Compile Include="MaintenanceData\TasksForMachine.cs" />
     <Compile Include="MaintenanceData\UserInfo.cs" />
+
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserData\IdentityModels.cs" />
   </ItemGroup>
@@ -98,5 +99,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
