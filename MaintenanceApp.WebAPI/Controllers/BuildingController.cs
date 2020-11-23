@@ -54,7 +54,7 @@ namespace MaintenanceApp.WebAPI.Controllers
                 BuildingService service = CreateBuildingService();
 
                 //return the values as an ienumerable
-                IEnumerable<Building> buildings = await service.GetBuildings();
+                IEnumerable<BuildingListItem> buildings = await service.GetBuildings();
 
                 return Ok(buildings);
             }
@@ -66,7 +66,7 @@ namespace MaintenanceApp.WebAPI.Controllers
                 BuildingService service = CreateBuildingService();
 
                 //return the values as an ienumerable
-                IEnumerable<Building> building = await service.GetBuildingById(id);
+                IEnumerable<BuildingListItem> building = await service.GetBuildingById(id);
 
                 return Ok(building);
             }

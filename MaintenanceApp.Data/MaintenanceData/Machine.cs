@@ -19,5 +19,7 @@ namespace MaintenanceApp.Data.MaintenanceData
         [Required]
         [ForeignKey(nameof(Area))]
         public int AreaId { get; set; }
+
+        public virtual Area Area { get; set; }
     }
 }

@@ -46,13 +46,13 @@ namespace MaintenanceApp.Services
         //============================READ===============================//
 
 
-        public async Task<List<Building>> GetBuildings()
+        public async Task<List<BuildingListItem>> GetBuildings()
         {
             var query =
                 await _context.
                 Buildings.
                 Select(e =>
-                new Building
+                new BuildingListItem
                 {
                     BuildingId = e.BuildingId,
                     BuildingName = e.BuildingName
@@ -61,15 +61,18 @@ namespace MaintenanceApp.Services
             return query;
         }
 
-        
-        public async Task<List<Building>> GetBuildingById([FromUri] int id)
+        //==========================Read===============================//
+
+
+        public async Task<List<BuildingListItem>> GetBuildingById([FromUri] int id)
+
         {
             var query =
                 await _context.
                 Buildings.
                 Where(q => q.BuildingId == id).
                 Select(q =>
-                new Building
+                new BuildingListItem
                 {
                     BuildingId = q.BuildingId,
                     BuildingName = q.BuildingName
