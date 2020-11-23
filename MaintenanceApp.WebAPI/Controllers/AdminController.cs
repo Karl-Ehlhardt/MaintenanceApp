@@ -17,9 +17,9 @@ namespace MaintenanceApp.WebAPI.Controllers
 
         private AdminService CreateAdminService()
         {
-            Guid userId = Guid.Parse(User.Identity.GetUserId());
-            AdminService adminService = new AdminService(userId);
-            return adminService;
+            Guid userId = Guid.Parse(User.Identity.GetUserId()); 
+            AdminService service = new AdminService(userId);
+            return service;
         }
 
         //Create
@@ -45,44 +45,26 @@ namespace MaintenanceApp.WebAPI.Controllers
             }
         }
 
-        //Read
-        [HttpGet]
-        public async Task<IHttpActionResult> GetAllBuildings()
-        {
-            {
-               AdminService service = CreateAdminService();
 
-                //return the values as an ienumerable
-                IEnumerable<AdminListItem> admins = await service.GetAdmins();
 
-                return Ok(admins);
-            }
-        }
 
-        public async Task<IHttpActionResult> GetAllBuildingsById([FromUri] int id)
-        {
-            {
-               AdminService service = CreateAdminService();
-
-                //return the values as an ienumerable
-                IEnumerable<AdminListItem> admin = await service.GetAdminById(id);
-
-                return Ok(admin);
-            }
-        }
 
         [HttpPut]
         public async Task<IHttpActionResult> Update([FromUri] int id, [FromBody] AdminUpdate model)
         {
+            AdminService service = CreateAdminService();
+
+            if (service.IsAdmin(id) == false)
+            {
+                return Unauthorized();
+            }
+
             {
                 //check if model is valid
                 if (!ModelState.IsValid)
                 {
                     return BadRequest(ModelState);
                 }
-
-                //instantiate the service
-               AdminService service = CreateAdminService();
 
                 if (await service.UpdateAdmin(id, model) == false)
                 {
@@ -96,6 +78,7 @@ namespace MaintenanceApp.WebAPI.Controllers
         [HttpDelete]
         public async Task<IHttpActionResult> Delete([FromUri] int id)
         {
+           
             {
                AdminService service = CreateAdminService();
 
@@ -107,8 +90,5 @@ namespace MaintenanceApp.WebAPI.Controllers
                 return Ok($"Admin Removed");
             }
         }
-
-
-
     }
 }
