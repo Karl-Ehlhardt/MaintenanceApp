@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace MaintenanceApp.Models.Admin
 {
-    class AdminCreate
+    public class AdminCreate
     {
+        public int AdminId { get; set; }
+        public string AdminEmail { get; set; }
+        public string AdminName { get; set; }
     }
 }
