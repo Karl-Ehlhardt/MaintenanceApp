@@ -103,6 +103,10 @@
     <Compile Include="Migrations\202011231905530_migchange2.Designer.cs">
       <DependentUpon>202011231905530_migchange2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011231953522_fixdberrors.cs" />
+    <Compile Include="Migrations\202011231953522_fixdberrors.Designer.cs">
+      <DependentUpon>202011231953522_fixdberrors.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserData\IdentityModels.cs" />
@@ -120,6 +124,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011231905530_migchange2.resx">
       <DependentUpon>202011231905530_migchange2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011231953522_fixdberrors.resx">
+      <DependentUpon>202011231953522_fixdberrors.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
