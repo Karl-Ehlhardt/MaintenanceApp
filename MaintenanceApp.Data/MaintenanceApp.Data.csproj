@@ -91,35 +91,12 @@
     <Compile Include="MaintenanceData\Machine.cs" />
     <Compile Include="MaintenanceData\TasksForMachine.cs" />
     <Compile Include="MaintenanceData\UserInfo.cs" />
-    <Compile Include="Migrations\202011231905530_migchange2.cs" />
-    <Compile Include="Migrations\202011231905530_migchange2.Designer.cs">
-      <DependentUpon>202011231905530_migchange2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202011231953522_fixdberrors.cs" />
-    <Compile Include="Migrations\202011231953522_fixdberrors.Designer.cs">
-      <DependentUpon>202011231953522_fixdberrors.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserData\IdentityModels.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202011231651563_StartFix.resx">
-      <DependentUpon>202011231651563_StartFix.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202011231705338_dfs.resx">
-      <DependentUpon>202011231705338_dfs.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202011231905530_migchange2.resx">
-      <DependentUpon>202011231905530_migchange2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202011231953522_fixdberrors.resx">
-      <DependentUpon>202011231953522_fixdberrors.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
