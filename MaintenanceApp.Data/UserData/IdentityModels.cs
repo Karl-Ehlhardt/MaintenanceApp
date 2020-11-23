@@ -55,6 +55,9 @@ namespace MaintenanceApp.Data.UserData
         
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+
             modelBuilder
                 .Conventions
                 .Remove<PluralizingTableNameConvention>();

@@ -99,6 +99,10 @@
     </Compile>
     <Compile Include="MaintenanceData\TasksForMachine.cs" />
     <Compile Include="MaintenanceData\UserInfo.cs" />
+    <Compile Include="Migrations\202011231905530_migchange2.cs" />
+    <Compile Include="Migrations\202011231905530_migchange2.Designer.cs">
+      <DependentUpon>202011231905530_migchange2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserData\IdentityModels.cs" />
@@ -113,6 +117,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011231705338_dfs.resx">
       <DependentUpon>202011231705338_dfs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011231905530_migchange2.resx">
+      <DependentUpon>202011231905530_migchange2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
