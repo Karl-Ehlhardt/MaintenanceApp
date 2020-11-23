@@ -68,6 +68,7 @@
     <Compile Include="BuildingService.cs" />
     <Compile Include="MachineService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TasksForMachineService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
