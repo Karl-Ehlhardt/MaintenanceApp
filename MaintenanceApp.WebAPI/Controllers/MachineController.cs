@@ -103,6 +103,7 @@ namespace MaintenanceApp.WebAPI.Controllers
             return Ok();
         }
 
+        [HttpPut]
         [ActionName("AssignAllTaskForMachineById")]
         public async Task<IHttpActionResult> AssignAllTaskForMachineById([FromUri] int id, [FromBody] MaintenanceTaskAssign model)
         {

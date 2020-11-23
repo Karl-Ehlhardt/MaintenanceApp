@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaintenanceApp.Data.MaintenanceData
+namespace MaintenanceApp.Models.Admin
 {
-    public class Admin
+    public class AdminUpdate
     {
         [Key]
         public int AdminId { get; set; }

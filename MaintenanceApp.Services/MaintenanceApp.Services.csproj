@@ -63,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminService.cs" />
     <Compile Include="MaintenanceTaskService.cs" />
     <Compile Include="AreaService.cs" />
     <Compile Include="BuildingService.cs" />
@@ -77,7 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MaintenanceApp.Data\MaintenanceApp.Data.csproj">
-      <Project>{1af1356f-b70c-43fb-8380-32cd7d89757f}</Project>
+      <Project>{1AF1356F-B70C-43FB-8380-32CD7D89757F}</Project>
       <Name>MaintenanceApp.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\MaintenanceApp.Models\MaintenanceApp.Models.csproj">
