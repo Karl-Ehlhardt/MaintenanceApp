@@ -97,6 +97,8 @@
     <Compile Include="Migrations\202011231705338_dfs.Designer.cs">
       <DependentUpon>202011231705338_dfs.cs</DependentUpon>
     </Compile>
+    <Compile Include="MaintenanceData\TasksForMachine.cs" />
+    <Compile Include="MaintenanceData\UserInfo.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserData\IdentityModels.cs" />

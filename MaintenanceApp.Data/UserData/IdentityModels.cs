@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Security.Claims;
@@ -20,6 +21,13 @@ namespace MaintenanceApp.Data.UserData
             // Add custom user claims here
             return userIdentity;
         }
+
+        public DateTimeOffset StartDate { get; set; }
+        public bool Admin { get; set; }
+        public int AreaId { get; set; }
+        public bool Active { get; set; }
+        public DateTimeOffset InactiveDate { get; set; }
+        public DateTimeOffset ReactivatedDate { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -39,6 +47,10 @@ namespace MaintenanceApp.Data.UserData
         public DbSet<Admin> Admins { get; set; }
         public DbSet<MaintenanceTask> Tasks { get; set; }
         public DbSet<Area> Areas { get; set; }
+        public DbSet<UserInfo> UserInformation { get; set; }
+        public DbSet<TasksForMachine> TasksForMachines { get; set; }
+
+
         //public DbSet<MachinesInArea> MachinesInAreas { get; set; }
         
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

@@ -43,7 +43,7 @@ namespace MaintenanceApp.Services
             return await _context.SaveChangesAsync() == 1;
         }
 
-        //==========================Read===============================//
+        //============================READ===============================//
 
 
         public async Task<List<BuildingListItem>> GetBuildings()
@@ -65,6 +65,7 @@ namespace MaintenanceApp.Services
 
 
         public async Task<List<BuildingListItem>> GetBuildingById([FromUri] int id)
+
         {
             var query =
                 await _context.
@@ -128,9 +129,6 @@ namespace MaintenanceApp.Services
             return query;
         }
 
-        //==========================Update===============================//
-
-
         public async Task<bool> UpdateBuilding([FromUri] int id, [FromBody] BuildingCreateAndUpdate model)
         {
             var entity =
@@ -142,7 +140,7 @@ namespace MaintenanceApp.Services
             return await _context.SaveChangesAsync() == 1;
         }
 
-        //==========================Delete===============================//
+        //==========================DELETE===============================//
 
 
         public async Task<bool> DeleteBuilding([FromUri] int id)

@@ -63,12 +63,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdminService.cs" />
     <Compile Include="MaintenanceTaskService.cs" />
     <Compile Include="AreaService.cs" />
     <Compile Include="BuildingService.cs" />
     <Compile Include="MachineService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TasksForMachineService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
