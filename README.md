@@ -12,9 +12,11 @@ The API allows for Admin access to CRUD methods for the following items:
 * Tasks needed on those machines
 * Assign a user to those tasks
 
-It also allows Users to Update a task that is completed. 
+It also allows Users to see all objects and dpdate a task that is completed. 
 
-The permissions are set-up so that Users can see everything, but only Admins who have been added to the Admins table can create, update, or delete buildings, areas, machines, or tasks.
+By setting up an extra Admin table, we were able to ensure that users cannot remove or pass off a task that has been assigned to them, but they can check off tasks as completed.
+
+[I'm an inline-style link with title](https://www.google.com "Google's Homepage")
 
 
 
