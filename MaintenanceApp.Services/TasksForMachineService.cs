@@ -116,11 +116,19 @@ namespace MaintenanceApp.Services
                 .TasksForMachines
                 .Single(tm => tm.Id == id);
 
-            //change the field mantained to equal current date and time
-            entity.Maintained = DateTimeOffset.Now;
+            //create new task for machine based on previous one's history
+            TasksForMachine taskMachine =
+                new TasksForMachine()
+                {
+                    MachineId = entity.MachineId,
+                    Maintained = DateTimeOffset.Now,
+                    NeedToBeMaintainedBy = DateTimeOffset.Now + entity.MaintenanceTask.MaintenanceTaskInterval,
+                    MaintenanceTaskId = entity.MaintenanceTaskId,
+                    UserInfoId = entity.UserInfoId
+                };
 
-            //make sure that the timespan is applied to need to be maintained by in order to get correct interval
-            entity.NeedToBeMaintainedBy = DateTimeOffset.Now + entity.MaintenanceTask.MaintenanceTaskInterval;
+            //add new task to db
+            _context.TasksForMachines.Add(taskMachine);
 
             return await _context.SaveChangesAsync() == 1;
         }
