@@ -22,6 +22,6 @@ namespace MaintenanceApp.Models.TasksForMachine
         public int MaintenanceDoneById { get; set; }
 
         [Required]
-        public int AssignedToId { get; set; }
+        public string AssignedToId { get; set; }
     }
 }

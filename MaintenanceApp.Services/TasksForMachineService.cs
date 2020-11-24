@@ -27,44 +27,44 @@ namespace MaintenanceApp.Services
 
         //============CREATE==============//
         //Create new task for machine TESTING
-        public async Task<bool> CreateTaskForMachine(TasksForMachineCreate model)
-        {
-            TasksForMachine taskMachine =
-                new TasksForMachine()
-                {
-                    MachineId = model.MachineId,
-                    Maintained = model.Maintained,
-                    NeedToBeMaintainedBy = model.NeedToBeMaintainedBy,
-                    MaintenanceTaskId = model.MaintenanceTaskId,
-                    UserInfoId = model.AssignedToId
-                };
-
-            _context.TasksForMachines.Add(taskMachine);
-
-            return await _context.SaveChangesAsync() == 1;
-        }
-
-        //Create all tasks TESTING
-        //public async Task<bool> CreateTasksForEverything()
+        //public async Task<bool> CreateTaskForMachine(TasksForMachineCreate model)
         //{
-        //    foreach (MaintenanceTask task in _context.Tasks)
-        //    {
         //    TasksForMachine taskMachine =
         //        new TasksForMachine()
         //        {
-        //            MachineId = task.MachineId,
-        //            Maintained = task.Maintained,
-        //            NeedToBeMaintainedBy = task.NeedToBeMaintainedBy,
-        //            MaintenanceTaskId = task.MaintenanceTaskId,
-        //            UserInfoId = task.ApplicationUserId
+        //            MachineId = model.MachineId,
+        //            Maintained = model.Maintained,
+        //            NeedToBeMaintainedBy = model.NeedToBeMaintainedBy,
+        //            MaintenanceTaskId = model.MaintenanceTaskId,
+        //            ApplicationUserId = model.AssignedToId
         //        };
 
         //    _context.TasksForMachines.Add(taskMachine);
 
-        //    }
-
         //    return await _context.SaveChangesAsync() == 1;
         //}
+
+        //Create all tasks TESTING
+        //[ActionName("CreateTasksForEverything")]
+        public async Task<bool> CreateTasksForEverything()
+        {
+            foreach (MaintenanceTask task in _context.Tasks)
+            {
+                TasksForMachine taskMachine =
+                    new TasksForMachine()
+                    {
+                        MachineId = task.MachineId,
+                        NeedToBeMaintainedBy = new DateTimeOffset(DateTime.Now , task.MaintenanceTaskInterval),
+                        MaintenanceTaskId = task.MaintenanceTaskId,
+                        ApplicationUserId = task.ApplicationUserId
+                    };
+
+                _context.TasksForMachines.Add(taskMachine);
+
+            }
+
+            return await _context.SaveChangesAsync() == 1;
+        }
 
         //=================READ====================//
         //Get all TasksForMachines
@@ -83,7 +83,7 @@ namespace MaintenanceApp.Services
                         Maintained = tm.Maintained,
                         NeedToBeMaintainedBy = tm.NeedToBeMaintainedBy,
                         MaintenanceTaskId = tm.MaintenanceTaskId,
-                        AssignedToId = tm.UserInfoId
+                        ApplicationUserId = tm.ApplicationUserId
                     }).ToListAsync();
 
             return query;
@@ -106,7 +106,7 @@ namespace MaintenanceApp.Services
                         Maintained = tm.Maintained,
                         NeedToBeMaintainedBy = tm.NeedToBeMaintainedBy,
                         MaintenanceTaskId = tm.MaintenanceTaskId,
-                        AssignedToId = tm.UserInfoId
+                        ApplicationUserId = tm.ApplicationUserId
                     }
                     ).ToListAsync();
 
@@ -123,7 +123,7 @@ namespace MaintenanceApp.Services
 
             entity.Maintained = model.Maintained;
             entity.NeedToBeMaintainedBy = model.NeedToBeMaintainedBy;
-            entity.UserInfoId = model.AssignedToId;
+            entity.ApplicationUserId = model.ApplicationUserId;
 
             return await _context.SaveChangesAsync() == 1;
         }
@@ -146,7 +146,7 @@ namespace MaintenanceApp.Services
                     Maintained = DateTimeOffset.Now,
                     NeedToBeMaintainedBy = DateTimeOffset.Now + entity.MaintenanceTask.MaintenanceTaskInterval,
                     MaintenanceTaskId = entity.MaintenanceTaskId,
-                    UserInfoId = entity.UserInfoId
+                    ApplicationUserId = entity.ApplicationUserId
                 };
 
             //add new task to db

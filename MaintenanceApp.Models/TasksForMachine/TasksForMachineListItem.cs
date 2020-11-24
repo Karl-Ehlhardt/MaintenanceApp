@@ -14,6 +14,6 @@ namespace MaintenanceApp.Models.TasksForMachine
         public DateTimeOffset Maintained { get; set; }
         public DateTimeOffset NeedToBeMaintainedBy { get; set; }
         public int MaintenanceTaskId { get; set; }
-        public int AssignedToId { get; set; }
+        public string ApplicationUserId { get; set; }
     }
 }
