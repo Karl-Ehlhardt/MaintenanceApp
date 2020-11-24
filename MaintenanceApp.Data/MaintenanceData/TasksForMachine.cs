@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaintenanceApp.Data.UserData;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -21,6 +22,7 @@ namespace MaintenanceApp.Data.MaintenanceData
 
         public DateTimeOffset Maintained { get; set; }
 
+        [Required]
         public DateTimeOffset NeedToBeMaintainedBy { get; set; }
 
         [Required]
@@ -30,10 +32,10 @@ namespace MaintenanceApp.Data.MaintenanceData
         public virtual MaintenanceTask MaintenanceTask { get; set; }
 
         [Required]
-        public int UserInfoId { get; set; }
+        public string ApplicationUserId { get; set; }
 
-        [ForeignKey(nameof(UserInfoId))]
-        public virtual UserInfo UserInfo { get; set; }
+        [ForeignKey(nameof(ApplicationUserId))]
+        public virtual ApplicationUser ApplicationUserDisplay { get; set; }
 
         //[Required]
         //public int AssignedToId { get; set; }

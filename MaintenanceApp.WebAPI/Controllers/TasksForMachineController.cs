@@ -21,11 +21,32 @@ namespace MaintenanceApp.WebAPI.Controllers
         }
 
         //create
+        //[HttpPost]
+        //public async Task<IHttpActionResult> CreateTasksForMachine(TasksForMachineCreate model)
+        //{
+        //    //check if model is valid
+        //    if(!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    //instantiate service
+        //    TasksForMachineService service = CreateTasksForMachineService();
+
+        //    if(await service.CreateTaskForMachine(model) == false)
+        //    {
+        //        return InternalServerError();
+        //    }
+
+        //    return Ok($"Task for Machine with Id {model.MachineId} created.");
+        //}
+
         [HttpPost]
-        public async Task<IHttpActionResult> CreateTasksForMachine(TasksForMachineCreate model)
+        [ActionName("CreateTasksForEverything")]
+        public async Task<IHttpActionResult> CreateTasksForEverything()
         {
             //check if model is valid
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
@@ -33,12 +54,12 @@ namespace MaintenanceApp.WebAPI.Controllers
             //instantiate service
             TasksForMachineService service = CreateTasksForMachineService();
 
-            if(await service.CreateTaskForMachine(model) == false)
+            if (await service.CreateTasksForEverything() == false)
             {
                 return InternalServerError();
             }
 
-            return Ok($"Task for Machine with Id {model.MachineId} created.");
+            return Ok("All Tasks Generated");
         }
 
         //read

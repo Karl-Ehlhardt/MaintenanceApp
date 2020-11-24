@@ -73,8 +73,6 @@
     <Compile Include="Task\MaintenanceTaskListItem.cs" />
     <Compile Include="Task\MaintenanceTaskUpdate.cs" />
     <Compile Include="Task\MaintenanceTaskCreate.cs" />
-    <Compile Include="UserInfo\UserInfoCreate.cs" />
-    <Compile Include="UserInfo\UserInfoListItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
