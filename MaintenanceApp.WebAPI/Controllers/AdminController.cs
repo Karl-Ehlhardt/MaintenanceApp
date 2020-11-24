@@ -46,18 +46,10 @@ namespace MaintenanceApp.WebAPI.Controllers
         }
 
 
-
-
-
         [HttpPut]
         public async Task<IHttpActionResult> Update([FromUri] int id, [FromBody] AdminUpdate model)
         {
             AdminService service = CreateAdminService();
-
-            if (service.IsAdmin(id) == false)
-            {
-                return Unauthorized();
-            }
 
             {
                 //check if model is valid
