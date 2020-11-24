@@ -12,6 +12,7 @@ using System.Web.Http;
 namespace MaintenanceApp.WebAPI.Controllers
 {
     [Authorize(Roles = "Admin")]
+    [RoutePrefix("api/Account")]
     public class AreaController : ApiController
     {
         //create service method

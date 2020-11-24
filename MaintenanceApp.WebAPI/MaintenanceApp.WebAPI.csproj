@@ -208,7 +208,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\MaintenanceTaskController.cs" />
     <Compile Include="Controllers\AreaController.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BuildingController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MachineController.cs" />
