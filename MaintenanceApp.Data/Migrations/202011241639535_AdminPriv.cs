@@ -3,19 +3,10 @@ namespace MaintenanceApp.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class migchange1 : DbMigration
+    public partial class AdminPriv : DbMigration
     {
         public override void Up()
         {
-            CreateTable(
-                "dbo.Admin",
-                c => new
-                    {
-                        AdminId = c.Int(nullable: false, identity: true),
-                        AdminName = c.String(),
-                    })
-                .PrimaryKey(t => t.AdminId);
-            
             CreateTable(
                 "dbo.Area",
                 c => new
@@ -211,7 +202,6 @@ namespace MaintenanceApp.Data.Migrations
             DropTable("dbo.Machine");
             DropTable("dbo.Building");
             DropTable("dbo.Area");
-            DropTable("dbo.Admin");
         }
     }
 }

@@ -16,7 +16,7 @@ namespace MaintenanceApp.Data.UserData
     {
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {
-            // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
+             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);
             // Add custom user claims here
             return userIdentity;
@@ -44,7 +44,6 @@ namespace MaintenanceApp.Data.UserData
 
         public DbSet<Building> Buildings { get; set; }
         public DbSet<Machine> Machines { get; set; }
-        public DbSet<Admin> Admins { get; set; }
         public DbSet<MaintenanceTask> Tasks { get; set; }
         public DbSet<Area> Areas { get; set; }
         public DbSet<UserInfo> UserInformation { get; set; }

@@ -13,6 +13,8 @@ using System.Web.Http;
 
 namespace MaintenanceApp.WebAPI.Controllers
 {
+    [Authorize(Roles = "Admin")]
+    [RoutePrefix("api/Account")]
     public class MachineController : ApiController
     {
         //initiate machine service
@@ -25,7 +27,6 @@ namespace MaintenanceApp.WebAPI.Controllers
 
         //=====Create=====//
         [HttpPost]
-        [Authorize(Roles = "Admin")]
         public async Task<IHttpActionResult> CreateMachine(MachineCreate machine)
         {
             //Check if model is valid
