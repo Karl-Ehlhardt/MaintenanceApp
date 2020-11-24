@@ -85,6 +85,42 @@ namespace MaintenanceApp.WebAPI.Controllers
             return Ok(task);
         }
 
+        [HttpGet]
+        [ActionName("GetAllActiveTasks")]
+        public async Task<IHttpActionResult> GetAllActiveTasks()
+        {
+            //instantiate service
+            TasksForMachineService service = CreateTasksForMachineService();
+
+            List<TasksForMachineListItem> tasksForMachine = await service.GetAllActiveTasks();
+
+            return Ok(tasksForMachine);
+        }
+
+        [HttpGet]
+        [ActionName("GetAllCompletedTasks")]
+        public async Task<IHttpActionResult> GetAllCompletedTasks()
+        {
+            //instantiate service
+            TasksForMachineService service = CreateTasksForMachineService();
+
+            List<TasksForMachineListItem> tasksForMachine = await service.GetAllCompletedTasks();
+
+            return Ok(tasksForMachine);
+        }
+
+        [HttpGet]
+        [ActionName("GetAllActiveTasksAssignedToCurrentUser")]
+        public async Task<IHttpActionResult> GetAllActiveTasksAssignedToCurrentUser()
+        {
+            //instantiate service
+            TasksForMachineService service = CreateTasksForMachineService();
+
+            List<TasksForMachineListItem> tasksForMachine = await service.GetAllActiveTasksAssignedToCurrentUser();
+
+            return Ok(tasksForMachine);
+        }
+
         //update
         [HttpPut]
         public async Task<IHttpActionResult> UpdateTasksForMachineById([FromUri] int id, [FromBody] TasksForMachineEdit model)
