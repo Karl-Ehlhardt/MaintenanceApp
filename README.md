@@ -2,7 +2,7 @@
 
 ## Machine Maintenance App
 
-To view our Trello planning boar, [click here](https://trello.com/b/9VHzjxGe/machine-maintenance "Machine Maintenance on Trello")
+Please visit our [Trello planning board.](https://trello.com/b/9VHzjxGe/machine-maintenance "Machine Maintenance on Trello")
 
 This is an API that will allow users to assign, track, and manage machine maintenance.
 
