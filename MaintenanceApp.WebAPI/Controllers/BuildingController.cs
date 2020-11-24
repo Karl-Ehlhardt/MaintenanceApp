@@ -13,9 +13,9 @@ using System.Web.Http;
 
 namespace MaintenanceApp.WebAPI.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class BuildingController : ApiController
     {
-
         private BuildingService CreateBuildingService()
         {
             Guid userId = Guid.Parse(User.Identity.GetUserId());

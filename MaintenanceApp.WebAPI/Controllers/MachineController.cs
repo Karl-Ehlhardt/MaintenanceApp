@@ -13,6 +13,7 @@ using System.Web.Http;
 
 namespace MaintenanceApp.WebAPI.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class MachineController : ApiController
     {
         //initiate machine service
