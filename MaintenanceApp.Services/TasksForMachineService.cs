@@ -113,6 +113,75 @@ namespace MaintenanceApp.Services
             return query;
         }
 
+        //[ActionName("GetAllActiveTasks")]
+        public async Task<List<TasksForMachineListItem>> GetAllActiveTasks()
+        {
+            var query =
+                await
+                _context
+                .TasksForMachines
+                .Where(tm=> tm.Maintained == null)
+                .Select(
+                    tm =>
+                    new TasksForMachineListItem()
+                    {
+                        Id = tm.Id,
+                        MachineId = tm.MachineId,
+                        Maintained = tm.Maintained,
+                        NeedToBeMaintainedBy = tm.NeedToBeMaintainedBy,
+                        MaintenanceTaskId = tm.MaintenanceTaskId,
+                        ApplicationUserId = tm.ApplicationUserId
+                    }).ToListAsync();
+
+            return query;
+        }
+
+        //[ActionName("GetAllCompletedTasks")]
+        public async Task<List<TasksForMachineListItem>> GetAllCompletedTasks()
+        {
+            var query =
+                await
+                _context
+                .TasksForMachines
+                .Where(tm => tm.Maintained != null)
+                .Select(
+                    tm =>
+                    new TasksForMachineListItem()
+                    {
+                        Id = tm.Id,
+                        MachineId = tm.MachineId,
+                        Maintained = tm.Maintained,
+                        NeedToBeMaintainedBy = tm.NeedToBeMaintainedBy,
+                        MaintenanceTaskId = tm.MaintenanceTaskId,
+                        ApplicationUserId = tm.ApplicationUserId
+                    }).ToListAsync();
+
+            return query;
+        }
+
+        //[ActionName("GetAllActiveTasksAssignedToCurrentUser")]
+        public async Task<List<TasksForMachineListItem>> GetAllActiveTasksAssignedToCurrentUser()
+        {
+            var query =
+                await
+                _context
+                .TasksForMachines
+                .Where(tm => tm.Maintained == null && tm.ApplicationUserId == _userId.ToString())
+                .Select(
+                    tm =>
+                    new TasksForMachineListItem()
+                    {
+                        Id = tm.Id,
+                        MachineId = tm.MachineId,
+                        Maintained = tm.Maintained,
+                        NeedToBeMaintainedBy = tm.NeedToBeMaintainedBy,
+                        MaintenanceTaskId = tm.MaintenanceTaskId,
+                        ApplicationUserId = tm.ApplicationUserId
+                    }).ToListAsync();
+
+            return query;
+        }
+
         //===========Update=============//
         public async Task<bool> UpdateTaskForMachineById([FromUri]int id, [FromBody]TasksForMachineEdit model)
         {
