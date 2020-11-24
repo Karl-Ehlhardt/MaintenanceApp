@@ -101,6 +101,23 @@ namespace MaintenanceApp.WebAPI.Controllers
             return Ok(tasksForMachine);
         }
 
+        [HttpGet]
+        [ActionName("GetAllActiveTasksThatAreUnassignedByIdForBuildingAreaOrMachine")]
+        public async Task<IHttpActionResult> GetAllActiveTasksThatAreUnassignedByIdForBuildingAreaOrMachine([FromUri] int id, [FromBody] string search)
+        {
+            if (search != "Building" || search != "Area" || search != "Machine")
+            {
+                return BadRequest();
+            }
+
+            //instantiate service
+            TasksForMachineService service = CreateTasksForMachineService();
+
+            List<TasksForMachineByMachineIdLookup> tasksForMachine = await service.GetAllActiveTasksThatAreUnassignedByIdForBuildingAreaOrMachine(id, search);
+
+            return Ok(tasksForMachine);
+        }
+
         //update
         [HttpPut]
         public async Task<IHttpActionResult> CompleteAndGenerateNewTasksForMachineById([FromUri] int id)
@@ -117,7 +134,7 @@ namespace MaintenanceApp.WebAPI.Controllers
                 return InternalServerError();
             }
 
-            return Ok("Task for machine updated");
+            return Ok("Task Complete and new task added");
         }
 
     }

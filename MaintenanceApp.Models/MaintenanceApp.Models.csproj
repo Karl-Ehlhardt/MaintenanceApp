@@ -66,6 +66,7 @@
     <Compile Include="Machine\MachineGetAllMaintenceTasks.cs" />
     <Compile Include="Machine\MachineListItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TasksForMachine\TasksForMachineByMachineIdLookup.cs" />
     <Compile Include="TasksForMachine\TasksForMachineCreate.cs" />
     <Compile Include="TasksForMachine\TasksForMachineListItem.cs" />
     <Compile Include="Task\MaintenanceTaskAssign.cs" />
