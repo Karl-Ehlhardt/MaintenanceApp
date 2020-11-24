@@ -21,24 +21,6 @@ namespace MaintenanceApp.Services
         }
 
 
-
-        public bool IsAdmin([FromUri] int id)
-        {
-            bool adm = false;
-
-            foreach(Admin admin in _context.Admins)
-            {
-                if(admin.AdminId == id)
-                {
-                    adm = true;
-                }
-            }
-            return adm;
-        }
-        
-
-
-
         //create a private context
         private readonly ApplicationDbContext _context = new ApplicationDbContext();
 
@@ -101,11 +83,6 @@ namespace MaintenanceApp.Services
 
         public async Task<bool> UpdateAdmin([FromUri] int id, [FromBody] AdminUpdate model)
         {
-            if (IsAdmin(id) == false)
-            {
-                return false;
-            }
-
             var entity =
                 _context.
                 Admins.
@@ -131,7 +108,5 @@ namespace MaintenanceApp.Services
 
             return await _context.SaveChangesAsync() == 1;
         }
-
-
     }
 }

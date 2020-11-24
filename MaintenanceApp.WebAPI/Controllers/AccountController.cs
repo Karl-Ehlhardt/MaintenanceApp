@@ -329,10 +329,31 @@ namespace MaintenanceApp.WebAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, Active = true, StartDate = DateTime.UtcNow, 
-                Admin = model.Admin };
+            IdentityResult result;
+            using (var context = new ApplicationDbContext())
 
-            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+            {
+                var roleStore = new RoleStore<IdentityRole>(context);
+                var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+                //await roleManager.CreateAsync(new IdentityRole() { Name = "Admin" });
+
+                var userStore = new UserStore<ApplicationUser>(context);
+                var userManager = new UserManager<ApplicationUser>(userStore);
+
+                var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+
+                result = await UserManager.CreateAsync(user, model.Password);
+
+                if (model.Admin == true)
+                {
+                    await userManager.AddToRoleAsync(user.Id, "Admin");
+                }
+                else
+                {
+                    await userManager.AddToRoleAsync(user.Id, "User");
+                }
+            }
 
             if (!result.Succeeded)
             {
@@ -340,6 +361,35 @@ namespace MaintenanceApp.WebAPI.Controllers
             }
 
             return Ok();
+
+
+            //var user = new ApplicationUser()
+            //{
+            //    UserName = model.Email,
+            //    Email = model.Email,
+            //    Active = true,
+            //    StartDate = DateTime.UtcNow,
+            //    Admin = model.Admin
+            //};
+
+            //var userRole = new IdentityUserRole() { UserId = model.}
+
+            //IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+
+            //if (!result.Succeeded)
+            //{
+            //    return GetErrorResult(result);
+            //}
+
+            //return Ok();
+
+
+
+
+
+
+
+
         }
 
         // POST api/Account/RegisterExternal
