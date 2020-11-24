@@ -106,6 +106,25 @@ namespace MaintenanceApp.Services
             return await _context.SaveChangesAsync() == 1;
         }
 
+        //User can mark a task complete on the machine
+        public async Task<bool> UpdateTaskCompleteById([FromUri] int id)
+        {
+
+            //get task for machine based on id
+            var entity =
+                _context
+                .TasksForMachines
+                .Single(tm => tm.Id == id);
+
+            //change the field mantained to equal current date and time
+            entity.Maintained = DateTimeOffset.Now;
+
+            //make sure that the timespan is applied to need to be maintained by in order to get correct interval
+            entity.NeedToBeMaintainedBy = DateTimeOffset.Now + entity.MaintenanceTask.MaintenanceTaskInterval;
+
+            return await _context.SaveChangesAsync() == 1;
+        }
+
         //========Delete============//
         public async Task<bool> DeleteById([FromUri] int id)
         {

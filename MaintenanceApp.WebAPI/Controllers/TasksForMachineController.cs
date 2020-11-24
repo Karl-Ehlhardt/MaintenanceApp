@@ -82,5 +82,20 @@ namespace MaintenanceApp.WebAPI.Controllers
 
             return Ok("Task for machine updated");
         }
+
+        //user update task
+        [HttpPut]
+        [ActionName("CompleteTask")]
+        public async Task<IHttpActionResult> CompleteTaskById([FromUri] int id)
+        {
+            TasksForMachineService service = CreateTasksForMachineService();
+
+            if(await service.UpdateTaskCompleteById(id) == false)
+            {
+                return InternalServerError();
+            }
+
+            return Ok("Task completed.");
+        }
     }
 }
