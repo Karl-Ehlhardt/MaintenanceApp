@@ -21,26 +21,6 @@ namespace MaintenanceApp.WebAPI.Controllers
         }
 
         //create
-        //[HttpPost]
-        //public async Task<IHttpActionResult> CreateTasksForMachine(TasksForMachineCreate model)
-        //{
-        //    //check if model is valid
-        //    if(!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    //instantiate service
-        //    TasksForMachineService service = CreateTasksForMachineService();
-
-        //    if(await service.CreateTaskForMachine(model) == false)
-        //    {
-        //        return InternalServerError();
-        //    }
-
-        //    return Ok($"Task for Machine with Id {model.MachineId} created.");
-        //}
-
         [HttpPost]
         [ActionName("CreateTasksForEverything")]
         public async Task<IHttpActionResult> CreateTasksForEverything()
@@ -123,7 +103,7 @@ namespace MaintenanceApp.WebAPI.Controllers
 
         //update
         [HttpPut]
-        public async Task<IHttpActionResult> UpdateTasksForMachineById([FromUri] int id, [FromBody] TasksForMachineEdit model)
+        public async Task<IHttpActionResult> CompleteAndGenerateNewTasksForMachineById([FromUri] int id)
         {
             if(!ModelState.IsValid)
             {
@@ -132,7 +112,7 @@ namespace MaintenanceApp.WebAPI.Controllers
 
             TasksForMachineService service = CreateTasksForMachineService();
 
-            if(await service.UpdateTaskForMachineById(id, model) == false)
+            if(await service.CompleteAndGenerateNewTasksForMachineById(id) == false)
             {
                 return InternalServerError();
             }
@@ -140,19 +120,5 @@ namespace MaintenanceApp.WebAPI.Controllers
             return Ok("Task for machine updated");
         }
 
-        //user update task
-        [HttpPut]
-        [ActionName("CompleteTask")]
-        public async Task<IHttpActionResult> CompleteTaskById([FromUri] int id)
-        {
-            TasksForMachineService service = CreateTasksForMachineService();
-
-            if(await service.UpdateTaskCompleteById(id) == false)
-            {
-                return InternalServerError();
-            }
-
-            return Ok("Task completed.");
-        }
     }
 }
