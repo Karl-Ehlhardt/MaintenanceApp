@@ -25,6 +25,7 @@ namespace MaintenanceApp.WebAPI.Controllers
 
         //=====Create=====//
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IHttpActionResult> CreateMachine(MachineCreate machine)
         {
             //Check if model is valid
