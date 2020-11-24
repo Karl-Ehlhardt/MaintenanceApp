@@ -26,24 +26,6 @@ namespace MaintenanceApp.Services
         }
 
         //============CREATE==============//
-        //Create new task for machine TESTING
-        //public async Task<bool> CreateTaskForMachine(TasksForMachineCreate model)
-        //{
-        //    TasksForMachine taskMachine =
-        //        new TasksForMachine()
-        //        {
-        //            MachineId = model.MachineId,
-        //            Maintained = model.Maintained,
-        //            NeedToBeMaintainedBy = model.NeedToBeMaintainedBy,
-        //            MaintenanceTaskId = model.MaintenanceTaskId,
-        //            ApplicationUserId = model.AssignedToId
-        //        };
-
-        //    _context.TasksForMachines.Add(taskMachine);
-
-        //    return await _context.SaveChangesAsync() == 1;
-        //}
-
         //Create all tasks TESTING
         //[ActionName("CreateTasksForEverything")]
         public async Task<bool> CreateTasksForEverything()
@@ -54,7 +36,7 @@ namespace MaintenanceApp.Services
                     new TasksForMachine()
                     {
                         MachineId = task.MachineId,
-                        NeedToBeMaintainedBy = new DateTimeOffset(DateTime.Now , task.MaintenanceTaskInterval),
+                        NeedToBeMaintainedBy = new DateTimeOffset(DateTime.Now, task.MaintenanceTaskInterval),
                         MaintenanceTaskId = task.MaintenanceTaskId,
                         ApplicationUserId = task.ApplicationUserId
                     };
@@ -120,7 +102,7 @@ namespace MaintenanceApp.Services
                 await
                 _context
                 .TasksForMachines
-                .Where(tm=> tm.Maintained == null)
+                .Where(tm => tm.Maintained == null)
                 .Select(
                     tm =>
                     new TasksForMachineListItem()
@@ -183,16 +165,30 @@ namespace MaintenanceApp.Services
         }
 
         //===========Update=============//
-        public async Task<bool> UpdateTaskForMachineById([FromUri]int id, [FromBody]TasksForMachineEdit model)
+        public async Task<bool> CompleteAndGenerateNewTasksForMachineById([FromUri] int id)
         {
             var entity =
                 _context
                 .TasksForMachines
                 .Single(tm => tm.Id == id);
 
-            entity.Maintained = model.Maintained;
-            entity.NeedToBeMaintainedBy = model.NeedToBeMaintainedBy;
-            entity.ApplicationUserId = model.ApplicationUserId;
+            entity.Maintained = DateTime.Now;
+            entity.ApplicationUserId = _userId.ToString();
+
+            MaintenanceTask refrence =
+                _context
+                .Tasks
+                .Single(t => t.MaintenanceTaskId == id);
+
+            TasksForMachine newTaskMachine = new TasksForMachine()
+                    {
+                        MachineId = refrence.MachineId,
+                        NeedToBeMaintainedBy = new DateTimeOffset(DateTime.Now, refrence.MaintenanceTaskInterval),
+                        MaintenanceTaskId = refrence.MaintenanceTaskId,
+                        ApplicationUserId = refrence.ApplicationUserId
+                    };
+
+            _context.TasksForMachines.Add(newTaskMachine);
 
             return await _context.SaveChangesAsync() == 1;
         }
@@ -225,16 +221,6 @@ namespace MaintenanceApp.Services
         }
 
         //========Delete============//
-        public async Task<bool> DeleteById([FromUri] int id)
-        {
-            var entity =
-                _context
-                .TasksForMachines
-                .Single(tm => tm.Id == id);
-
-            _context.TasksForMachines.Remove(entity);
-
-            return await _context.SaveChangesAsync() == 1;
-        }
+        //None
     }
 }
