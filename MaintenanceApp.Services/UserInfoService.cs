@@ -88,5 +88,26 @@ namespace MaintenanceApp.Services
         }
 
         //==================Update=============//
+
+        //lets admin put user to active or inactive
+        public async Task<bool> UpdateUserActiveStatus([FromUri] int id)
+        {
+            var user =
+                _context
+                .UserInformation
+                .Single(u => u.UserInfoId == id);
+
+            if(user.Active)
+            {
+                user.Active = false;
+                user.InactiveDate = DateTimeOffset.Now;
+            } else
+            {
+                user.Active = true;
+                user.ReactiveDate = DateTimeOffset.Now;
+            }
+
+            return await _context.SaveChangesAsync() == 1;
+        }
     }
 }

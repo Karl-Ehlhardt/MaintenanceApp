@@ -62,5 +62,20 @@ namespace MaintenanceApp.WebAPI.Controllers
 
             return Ok(user);
         }
+
+        //Admin changes user active status
+        [HttpPut]
+        [Authorize(Roles = "Admin")]
+        public async Task<IHttpActionResult> UpdateUserActiveStatus([FromUri] int id)
+        {
+            UserInfoService service = CreateUserInfoService();
+
+            if(await service.UpdateUserActiveStatus(id) == false)
+            {
+                return InternalServerError();
+            }
+
+            return Ok("User active status updated.");
+        }
     }
 }
