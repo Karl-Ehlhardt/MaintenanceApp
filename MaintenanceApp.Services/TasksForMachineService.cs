@@ -26,7 +26,7 @@ namespace MaintenanceApp.Services
         }
 
         //============CREATE==============//
-        //Create new task for machine
+        //Create new task for machine TESTING
         public async Task<bool> CreateTaskForMachine(TasksForMachineCreate model)
         {
             TasksForMachine taskMachine =
@@ -43,6 +43,28 @@ namespace MaintenanceApp.Services
 
             return await _context.SaveChangesAsync() == 1;
         }
+
+        //Create all tasks TESTING
+        //public async Task<bool> CreateTasksForEverything()
+        //{
+        //    foreach (MaintenanceTask task in _context.Tasks)
+        //    {
+        //    TasksForMachine taskMachine =
+        //        new TasksForMachine()
+        //        {
+        //            MachineId = task.MachineId,
+        //            Maintained = task.Maintained,
+        //            NeedToBeMaintainedBy = task.NeedToBeMaintainedBy,
+        //            MaintenanceTaskId = task.MaintenanceTaskId,
+        //            UserInfoId = task.ApplicationUserId
+        //        };
+
+        //    _context.TasksForMachines.Add(taskMachine);
+
+        //    }
+
+        //    return await _context.SaveChangesAsync() == 1;
+        //}
 
         //=================READ====================//
         //Get all TasksForMachines
