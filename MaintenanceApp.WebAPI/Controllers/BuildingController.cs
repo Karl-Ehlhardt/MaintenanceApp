@@ -22,7 +22,7 @@ namespace MaintenanceApp.WebAPI.Controllers
             BuildingService buildingService = new BuildingService(userId);
             return buildingService;
         }
-
+         
         //Create
         [HttpPost]
         public async Task<IHttpActionResult> Create(BuildingCreateAndUpdate model)
