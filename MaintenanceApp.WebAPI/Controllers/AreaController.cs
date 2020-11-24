@@ -11,6 +11,7 @@ using System.Web.Http;
 
 namespace MaintenanceApp.WebAPI.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AreaController : ApiController
     {
         //create service method
