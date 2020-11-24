@@ -26,7 +26,7 @@ namespace MaintenanceApp.Services
         }
 
         //============CREATE==============//
-        //Create new task for machine
+        //Create new task for machine TESTING
         public async Task<bool> CreateTaskForMachine(TasksForMachineCreate model)
         {
             TasksForMachine taskMachine =
@@ -43,6 +43,28 @@ namespace MaintenanceApp.Services
 
             return await _context.SaveChangesAsync() == 1;
         }
+
+        //Create all tasks TESTING
+        //public async Task<bool> CreateTasksForEverything()
+        //{
+        //    foreach (MaintenanceTask task in _context.Tasks)
+        //    {
+        //    TasksForMachine taskMachine =
+        //        new TasksForMachine()
+        //        {
+        //            MachineId = task.MachineId,
+        //            Maintained = task.Maintained,
+        //            NeedToBeMaintainedBy = task.NeedToBeMaintainedBy,
+        //            MaintenanceTaskId = task.MaintenanceTaskId,
+        //            UserInfoId = task.ApplicationUserId
+        //        };
+
+        //    _context.TasksForMachines.Add(taskMachine);
+
+        //    }
+
+        //    return await _context.SaveChangesAsync() == 1;
+        //}
 
         //=================READ====================//
         //Get all TasksForMachines
@@ -102,6 +124,33 @@ namespace MaintenanceApp.Services
             entity.Maintained = model.Maintained;
             entity.NeedToBeMaintainedBy = model.NeedToBeMaintainedBy;
             entity.UserInfoId = model.AssignedToId;
+
+            return await _context.SaveChangesAsync() == 1;
+        }
+
+        //User can mark a task complete on the machine
+        public async Task<bool> UpdateTaskCompleteById([FromUri] int id)
+        {
+
+            //get task for machine based on id
+            var entity =
+                _context
+                .TasksForMachines
+                .Single(tm => tm.Id == id);
+
+            //create new task for machine based on previous one's history
+            TasksForMachine taskMachine =
+                new TasksForMachine()
+                {
+                    MachineId = entity.MachineId,
+                    Maintained = DateTimeOffset.Now,
+                    NeedToBeMaintainedBy = DateTimeOffset.Now + entity.MaintenanceTask.MaintenanceTaskInterval,
+                    MaintenanceTaskId = entity.MaintenanceTaskId,
+                    UserInfoId = entity.UserInfoId
+                };
+
+            //add new task to db
+            _context.TasksForMachines.Add(taskMachine);
 
             return await _context.SaveChangesAsync() == 1;
         }

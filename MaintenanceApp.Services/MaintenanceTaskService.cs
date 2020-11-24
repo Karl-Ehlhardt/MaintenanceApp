@@ -58,7 +58,28 @@ namespace MaintenanceApp.Services
                     MaintenanceTaskName = q.MaintenanceTaskName,
                     MaintenanceTaskDescription = q.MaintenanceTaskDescription,
                     MaintenanceTaskInterval = q.MaintenanceTaskInterval,
-                    //ApplicationUserId = q.ApplicationUserId,
+                    ApplicationUserId = q.ApplicationUserId,
+                    MachineId = q.MachineId
+                }).ToListAsync();
+
+            return query;
+        }
+
+        //[ActionName("GetTasksAssignedToUser")]
+        public async Task<List<MaintenanceTaskListItem>> GetTasksAssignedToUser([FromBody] MaintenanceTaskAssign model)
+        {
+            var query =
+                await _context.
+                Tasks.
+                Where(q => q.ApplicationUserId == model.ApplicationUserId).
+                Select(q =>
+                new MaintenanceTaskListItem
+                {
+                    MaintenanceTaskId = q.MaintenanceTaskId,
+                    MaintenanceTaskName = q.MaintenanceTaskName,
+                    MaintenanceTaskDescription = q.MaintenanceTaskDescription,
+                    MaintenanceTaskInterval = q.MaintenanceTaskInterval,
+                    ApplicationUserId = q.ApplicationUserId,
                     MachineId = q.MachineId
                 }).ToListAsync();
 

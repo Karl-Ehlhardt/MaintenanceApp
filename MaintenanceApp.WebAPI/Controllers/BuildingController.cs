@@ -17,14 +17,13 @@ namespace MaintenanceApp.WebAPI.Controllers
     [RoutePrefix("api/Account")]
     public class BuildingController : ApiController
     {
-
         private BuildingService CreateBuildingService()
         {
             Guid userId = Guid.Parse(User.Identity.GetUserId());
             BuildingService buildingService = new BuildingService(userId);
             return buildingService;
         }
-
+         
         //Create
         [HttpPost]
         public async Task<IHttpActionResult> Create(BuildingCreateAndUpdate model)

@@ -61,6 +61,20 @@ namespace MaintenanceApp.WebAPI.Controllers
             }
         }
 
+        [HttpGet]
+        [ActionName("GetTasksAssignedToUser")]
+        public async Task<IHttpActionResult> GetTasksAssignedToUser([FromBody] MaintenanceTaskAssign model)
+        {
+            {
+                MaintenanceTaskService service = CreateMaintenanceTaskService();
+
+                //return the values as an ienumerable
+                IEnumerable<MaintenanceTaskListItem> task = await service.GetTasksAssignedToUser(model);
+
+                return Ok(task);
+            }
+        }
+
         [HttpPut]
         public async Task<IHttpActionResult> UpdateMaintenanceTaskById([FromUri] int id, [FromBody] MaintenanceTaskUpdate model)
         {
