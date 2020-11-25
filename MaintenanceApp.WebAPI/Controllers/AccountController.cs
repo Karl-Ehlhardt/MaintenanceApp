@@ -17,6 +17,8 @@ using MaintenanceApp.WebAPI.Models;
 using MaintenanceApp.WebAPI.Providers;
 using MaintenanceApp.WebAPI.Results;
 using MaintenanceApp.Data.UserData;
+using System.Data.Entity;
+using MaintenanceApp.Models.User;
 
 namespace MaintenanceApp.WebAPI.Controllers
 {
@@ -341,7 +343,12 @@ namespace MaintenanceApp.WebAPI.Controllers
                 var userStore = new UserStore<ApplicationUser>(context);
                 var userManager = new UserManager<ApplicationUser>(userStore);
 
-                var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser() {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    Active = model.Active,
+                    StartDate = DateTimeOffset.Now
+                };
 
                 result = await UserManager.CreateAsync(user, model.Password);
 
@@ -434,6 +441,32 @@ namespace MaintenanceApp.WebAPI.Controllers
             }
 
             base.Dispose(disposing);
+        }
+
+        [HttpPut]
+        [Authorize(Roles ="Admin")]
+        [ActionName("ChangeUserStatus")]
+        public async Task<IHttpActionResult> ChangeUserActiveStatus([FromBody] UserEditStatus model)
+        {
+            ApplicationDbContext context = new ApplicationDbContext();
+            ApplicationUser user = context.Users.Find(User.Identity.GetUserName() == model.Email);
+
+            user.Active = model.Active;
+
+            if (user.Active == true)
+            {
+                user.ReactivatedDate = DateTimeOffset.Now;
+            } else
+            {
+                user.InactiveDate = DateTimeOffset.Now;
+            }
+
+            if(await context.SaveChangesAsync() != 1)
+            {
+                return InternalServerError();
+            }
+
+            return Ok($"User status changed to{user.Active}");
         }
 
         #region Helpers

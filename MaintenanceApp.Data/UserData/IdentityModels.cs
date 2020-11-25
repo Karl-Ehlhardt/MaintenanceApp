@@ -14,6 +14,12 @@ namespace MaintenanceApp.Data.UserData
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+        public DateTimeOffset StartDate { get; set; }
+        public bool Admin { get; set; }
+        public int AreaId { get; set; }
+        public bool Active { get; set; }
+        public DateTimeOffset InactiveDate { get; set; }
+        public DateTimeOffset ReactivatedDate { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {
              // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -22,12 +28,7 @@ namespace MaintenanceApp.Data.UserData
             return userIdentity;
         }
 
-        public DateTimeOffset StartDate { get; set; }
-        public bool Admin { get; set; }
-        public int AreaId { get; set; }
-        public bool Active { get; set; }
-        public DateTimeOffset InactiveDate { get; set; }
-        public DateTimeOffset ReactivatedDate { get; set; }
+        
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
