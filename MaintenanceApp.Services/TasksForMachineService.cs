@@ -37,7 +37,7 @@ namespace MaintenanceApp.Services
                     new TasksForMachine()
                     {
                         MachineId = task.MachineId,
-                        NeedToBeMaintainedBy = new DateTimeOffset(DateTime.Now, task.MaintenanceTaskInterval),
+                        NeedToBeMaintainedBy = DateTimeOffset.Now + task.MaintenanceTaskInterval,
                         MaintenanceTaskId = task.MaintenanceTaskId,
                         ApplicationUserId = task.ApplicationUserId
                     };
@@ -273,7 +273,7 @@ namespace MaintenanceApp.Services
             TasksForMachine newTaskMachine = new TasksForMachine()
             {
                 MachineId = refrence.MachineId,
-                NeedToBeMaintainedBy = new DateTimeOffset(DateTime.Now, refrence.MaintenanceTaskInterval),
+                NeedToBeMaintainedBy = DateTimeOffset.Now + refrence.MaintenanceTaskInterval,
                 MaintenanceTaskId = refrence.MaintenanceTaskId,
                 ApplicationUserId = refrence.ApplicationUserId
             };
