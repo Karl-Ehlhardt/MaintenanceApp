@@ -31,7 +31,6 @@ namespace MaintenanceApp.Data.MaintenanceData
         [ForeignKey(nameof(MaintenanceTaskId))]
         public virtual MaintenanceTask MaintenanceTask { get; set; }
 
-        [Required]
         public string ApplicationUserId { get; set; }
 
         [ForeignKey(nameof(ApplicationUserId))]

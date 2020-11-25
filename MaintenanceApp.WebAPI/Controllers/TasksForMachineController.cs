@@ -11,6 +11,8 @@ using System.Web.Http;
 
 namespace MaintenanceApp.WebAPI.Controllers
 {
+    [Authorize]
+
     public class TasksForMachineController : ApiController
     {
         private TasksForMachineService CreateTasksForMachineService()
