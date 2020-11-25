@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleHelpers.cs" />
     <Compile Include="Methods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
