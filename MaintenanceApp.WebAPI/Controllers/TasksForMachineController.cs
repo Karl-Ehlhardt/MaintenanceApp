@@ -36,7 +36,7 @@ namespace MaintenanceApp.WebAPI.Controllers
             //instantiate service
             TasksForMachineService service = CreateTasksForMachineService();
 
-            if (await service.CreateTasksForEverything() == false)
+            if (await service.CreateTasksForEverything() == true)
             {
                 return InternalServerError();
             }
@@ -46,6 +46,7 @@ namespace MaintenanceApp.WebAPI.Controllers
 
         //read
         [HttpGet]
+        [ActionName("GetAllTasks")]
         public async Task<IHttpActionResult> GetAllTasksForMachine()
         {
             //instantiate service
@@ -57,7 +58,8 @@ namespace MaintenanceApp.WebAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IHttpActionResult> GetTasksForMachineById([FromUri] int id)
+        [ActionName("GetTasksbyId")]
+        public async Task<IHttpActionResult> GetTasksbyId([FromUri] int id)
         {
             //instantiate service
             TasksForMachineService service = CreateTasksForMachineService();
