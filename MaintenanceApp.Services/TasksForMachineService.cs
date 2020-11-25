@@ -145,7 +145,7 @@ namespace MaintenanceApp.Services
         //[ActionName("GetAllActiveTasksAssignedToCurrentUser")]
         public async Task<List<TasksForMachineListItem>> GetAllActiveTasksAssignedToCurrentUser()
         {
-            var query =
+            List<TasksForMachineListItem> query =
                 await
                 _context
                 .TasksForMachines
@@ -162,7 +162,9 @@ namespace MaintenanceApp.Services
                         ApplicationUserId = tm.ApplicationUserId
                     }).ToListAsync();
 
-            return query;
+            var sortedByDates = query.OrderBy(x => x.NeedToBeMaintainedBy).ToList();
+
+            return sortedByDates;
         }
 
         //[ActionName("GetAllActiveTasksThatAreUnassignedByIdForBuildingAreaOrMachine")]
