@@ -10,7 +10,9 @@
 
 Please visit our [Trello planning board.](https://trello.com/b/9VHzjxGe/machine-maintenance "Machine Maintenance on Trello")
 
-This is a 4-tier WebAPI (Data, Models, Services, and Controllers) to manage machine maintenance in a testing, lab, or production facility.  Our teammate Karl has experience in this area and presented the idea to us on planning day.  This is a business need where ever machines are used, ensuring that in our Blue Badge project we would learn to solve some "real world" problems.
+This is a 4-tier WebAPI (Data, Models, Services, and Controllers) to manage machine maintenance in a testing, lab, or production facility. Our teammate Karl has experience in this area and presented the idea to us on planning day.  This is a business need where ever machines are used, ensuring that in our Blue Badge project we would learn to solve some "real world" problems.  
+
+It was developed using Agile methodology, first by agreeing to naming principles and a data structure, then by team writing User Stories, Creating Tickets from those user stories, working those tickets, and then moving them into a testing area. 
 
 Our objects include buildings, areas in buildings, machines in areas, tasks, and scheduled tasks on each machine.
 
