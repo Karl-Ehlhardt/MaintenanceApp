@@ -38,7 +38,7 @@ namespace MaintenanceApp.Services
                     {
                         MachineId = task.MachineId,
                         NeedToBeMaintainedBy = DateTimeOffset.Now + task.MaintenanceTaskInterval,
-                        MaintenanceTaskId = task.MaintenanceTaskId,
+                        MaintenanceTaskId = task.MaintenanceTaskId, 
                         ApplicationUserId = task.ApplicationUserId
                     };
 
@@ -103,7 +103,7 @@ namespace MaintenanceApp.Services
                 await
                 _context
                 .TasksForMachines
-                .Where(tm => tm.Maintained == null)
+                .Where(tm => tm.Maintained == DateTimeOffset.MinValue)
                 .Select(
                     tm =>
                     new TasksForMachineListItem()
