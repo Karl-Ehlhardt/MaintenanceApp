@@ -14,28 +14,37 @@ Please visit our [Trello planning board.](https://trello.com/b/9VHzjxGe/machine-
 
 This is a *4-tier* WebAPI (Data, Models, Services, and Controllers) to manage machine maintenance in a testing, lab, or production facility. Our teammate Karl has experience in this area and presented the idea to us on planning day.  This is a business need where ever machines are used, ensuring that in our Blue Badge project we would learn to solve some "real world" problems.  
 
-Our project was developed using *Agile methodology*, first by agreeing to naming principles and a data structure, then by *team writing User Stories*, *Creating Tickets* from those User Stories, *working those tickets*, and *testing* the work done on the tickets. 
+Our project was developed using *Agile methodology* and a nearly two-week *sprint*.  We learned in an earlier team project that as soon as we decided on an API to build, we needed to agree to naming conventions and a data structure.  After that, we *team wrote our User Stories*, *Created Tickets* from those User Stories, *worked those tickets*, and *tested* the work done on the tickets through Postman. 
 
-Our objects include buildings, areas in buildings, machines in areas, tasks, and scheduled tasks on each machine in a simple relational database with joining tables.  Each level offers a foreign key to the next level up, i.e. area has a BuildingId property, each machine has an AreaId.  Tasks on each machine are a bit more complicated, A machine's task has an interval, and rather than manually creating a new task for each machine at every interval, there is a method that creates Tasks For Machines, scheduling the tasks for each machine at exactly the interval needed.  This method would eventually, in a business context, be run authomatically at the same time each day with no Admin input needed.
+The "business problem" demanded the following basic objects:
+
+* Building
+* Areas
+* Machines
+* Tasks
+
+Each of these are in simple relationships with each other. Each level offers a foreign key to the next level up, i.e. area has a BuildingId property, each machine has an AreaId.  
+
+However, the next due maintence time on each machine was a bit more complicated.  Each task for a machine has an interval, or time between maintenane due time, and rather than manually creating a new task for each machine at every interval, there is a method that creates all upcoming Tasks For the Machines, scheduling the tasks for each machine at exactly the interval needed.  This method would eventually, in a business context, be run authomatically at the same time each day with no Admin input needed.
 
 We also use our ApplicationUsers and UserRoles tables and permissions to place people in two different user roles at the time of registration--Admins and Users.
 
 ### MVP
 
-In our MVP, Admins have the following CRUD priveleges:
+In our MVP, Admins have the following priveleges:
 
-* Buildings
-* Areas
-* Machines
-* Tasks
-* Create All upcoming Tasks
-* Assign a user to those tasks
+* Buildings (CRUD)
+* Areas (CRUD)
+* Machines (CRUD)
+* Tasks (CRUD)
+* Create All upcoming Tasks (Create)
+* Assign a user to those tasks (Update)
 
 In order to avoid having users reassign, delay, or delete tasks assigned to them, have only the following privileges:
 
-* See tasks assigned to them
-* See unassigned tasks
-* Update a task as completed
+* Tasks assigned to them (Read)
+* Unassigned tasks (Read)
+* Task completed (Update)
 
 ### Next steps
 
