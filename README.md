@@ -40,7 +40,7 @@ In our MVP, Admins have the following priveleges:
 * Create All upcoming Tasks (Create)
 * Assign a user to those tasks (Update)
 
-In order to avoid having users reassign, delay, or delete tasks assigned to them, have only the following privileges:
+In order to avoid having users reassign, delay, or delete tasks assigned to them, they have only the following privileges:
 
 * Tasks assigned to them (Read)
 * Unassigned tasks (Read)
