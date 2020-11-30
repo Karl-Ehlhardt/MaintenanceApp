@@ -138,7 +138,7 @@ namespace MaintenanceApp.Services
                 await
                 _context
                 .TasksForMachines
-                .Where(tm => tm.Maintained != null)
+                .Where(tm => tm.Maintained != DateTimeOffset.MinValue)
                 .Select(
                     tm =>
                     new TasksForMachineListItem()
@@ -161,7 +161,7 @@ namespace MaintenanceApp.Services
                 await
                 _context
                 .TasksForMachines
-                .Where(tm => tm.Maintained == null && tm.ApplicationUserId == _userId.ToString())
+                .Where(tm => tm.Maintained == DateTimeOffset.MinValue && tm.ApplicationUserId == _userId.ToString())
                 .Select(
                     tm =>
                     new TasksForMachineListItem()
@@ -246,7 +246,7 @@ namespace MaintenanceApp.Services
                                     TasksForMachineListItem = 
                                         _context.
                                         TasksForMachines.
-                                        Where(tm => tm.MachineId == m.MachineId && tm.Maintained == null && tm.ApplicationUserId == null).
+                                        Where(tm => tm.MachineId == m.MachineId && tm.Maintained == DateTimeOffset.MinValue && tm.ApplicationUserId == null).
                                         Select(tm =>
                                         new TasksForMachineListItem
                                         {
@@ -307,7 +307,7 @@ namespace MaintenanceApp.Services
                 foreach (TasksForMachine existing in _context.TasksForMachines)
                 {
                     currentQuery = existing;
-                    if (existing.MaintenanceTaskId == needsToExist.MaintenanceTaskId && existing.Maintained == null)
+                    if (existing.MaintenanceTaskId == needsToExist.MaintenanceTaskId && existing.Maintained == DateTimeOffset.MinValue)
                     {
                         okToRemove = false;
                         break;
