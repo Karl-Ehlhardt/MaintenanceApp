@@ -25,6 +25,9 @@ namespace MaintenanceApp.WebAPI.Controllers
         }
          
         //Create
+        /// <summary>
+        /// Creates a building--Enter a name in the body
+        /// </summary>
         [HttpPost]
         public async Task<IHttpActionResult> Create(BuildingCreateAndUpdate model)
         {
@@ -48,6 +51,9 @@ namespace MaintenanceApp.WebAPI.Controllers
         }
 
         //Read
+        /// <summary>
+        /// Shows all buildings
+        /// </summary>
         [HttpGet]
         public async Task<IHttpActionResult> GetAllBuildings()
         {
@@ -61,8 +67,11 @@ namespace MaintenanceApp.WebAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets a building by BuildingId--pass ID in the URI
+        /// </summary>
         [HttpGet]
-        public async Task<IHttpActionResult> GetAllBuildingsById([FromUri] int id)
+        public async Task<IHttpActionResult> GetBuildingsById([FromUri] int id)
         {
             {
                 BuildingService service = CreateBuildingService();
@@ -74,6 +83,9 @@ namespace MaintenanceApp.WebAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets all tasks for building by BuildingId--pass ID in the URI
+        /// </summary>
         [HttpGet]
         [ActionName("GetAllTasksInBuildingById")]
         public async Task<IHttpActionResult> GetAllTasksForBuildingsById([FromUri] int id)
@@ -88,6 +100,9 @@ namespace MaintenanceApp.WebAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Updates a building by BuildingId--Enter Building Name
+        /// </summary>
         [HttpPut]
         public async Task<IHttpActionResult> Update([FromUri] int id, [FromBody] BuildingCreateAndUpdate model)
         {
@@ -110,6 +125,9 @@ namespace MaintenanceApp.WebAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Deletes a Building--pass ID in the URI
+        /// </summary>
         [HttpDelete]
         public async Task<IHttpActionResult> Delete([FromUri] int id)
         {
