@@ -153,6 +153,16 @@ namespace MaintenanceApp.WebAPI.Controllers
 
         }
 
+        [HttpGet]
+        public async Task<IHttpActionResult> GetTasksByMachineId([FromUri] int id)
+        {
+            TasksForMachineService service = CreateTasksForMachineService();
+
+            List<TasksForMachineListItem> tasks = await service.GetTasksAssignedToUserByMachineId(id);
+
+            return Ok(tasks);
+        }
+
         //update
         /// <summary>
         /// Mark task complete and set new turnover time for task to be completed
@@ -189,6 +199,7 @@ namespace MaintenanceApp.WebAPI.Controllers
                 return Ok();
             }
         }
+
 
     }
 }

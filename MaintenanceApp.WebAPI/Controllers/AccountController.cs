@@ -346,7 +346,7 @@ namespace MaintenanceApp.WebAPI.Controllers
                 var user = new ApplicationUser() {
                     UserName = model.Email,
                     Email = model.Email,
-                    Active = model.Active,
+                    Active = true,
                     StartDate = DateTimeOffset.Now
                 };
 
