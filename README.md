@@ -10,9 +10,9 @@
 
 Please visit our [Trello planning board.](https://trello.com/b/9VHzjxGe/machine-maintenance "Machine Maintenance on Trello")
 
-Throughout our project we used references from our past project at [Eleven Fifty](https://elevenfifty.org)
+Throughout our project we used references from our past project at [Eleven Fifty.](https://elevenfifty.org)
 
-We also used [Microsoft Docs](https://docs.microsoft.com/en-us), and [StackOverflow](https://stackoverflow.com)
+We also used [Microsoft Docs](https://docs.microsoft.com/en-us), and [StackOverflow.](https://stackoverflow.com)
 
 
 
