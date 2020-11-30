@@ -10,6 +10,12 @@
 
 Please visit our [Trello planning board.](https://trello.com/b/9VHzjxGe/machine-maintenance "Machine Maintenance on Trello")
 
+Throughout our project we used references from our past project at [Eleven Fifty](https://elevenfifty.org)
+
+We also used [Microsoft Docs](https://docs.microsoft.com/en-us/), and [StackOverflow](https://stackoverflow.com)
+
+
+
 ### Team and Project Structure
 
 This is a *4-tier* WebAPI (Data, Models, Services, and Controllers) to manage machine maintenance in a testing, lab, or production facility. Our teammate Karl has experience in this area and presented the idea to us on planning day.  This is a business need where ever machines are used, ensuring that in our Blue Badge project we would learn to solve some "real world" problems.  
