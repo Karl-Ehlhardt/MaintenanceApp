@@ -24,6 +24,9 @@ namespace MaintenanceApp.WebAPI.Controllers
         }
 
         //=======Create=====//
+        /// <summary>
+        /// Creates an area--Enter a name and a building Id in body.
+        /// </summary>
         [HttpPost]
         public async Task<IHttpActionResult> CreateArea(AreaCreate area)
         {
@@ -45,6 +48,10 @@ namespace MaintenanceApp.WebAPI.Controllers
 
         //=======Read======//
         //get all areas
+
+        /// <summary>
+        /// Gets  all areas
+        /// </summary>
         [HttpGet]
         public async Task<IHttpActionResult> GetAllAreas()
         {
@@ -56,6 +63,10 @@ namespace MaintenanceApp.WebAPI.Controllers
         }
 
         //get area by id
+
+        /// <summary>
+        /// Gets an area by Id--pass the Id in the URI
+        /// </summary>
         [HttpGet]
         public async Task<IHttpActionResult> GetAreaById([FromUri] int id)
         {
@@ -68,6 +79,9 @@ namespace MaintenanceApp.WebAPI.Controllers
 
         [HttpGet]
         [ActionName("GetAllTasksInAreaById")]
+        /// <summary>
+        /// Gets all tasks in an area by Id--pass the Id in the URI
+        /// </summary>
         public async Task<IHttpActionResult> GetAllTasksInAreaById([FromUri] int id)
         {
             AreaService service = CreateAreaService();
@@ -78,6 +92,9 @@ namespace MaintenanceApp.WebAPI.Controllers
         }
 
         //======Update====//
+        /// <summary>
+        /// Updates an area by Id--pass the Id in the URI
+        /// </summary>
         [HttpPut]
         public async Task<IHttpActionResult> UpdateArea([FromUri] int id, [FromBody] AreaEdit model)
         {
@@ -97,6 +114,9 @@ namespace MaintenanceApp.WebAPI.Controllers
         }
 
         //=====Delete=====//
+        /// <summary>
+        /// Deletes an area by Id--pass the Id in the URI
+        /// </summary>
         [HttpDelete]
         public async Task<IHttpActionResult> DeleteArea([FromUri] int id)
         {
