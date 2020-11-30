@@ -26,11 +26,15 @@ namespace MaintenanceApp.WebAPI.Controllers
         }
 
         //=====Create=====//
+
+        /// <summary>
+        /// Creates a Machine--Enter an Area Id
+        /// </summary>
         [HttpPost]
         public async Task<IHttpActionResult> CreateMachine(MachineCreate machine)
         {
             //Check if model is valid
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState); //404
             }
@@ -38,7 +42,7 @@ namespace MaintenanceApp.WebAPI.Controllers
             //Instantiate service
             MachineService service = CreateMachineService();
 
-            if(await service.CreateMachine(machine) == false)
+            if (await service.CreateMachine(machine) == false)
             {
                 return InternalServerError();
             }
@@ -48,6 +52,10 @@ namespace MaintenanceApp.WebAPI.Controllers
 
         //=======Read======//
         //get all machines
+
+        /// <summary>
+        /// Gets all Machines
+        /// </summary>
         [HttpGet]
         public async Task<IHttpActionResult> GetMachines()
         {
@@ -60,6 +68,9 @@ namespace MaintenanceApp.WebAPI.Controllers
         }
 
         //get machines by id
+        /// <summary>
+        /// Gets a Machine by Id--Pass Id in URI
+        /// </summary>
         [HttpGet]
         public async Task<IHttpActionResult> GetMachineById([FromUri] int id)
         {
@@ -71,7 +82,9 @@ namespace MaintenanceApp.WebAPI.Controllers
             return Ok(machine);
         }
 
-
+        /// <summary>
+        /// Gets all tasks for a Machine by Id--Pass Id in URI
+        /// </summary>
         [HttpGet]
         [ActionName("GetAllTasksForMachineById")]
         public async Task<IHttpActionResult> GetAllTasksForMachineById([FromUri] int id)
@@ -84,11 +97,15 @@ namespace MaintenanceApp.WebAPI.Controllers
         }
 
         //=====Update=====//
+
+        /// <summary>
+        /// Updates a machine by Id--pass Id in URI, enter edits in body
+        /// </summary>
         [HttpPut]
         public async Task<IHttpActionResult> UpdateMachine([FromUri] int id, [FromBody] MachineEdit model)
         {
             //check if model is valid
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState); //404
             }
@@ -97,14 +114,16 @@ namespace MaintenanceApp.WebAPI.Controllers
             MachineService service = CreateMachineService();
 
             //check if updated
-            if(await service.UpdateMachineById(id, model) == false)
+            if (await service.UpdateMachineById(id, model) == false)
             {
                 return InternalServerError();
             }
 
             return Ok();
         }
-
+        /// <summary>
+        /// Assign all tasks for a machine by id--pass Id in URI, enter assignment in body
+        /// </summary>
         [HttpPut]
         [ActionName("AssignAllTaskForMachineById")]
         public async Task<IHttpActionResult> AssignAllTaskForMachineById([FromUri] int id, [FromBody] MaintenanceTaskAssign model)
@@ -129,13 +148,17 @@ namespace MaintenanceApp.WebAPI.Controllers
         }
 
         //======Delete=====//
+
+        /// <summary>
+        /// Delete a Machine by Id--Pass Id in URI
+        /// </summary>
         [HttpDelete]
         public async Task<IHttpActionResult> DeleteMachine([FromUri] int id)
         {
             //instantiate service
             MachineService service = CreateMachineService();
 
-            if(await service.DeleteMachineById(id) == false)
+            if (await service.DeleteMachineById(id) == false)
             {
                 return InternalServerError();
             }
