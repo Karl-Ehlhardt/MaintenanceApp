@@ -24,7 +24,7 @@ namespace MaintenanceApp.Services
         //constructor
         public MachineService(Guid userId)
         {
-            userId = _userId;
+            _userId = userId;
         }
 
         //Create new machine

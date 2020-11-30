@@ -23,7 +23,7 @@ namespace MaintenanceApp.Services
         //constructor
         public TasksForMachineService(Guid userId)
         {
-            userId = _userId;
+            _userId = userId;
         }
 
         //============CREATE==============//

@@ -24,7 +24,7 @@ namespace MaintenanceApp.Services
         //service constructor
         public AreaService(Guid userId)
         {
-            userId = _userId;
+            _userId = userId;
         }
 
         //Create new area
