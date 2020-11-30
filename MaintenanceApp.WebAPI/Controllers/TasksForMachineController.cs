@@ -148,5 +148,17 @@ namespace MaintenanceApp.WebAPI.Controllers
             return Ok("Task Complete and new task added");
         }
 
+        [HttpDelete]
+        public async Task<IHttpActionResult> DeleteMaintenanceTask([FromUri] int id)
+        {
+            {
+                TasksForMachineService service = CreateTasksForMachineService();
+
+                await service.RemoveTasksThatAreNoLongerNeeded();
+
+                return Ok();
+            }
+        }
+
     }
 }
