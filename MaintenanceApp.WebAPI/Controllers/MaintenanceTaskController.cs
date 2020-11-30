@@ -25,6 +25,9 @@ namespace MaintenanceApp.WebAPI.Controllers
         }
 
         //Create
+        /// <summary>
+        /// Creates a Maintenance Task
+        /// </summary>
         [HttpPost]
         public async Task<IHttpActionResult> Create(MaintenanceTaskCreate model)
         {
@@ -49,6 +52,9 @@ namespace MaintenanceApp.WebAPI.Controllers
 
         //Read
         [HttpGet]
+        /// <summary>
+        /// Gets a Maintenance Task by Id--pass the Id in the URI
+        /// </summary>
         public async Task<IHttpActionResult> GetMaintenanceTaskById([FromUri] int id)
         {
             {
@@ -60,7 +66,10 @@ namespace MaintenanceApp.WebAPI.Controllers
                 return Ok(task);
             }
         }
-
+        
+        /// <summary>
+        /// Gets Maintenance Tasks assigned to a user--Enter a user string in the body
+        /// </summary>
         [HttpGet]
         [ActionName("GetTasksAssignedToUser")]
         public async Task<IHttpActionResult> GetTasksAssignedToUser([FromBody] MaintenanceTaskAssign model)
@@ -75,6 +84,9 @@ namespace MaintenanceApp.WebAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Update Maintenance Tasks by Id--pass Id from URI
+        /// </summary>
         [HttpPut]
         public async Task<IHttpActionResult> UpdateMaintenanceTaskById([FromUri] int id, [FromBody] MaintenanceTaskUpdate model)
         {
@@ -96,6 +108,10 @@ namespace MaintenanceApp.WebAPI.Controllers
                 return Ok("Task Updated");
             }
         }
+
+        /// <summary>
+        /// Assign Maintenance Tasks by Id--pass Id from URI
+        /// </summary>
         [HttpPut]
         [ActionName("AssignTaskById")]
         public async Task<IHttpActionResult> AssignMaintenanceTaskById([FromUri] int id, [FromBody] MaintenanceTaskAssign model)
@@ -119,6 +135,10 @@ namespace MaintenanceApp.WebAPI.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Delete Maintenance Tasks by Id--pass Id from URI
+        /// </summary>
         [HttpDelete]
         public async Task<IHttpActionResult> DeleteMaintenanceTask([FromUri] int id)
         {

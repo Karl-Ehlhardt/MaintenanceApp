@@ -481,9 +481,104 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.MaintenanceTaskController.Create(MaintenanceApp.Models.Task.MaintenanceTaskCreate)">
+            <summary>
+            Creates a Maintenance Task
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.MaintenanceTaskController.GetTasksAssignedToUser(MaintenanceApp.Models.Task.MaintenanceTaskAssign)">
+            <summary>
+            Gets Maintenance Tasks assigned to a user--Enter a user ID in the body
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.AreaController.CreateArea(MaintenanceApp.Models.Area.AreaCreate)">
+            <summary>
+            Creates an area--Enter a name and a building Id in body.
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.AreaController.GetAllAreas">
+            <summary>
+            Gets  all areas
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.AreaController.GetAreaById(System.Int32)">
+            <summary>
+            Gets an area by Id--pass the Id in the URI
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.AreaController.UpdateArea(System.Int32,MaintenanceApp.Models.Area.AreaEdit)">
+            <summary>
+            Updates an area by Id--pass the Id in the URI
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.AreaController.DeleteArea(System.Int32)">
+            <summary>
+            Deletes an area by Id--pass the Id in the URI
+            </summary>
+        </member>
         <member name="M:MaintenanceApp.WebAPI.Controllers.BuildingController.Create(MaintenanceApp.Models.Building.BuildingCreateAndUpdate)">
             <summary>
-            Creates a Building with the entered name
+            Creates a building--Enter a name in the body
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.BuildingController.GetAllBuildings">
+            <summary>
+            Shows all buildings
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.BuildingController.GetBuildingsById(System.Int32)">
+            <summary>
+            Gets a building by BuildingId--pass ID in the URI
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.BuildingController.GetAllTasksForBuildingsById(System.Int32)">
+            <summary>
+            Gets all tasks for building by BuildingId--pass ID in the URI
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.BuildingController.Update(System.Int32,MaintenanceApp.Models.Building.BuildingCreateAndUpdate)">
+            <summary>
+            Updates a building by BuildingId--Enter Building Name
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.BuildingController.Delete(System.Int32)">
+            <summary>
+            Deletes a Building--pass ID in the URI
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.MachineController.CreateMachine(MaintenanceApp.Models.Machine.MachineCreate)">
+            <summary>
+            Creates a Machine--Enter an Area Id
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.MachineController.GetMachines">
+            <summary>
+            Gets all Machines
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.MachineController.GetMachineById(System.Int32)">
+            <summary>
+            Gets a Machine by Id--Pass Id in URI
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.MachineController.GetAllTasksForMachineById(System.Int32)">
+            <summary>
+            Gets all tasks for a Machine by Id--Pass Id in URI
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.MachineController.UpdateMachine(System.Int32,MaintenanceApp.Models.Machine.MachineEdit)">
+            <summary>
+            Updates a machine by Id--pass Id in URI, enter edits in body
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.MachineController.AssignAllTaskForMachineById(System.Int32,MaintenanceApp.Models.Task.MaintenanceTaskAssign)">
+            <summary>
+            Assign all tasks for a machine by id--pass Id in URI, enter assignment in body
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.MachineController.DeleteMachine(System.Int32)">
+            <summary>
+            Delete a Machine by Id--Pass Id in URI
             </summary>
         </member>
     </members>

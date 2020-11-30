@@ -23,6 +23,10 @@ namespace MaintenanceApp.WebAPI.Controllers
         }
 
         //create
+
+        /// <summary>
+        /// Create Tasks deadlines from Maintenance Tasks list
+        /// </summary>
         [HttpPost]
         [ActionName("CreateTasksForEverything")]
         public async Task<IHttpActionResult> CreateTasksForEverything()
@@ -45,6 +49,10 @@ namespace MaintenanceApp.WebAPI.Controllers
         }
 
         //read
+
+        /// <summary>
+        /// Get all tasks for Machines
+        /// </summary>
         [HttpGet]
         [ActionName("GetAllTasks")]
         public async Task<IHttpActionResult> GetAllTasksForMachine()
@@ -57,6 +65,9 @@ namespace MaintenanceApp.WebAPI.Controllers
             return Ok(tasksForMachine);
         }
 
+        /// <summary>
+        /// Get tasks by Id--pass Id from URI
+        /// </summary>
         [HttpGet]
         [ActionName("GetTasksbyId")]
         public async Task<IHttpActionResult> GetTasksbyId([FromUri] int id)
@@ -69,6 +80,9 @@ namespace MaintenanceApp.WebAPI.Controllers
             return Ok(task);
         }
 
+        /// <summary>
+        /// Get all active tasks
+        /// </summary>
         [HttpGet]
         [ActionName("GetAllActiveTasks")]
         public async Task<IHttpActionResult> GetAllActiveTasks()
@@ -81,6 +95,9 @@ namespace MaintenanceApp.WebAPI.Controllers
             return Ok(tasksForMachine);
         }
 
+        /// <summary>
+        /// Get all completed tasks
+        /// </summary>
         [HttpGet]
         [ActionName("GetAllCompletedTasks")]
         public async Task<IHttpActionResult> GetAllCompletedTasks()
@@ -93,6 +110,10 @@ namespace MaintenanceApp.WebAPI.Controllers
             return Ok(tasksForMachine);
         }
 
+
+        /// <summary>
+        /// Get all tasks assigned to current user
+        /// </summary>
         [HttpGet]
         [ActionName("GetAllActiveTasksAssignedToCurrentUser")]
         public async Task<IHttpActionResult> GetAllActiveTasksAssignedToCurrentUser()
@@ -105,6 +126,9 @@ namespace MaintenanceApp.WebAPI.Controllers
             return Ok(tasksForMachine);
         }
 
+        /// <summary>
+        /// Get all active tasks by building or area or machine--pass Id from Uri, and enter "Building", "Area", or "Machine in body.
+        /// </summary>
         [HttpGet]
         [ActionName("GetAllActiveTasksThatAreUnassignedByIdForBuildingAreaOrMachine")]
         public async Task<IHttpActionResult> GetAllActiveTasksThatAreUnassignedByIdForBuildingAreaOrMachine([FromBody] TasksForMachineSearch search)
@@ -130,6 +154,9 @@ namespace MaintenanceApp.WebAPI.Controllers
         }
 
         //update
+        /// <summary>
+        /// Mark task complete and set new turnover time for task to be completed
+        /// </summary>
         [HttpPut]
         public async Task<IHttpActionResult> CompleteAndGenerateNewTasksForMachineById([FromUri] int id)
         {
@@ -148,6 +175,9 @@ namespace MaintenanceApp.WebAPI.Controllers
             return Ok("Task Complete and new task added");
         }
 
+        /// <summary>
+        /// Delete a task by Id--pass Id from URI
+        /// </summary>
         [HttpDelete]
         public async Task<IHttpActionResult> DeleteMaintenanceTask([FromUri] int id)
         {
