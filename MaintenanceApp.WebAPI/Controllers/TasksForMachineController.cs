@@ -107,19 +107,26 @@ namespace MaintenanceApp.WebAPI.Controllers
 
         [HttpGet]
         [ActionName("GetAllActiveTasksThatAreUnassignedByIdForBuildingAreaOrMachine")]
-        public async Task<IHttpActionResult> GetAllActiveTasksThatAreUnassignedByIdForBuildingAreaOrMachine([FromUri] int id, [FromBody] string search)
+        public async Task<IHttpActionResult> GetAllActiveTasksThatAreUnassignedByIdForBuildingAreaOrMachine([FromBody] TasksForMachineSearch search)
         {
-            if (search != "Building" || search != "Area" || search != "Machine")
+            if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
 
-            //instantiate service
-            TasksForMachineService service = CreateTasksForMachineService();
+            if (search.SearchTerm == "Building" || search.SearchTerm == "Area" || search.SearchTerm == "Machine")
+            {
+                //instantiate service
+                TasksForMachineService service = CreateTasksForMachineService();
 
-            List<TasksForMachineByMachineIdLookup> tasksForMachine = await service.GetAllActiveTasksThatAreUnassignedByIdForBuildingAreaOrMachine(id, search);
+                List<TasksForMachineByMachineIdLookup> tasksForMachine = await service.GetAllActiveTasksThatAreUnassignedByIdForBuildingAreaOrMachine(search);
 
-            return Ok(tasksForMachine);
+                return Ok(tasksForMachine);
+
+            }
+            
+            return BadRequest();
+
         }
 
         //update

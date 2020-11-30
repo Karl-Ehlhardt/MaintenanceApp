@@ -168,16 +168,16 @@ namespace MaintenanceApp.Services
         }
 
         //[ActionName("GetAllActiveTasksThatAreUnassignedByIdForBuildingAreaOrMachine")]
-        public async Task<List<TasksForMachineByMachineIdLookup>> GetAllActiveTasksThatAreUnassignedByIdForBuildingAreaOrMachine([FromUri] int id, [FromBody] string search)
+        public async Task<List<TasksForMachineByMachineIdLookup>> GetAllActiveTasksThatAreUnassignedByIdForBuildingAreaOrMachine([FromBody] TasksForMachineSearch search)
         {
             List<int> machineList = new List<int>();
-            switch (search)
+            switch (search.SearchTerm)
             {
                 case "Building":
                     List<int> areaInBuildingList =
                     _context
                     .Areas
-                    .Where(a => a.BuildingId == id)
+                    .Where(a => a.BuildingId == search.SearchId)
                     .Select(
                     a => a.AreaId).ToList();
 
@@ -200,7 +200,7 @@ namespace MaintenanceApp.Services
                     List<int> machineInAreaListStep =
                                 _context
                                 .Machines
-                                .Where(m => m.AreaId == id)
+                                .Where(m => m.AreaId == search.SearchId)
                                 .Select(
                                 m => m.MachineId).ToList();
                     foreach (int machineId in machineInAreaListStep)
@@ -210,7 +210,7 @@ namespace MaintenanceApp.Services
                     break;
 
                 case "Machine":
-                    machineList.Add(id);
+                    machineList.Add(search.SearchId);
                     break;
 
                 default:
