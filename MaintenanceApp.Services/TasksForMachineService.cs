@@ -33,6 +33,7 @@ namespace MaintenanceApp.Services
         {
             foreach (MaintenanceTask task in _context.Tasks)
             {
+                bool okToAdd = true;
                 TasksForMachine taskMachine =
                     new TasksForMachine()
                     {
@@ -42,8 +43,19 @@ namespace MaintenanceApp.Services
                         ApplicationUserId = task.ApplicationUserId
                     };
 
-                _context.TasksForMachines.Add(taskMachine);
+                foreach (TasksForMachine existing in _context.TasksForMachines)
+                {
+                    if (existing.MaintenanceTaskId == taskMachine.MaintenanceTaskId)
+                    {
+                        okToAdd = false;
+                        break;
+                    }
+                }
 
+                if (okToAdd)
+                {
+                _context.TasksForMachines.Add(taskMachine);
+                }
             }
 
             return await _context.SaveChangesAsync() == 1;
@@ -284,6 +296,32 @@ namespace MaintenanceApp.Services
         }
 
         //========Delete============//
-        //None
+        //[ActionName("RemoveExtra")]
+        public async Task<bool> RemoveTasksThatAreNoLongerNeeded()
+        {
+            foreach (MaintenanceTask needsToExist in _context.Tasks)
+            {
+                bool okToRemove = true;
+                TasksForMachine currentQuery = new TasksForMachine();
+
+                foreach (TasksForMachine existing in _context.TasksForMachines)
+                {
+                    currentQuery = existing;
+                    if (existing.MaintenanceTaskId == needsToExist.MaintenanceTaskId && existing.Maintained == null)
+                    {
+                        okToRemove = false;
+                        break;
+                    }
+                }
+
+                if (okToRemove)
+                {
+                    _context.TasksForMachines.Remove(currentQuery);
+                }
+                okToRemove = true;
+            }
+
+            return await _context.SaveChangesAsync() == 1;
+        }
     }
 }
