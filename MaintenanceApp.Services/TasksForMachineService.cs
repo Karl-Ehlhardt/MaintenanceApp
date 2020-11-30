@@ -266,6 +266,27 @@ namespace MaintenanceApp.Services
             return finalList;
         }
 
+        public async Task<List<TasksForMachineListItem>> GetTasksAssignedToUserByMachineId([FromUri] int id)
+        {
+            var task =
+                await
+                _context
+                .TasksForMachines
+                .Where(t => t.MachineId == id & t.ApplicationUserId == _userId.ToString())
+                .Select(
+                    t => new TasksForMachineListItem()
+                    {
+                        Id = t.Id,
+                        MachineId = t.MachineId,
+                        Maintained = t.Maintained,
+                        NeedToBeMaintainedBy = t.NeedToBeMaintainedBy,
+                        MaintenanceTaskId = t.MaintenanceTaskId,
+                        ApplicationUserId = t.ApplicationUserId
+                    }
+                    ).ToListAsync();
+            return task;
+        }
+
         //===========Update=============//
         public async Task<bool> CompleteAndGenerateNewTasksForMachineById([FromUri] int id)
         {
