@@ -56,9 +56,9 @@ In order to avoid having users reassign, delay, or delete tasks assigned to them
 
 As an extension of our MVP, we also discussed: 
 
-* Adding a Campus object to go above building, for larger manufacturing or testing businesses.
+* Adding a Campus object to go above building, for larger manufacturing or testing businesses
 * Adding a Human Resources level that could set User Roles 
-* Adding Active or Inactive states to employees and machines that would validate Admin's input. 
+* Adding Active or Inactive states to employees and machines that would validate Admin's input
 
 
  
