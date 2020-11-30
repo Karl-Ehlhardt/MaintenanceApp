@@ -283,33 +283,6 @@ namespace MaintenanceApp.Services
             return await _context.SaveChangesAsync() == 1;
         }
 
-        //User can mark a task complete on the machine
-        public async Task<bool> UpdateTaskCompleteById([FromUri] int id)
-        {
-
-            //get task for machine based on id
-            var entity =
-                _context
-                .TasksForMachines
-                .Single(tm => tm.Id == id);
-
-            //create new task for machine based on previous one's history
-            TasksForMachine taskMachine =
-                new TasksForMachine()
-                {
-                    MachineId = entity.MachineId,
-                    Maintained = DateTimeOffset.Now,
-                    NeedToBeMaintainedBy = DateTimeOffset.Now + entity.MaintenanceTask.MaintenanceTaskInterval,
-                    MaintenanceTaskId = entity.MaintenanceTaskId,
-                    ApplicationUserId = entity.ApplicationUserId
-                };
-
-            //add new task to db
-            _context.TasksForMachines.Add(taskMachine);
-
-            return await _context.SaveChangesAsync() == 1;
-        }
-
         //========Delete============//
         //None
     }
