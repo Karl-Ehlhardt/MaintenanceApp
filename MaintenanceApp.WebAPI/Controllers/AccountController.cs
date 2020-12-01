@@ -471,7 +471,7 @@ namespace MaintenanceApp.WebAPI.Controllers
             ApplicationDbContext context = new ApplicationDbContext();
             ApplicationUser user = context.Users.Find(User.Identity.GetUserName() == model.Email);
 
-            user.Active = model.Active;
+            user.Active = Convert.ToBoolean(model.Active);
 
             if (user.Active == true)
             {
