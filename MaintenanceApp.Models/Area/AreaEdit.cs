@@ -10,8 +10,6 @@ namespace MaintenanceApp.Models.Area
 {
     public class AreaEdit
     {
-        [Required]
-        public int AreaId { get; set; }
 
         [Required]
         public string AreaName { get; set; }
