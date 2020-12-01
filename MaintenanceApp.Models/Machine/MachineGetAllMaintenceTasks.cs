@@ -15,6 +15,8 @@ namespace MaintenanceApp.Models.Machine
 
         public string MachineName { get; set; }
 
+        public bool MachineActive { get; set; }
+
         public List<MaintenanceTaskListItem> MaintenanceTaskList { get; set; }
     }
 }

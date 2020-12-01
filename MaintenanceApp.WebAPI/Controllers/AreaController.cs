@@ -1,4 +1,5 @@
-﻿using MaintenanceApp.Models.Area;
+﻿using MaintenanceApp.Models.AllPurpose;
+using MaintenanceApp.Models.Area;
 using MaintenanceApp.Services;
 using Microsoft.AspNet.Identity;
 using System;
@@ -111,6 +112,32 @@ namespace MaintenanceApp.WebAPI.Controllers
             }
 
             return Ok();
+        }
+
+        /// <summary>
+        /// Update the active status of the area, all machines in that area and all of those machines MaintenanceTasks
+        /// </summary>
+        [HttpPut]
+        [ActionName("ActiveStatus")]
+        public async Task<IHttpActionResult> ActiveAreaById([FromUri] int id, [FromBody] ActiveChange model)
+        {
+            {
+                //check if model is valid
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                //instantiate the service
+                AreaService service = CreateAreaService();
+
+                if (await service.ActiveAreaById(id, model) == false)
+                {
+                    return InternalServerError();
+                }
+
+                return Ok("Active Status Updated");
+            }
         }
 
         //=====Delete=====//

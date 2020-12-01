@@ -13,6 +13,8 @@ namespace MaintenanceApp.Models.Area
 
         public string AreaName { get; set; }
 
+        public bool AreaActive { get; set; }
+
         public List<MachineGetAllMaintenceTasks> MachineGetAllMaintenceTasks { get; set; }
 
     }

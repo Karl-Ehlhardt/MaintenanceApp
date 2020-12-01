@@ -18,6 +18,8 @@ namespace MaintenanceApp.Models.Task
 
         public string MaintenanceTaskDescription { get; set; }
 
+        public bool MaintenanceTaskActive { get; set; }
+
         public TimeSpan MaintenanceTaskInterval { get; set; }
 
         [ForeignKey(nameof(ApplicationUser))]

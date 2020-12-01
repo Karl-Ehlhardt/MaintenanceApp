@@ -17,6 +17,9 @@ namespace MaintenanceApp.Data.MaintenanceData
         public string MachineName { get; set; }
 
         [Required]
+        public bool Active { get; set; }
+
+        [Required]
         [ForeignKey(nameof(Area))]
         public int AreaId { get; set; }
 

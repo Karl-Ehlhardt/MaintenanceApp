@@ -11,7 +11,11 @@ namespace MaintenanceApp.Data.MaintenanceData
     {
         [Key]
         public int BuildingId { get; set; }
+
         [Required]
         public string BuildingName { get; set; }
+
+        [Required]
+        public bool Active { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using MaintenanceApp.Data.MaintenanceData;
 using MaintenanceApp.Data.UserData;
+using MaintenanceApp.Models.AllPurpose;
 using MaintenanceApp.Models.Area;
 using MaintenanceApp.Models.Machine;
 using MaintenanceApp.Models.Task;
@@ -34,6 +35,7 @@ namespace MaintenanceApp.Services
                 new Area()
                 {
                     AreaName = model.AreaName,
+                    Active = true,
                     BuildingId = model.BuildingId
                 };
 
@@ -54,6 +56,7 @@ namespace MaintenanceApp.Services
                     {
                         AreaId = a.AreaId,
                         AreaName = a.AreaName,
+                        AreaActive = a.Active,
                         BuildingId = a.BuildingId
                     }).ToListAsync();
             return query;
@@ -73,6 +76,7 @@ namespace MaintenanceApp.Services
                     {
                         AreaId = a.AreaId,
                         AreaName = a.AreaName,
+                        AreaActive = a.Active,
                         BuildingId = a.BuildingId
                     }).ToListAsync();
             return query;
@@ -90,6 +94,7 @@ namespace MaintenanceApp.Services
                         {
                             AreaId = a.AreaId,
                             AreaName = a.AreaName,
+                            AreaActive = a.Active,
                             MachineGetAllMaintenceTasks = _context.
                             Machines.
                             Where(m => m.AreaId == a.AreaId).
@@ -98,6 +103,7 @@ namespace MaintenanceApp.Services
                             {
                                 MachineId = m.MachineId,
                                 MachineName = m.MachineName,
+                                MachineActive = m.Active,
                                 MaintenanceTaskList = _context.
                                     Tasks.
                                     Where(t => t.MachineId == m.MachineId).
@@ -106,6 +112,7 @@ namespace MaintenanceApp.Services
                                     {
                                         MaintenanceTaskId = t.MaintenanceTaskId,
                                         MaintenanceTaskName = t.MaintenanceTaskName,
+                                        MaintenanceTaskActive = t.Active,
                                         MaintenanceTaskDescription = t.MaintenanceTaskDescription,
                                         MaintenanceTaskInterval = t.MaintenanceTaskInterval,
                                         ApplicationUserId = t.ApplicationUserId,
@@ -126,6 +133,40 @@ namespace MaintenanceApp.Services
                 .Single(a => a.AreaId == id);
             area.AreaName = model.AreaName;
             area.BuildingId = model.BuildingId;
+
+            return await _context.SaveChangesAsync() == 1;
+        }
+
+        //[ActionName("ActiveStatus")]
+        public async Task<bool> ActiveAreaById([FromUri] int id, [FromBody] ActiveChange model)
+        {
+            var entity =
+                    _context.
+                    Areas.
+                    Single(e => e.AreaId == id);
+            entity.Active = model.NewActive;
+            int AreaId = entity.AreaId;
+
+            List<int> MachineIds = new List<int>();
+            foreach (Machine machine in _context.Machines)
+            {
+                if (AreaId == machine.AreaId)
+                {
+                    machine.Active = model.NewActive;
+                    MachineIds.Add(machine.MachineId);
+                }
+            }
+
+            foreach (int MachineId in MachineIds)
+            {
+                foreach (MaintenanceTask task in _context.Tasks)
+                {
+                    if (MachineId == task.MachineId)
+                    {
+                        task.Active = model.NewActive;
+                    }
+                }
+            }
 
             return await _context.SaveChangesAsync() == 1;
         }
