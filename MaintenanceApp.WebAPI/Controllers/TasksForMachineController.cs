@@ -40,7 +40,7 @@ namespace MaintenanceApp.WebAPI.Controllers
             //instantiate service
             TasksForMachineService service = CreateTasksForMachineService();
 
-            if (await service.CreateTasksForEverything() == true)
+            if (await service.CreateTasksForEverything() == false)
             {
                 return InternalServerError();
             }
