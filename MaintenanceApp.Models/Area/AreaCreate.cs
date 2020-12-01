@@ -18,5 +18,6 @@ namespace MaintenanceApp.Models.Area
         [Required]
         [ForeignKey(nameof(Data.MaintenanceData.Building))]
         public int BuildingId { get; set; }
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MaintenanceApp.Models;
+using MaintenanceApp.Models.AllPurpose;
 using MaintenanceApp.Models.Machine;
 using MaintenanceApp.Models.Task;
 using MaintenanceApp.Services;
@@ -145,6 +146,32 @@ namespace MaintenanceApp.WebAPI.Controllers
 
             return Ok("All Tasks Assigned");
 
+        }
+
+        /// <summary>
+        /// Update the active status of the machine and all of its MaintenanceTasks
+        /// </summary>
+        [HttpPut]
+        [ActionName("ActiveStatus")]
+        public async Task<IHttpActionResult> ActiveMachineById([FromUri] int id, [FromBody] ActiveChange model)
+        {
+            {
+                //check if model is valid
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                //instantiate the service
+                MachineService service = CreateMachineService();
+
+                if (await service.ActiveMachineById(id, model) == false)
+                {
+                    return InternalServerError();
+                }
+
+                return Ok("Active Status Updated");
+            }
         }
 
         //======Delete=====//

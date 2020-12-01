@@ -11,5 +11,8 @@ namespace MaintenanceApp.Models.Building
         public int BuildingId { get; set; }
 
         public string BuildingName { get; set; }
+
+        public bool BuildingActive { get; set; }
+
     }
 }

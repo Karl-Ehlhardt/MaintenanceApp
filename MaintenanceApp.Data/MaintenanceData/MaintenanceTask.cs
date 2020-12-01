@@ -21,6 +21,9 @@ namespace MaintenanceApp.Data.MaintenanceData
         public string MaintenanceTaskDescription { get; set; }
 
         [Required]
+        public bool Active { get; set; }
+
+        [Required]
         public TimeSpan MaintenanceTaskInterval { get; set; }
 
         public string ApplicationUserId { get; set; }

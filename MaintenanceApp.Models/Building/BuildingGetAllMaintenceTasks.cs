@@ -12,6 +12,8 @@ namespace MaintenanceApp.Models.Building
     {
         public string BuildingName { get; set; }
 
+        public bool BuildingActive { get; set; }
+
         public List<AreaGetAllMaintenceTasks> AreaGetAllMaintenceTasks { get; set; }
     }
 }

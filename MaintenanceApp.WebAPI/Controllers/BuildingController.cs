@@ -1,5 +1,6 @@
 ﻿using MaintenanceApp.Data.MaintenanceData;
 using MaintenanceApp.Data.UserData;
+using MaintenanceApp.Models.AllPurpose;
 using MaintenanceApp.Models.Building;
 using MaintenanceApp.Services;
 using Microsoft.AspNet.Identity;
@@ -122,6 +123,32 @@ namespace MaintenanceApp.WebAPI.Controllers
                 }
 
                 return Ok("Building Updated");
+            }
+        }
+
+        /// <summary>
+        /// Update the active status of the building, all areas within that building, all machines in those areas and all of those machines MaintenanceTasks
+        /// </summary>
+        [HttpPut]
+        [ActionName("ActiveStatus")]
+        public async Task<IHttpActionResult> ActiveBuildingById([FromUri] int id, [FromBody] ActiveChange model)
+        {
+            {
+                //check if model is valid
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                //instantiate the service
+                BuildingService service = CreateBuildingService();
+
+                if (await service.ActiveBuildingById(id, model) == false)
+                {
+                    return InternalServerError();
+                }
+
+                return Ok("Active Status Updated");
             }
         }
 

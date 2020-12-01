@@ -1,6 +1,7 @@
 ﻿using MaintenanceApp.Data.MaintenanceData;
 using MaintenanceApp.Data.UserData;
 using MaintenanceApp.Models;
+using MaintenanceApp.Models.AllPurpose;
 using MaintenanceApp.Models.Building;
 using MaintenanceApp.Models.Task;
 using System;
@@ -37,6 +38,7 @@ namespace MaintenanceApp.Services
                 {
                     MaintenanceTaskName = model.MaintenanceTaskName,
                     MaintenanceTaskDescription = model.MaintenanceTaskDescription,
+                    Active = true,
                     MaintenanceTaskInterval = model.MaintenanceTaskInterval,
                     MachineId = model.MachineId
                 };
@@ -57,6 +59,7 @@ namespace MaintenanceApp.Services
                     MaintenanceTaskId = q.MaintenanceTaskId,
                     MaintenanceTaskName = q.MaintenanceTaskName,
                     MaintenanceTaskDescription = q.MaintenanceTaskDescription,
+                    MaintenanceTaskActive = q.Active,
                     MaintenanceTaskInterval = q.MaintenanceTaskInterval,
                     ApplicationUserId = q.ApplicationUserId,
                     MachineId = q.MachineId
@@ -78,6 +81,7 @@ namespace MaintenanceApp.Services
                     MaintenanceTaskId = q.MaintenanceTaskId,
                     MaintenanceTaskName = q.MaintenanceTaskName,
                     MaintenanceTaskDescription = q.MaintenanceTaskDescription,
+                    MaintenanceTaskActive = q.Active,
                     MaintenanceTaskInterval = q.MaintenanceTaskInterval,
                     ApplicationUserId = q.ApplicationUserId,
                     MachineId = q.MachineId
@@ -110,6 +114,18 @@ namespace MaintenanceApp.Services
                 Tasks.
                 Single(e => e.MaintenanceTaskId == id);
             entity.ApplicationUserId = model.ApplicationUserId;
+
+            return await _context.SaveChangesAsync() == 1;
+        }
+
+        //[ActionName("ActiveStatus")]
+        public async Task<bool> ActiveMaintenanceTaskById([FromUri] int id, [FromBody] ActiveChange model)
+        {
+            var entity =
+                _context.
+                Tasks.
+                Single(e => e.MaintenanceTaskId == id);
+            entity.Active = model.NewActive;
 
             return await _context.SaveChangesAsync() == 1;
         }

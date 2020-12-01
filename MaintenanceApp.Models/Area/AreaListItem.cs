@@ -10,6 +10,7 @@ namespace MaintenanceApp.Models.Area
     {
         public int AreaId { get; set; }
         public string AreaName { get; set; }
+        public bool AreaActive { get; set; }
         public int BuildingId { get; set; }
     }
 }

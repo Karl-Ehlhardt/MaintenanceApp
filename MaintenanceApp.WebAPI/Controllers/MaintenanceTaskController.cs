@@ -1,5 +1,6 @@
 ﻿using MaintenanceApp.Data.MaintenanceData;
 using MaintenanceApp.Data.UserData;
+using MaintenanceApp.Models.AllPurpose;
 using MaintenanceApp.Models.Building;
 using MaintenanceApp.Models.Task;
 using MaintenanceApp.Services;
@@ -132,6 +133,33 @@ namespace MaintenanceApp.WebAPI.Controllers
                 }
 
                 return Ok("Task Assigned");
+            }
+        }
+
+
+        /// <summary>
+        /// Update the active status of the MaintenanceTask
+        /// </summary>
+        [HttpPut]
+        [ActionName("ActiveStatus")]
+        public async Task<IHttpActionResult> ActiveMaintenanceTaskById([FromUri] int id, [FromBody] ActiveChange model)
+        {
+            {
+                //check if model is valid
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                //instantiate the service
+                MaintenanceTaskService service = CreateMaintenanceTaskService();
+
+                if (await service.ActiveMaintenanceTaskById(id, model) == false)
+                {
+                    return InternalServerError();
+                }
+
+                return Ok("Active Status Updated");
             }
         }
 
