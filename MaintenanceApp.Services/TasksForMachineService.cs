@@ -301,7 +301,7 @@ namespace MaintenanceApp.Services
             MaintenanceTask refrence =
                 _context
                 .Tasks
-                .SingleOrDefault(t => t.MaintenanceTaskId == id);
+                .SingleOrDefault(t => t.MaintenanceTaskId == entity.MaintenanceTaskId);
 
             TasksForMachine newTaskMachine = new TasksForMachine()
             {
