@@ -49,6 +49,11 @@ namespace MaintenanceApp.Services
                         okToAdd = false;
                         break;
                     }
+                    else if(task.Active == false)
+                    {
+                        okToAdd = false;
+                        break;
+                    }
                 }
 
                 if (okToAdd)
@@ -359,15 +364,24 @@ namespace MaintenanceApp.Services
         //[ActionName("RemoveExtra")]
         public async Task<bool> RemoveTasksThatAreNoLongerNeeded()
         {
-            foreach (MaintenanceTask needsToExist in _context.Tasks)
-            {
-                bool okToRemove = true;
-                TasksForMachine currentQuery = new TasksForMachine();
+            //Remove comented section below if this runs
+            List<int> activeMaintenanceTasks = new List<int>();
 
-                foreach (TasksForMachine existing in _context.TasksForMachines)
+            bool okToRemove = true;
+
+            foreach (MaintenanceTask existing in _context.Tasks)
+            {
+                if (existing.Active == true)
                 {
-                    currentQuery = existing;
-                    if (existing.MaintenanceTaskId == needsToExist.MaintenanceTaskId && existing.Maintained == DateTimeOffset.MinValue)
+                    activeMaintenanceTasks.Add(existing.MaintenanceTaskId);
+                }
+            }
+
+            foreach (TasksForMachine task in _context.TasksForMachines)
+            {
+                foreach (int existingId in activeMaintenanceTasks)
+                {
+                    if (existingId == task.MaintenanceTaskId )
                     {
                         okToRemove = false;
                         break;
@@ -376,10 +390,32 @@ namespace MaintenanceApp.Services
 
                 if (okToRemove)
                 {
-                    _context.TasksForMachines.Remove(currentQuery);
+                    _context.TasksForMachines.Remove(task);
                 }
                 okToRemove = true;
             }
+
+            //foreach (MaintenanceTask needsToExist in _context.Tasks)
+            //{
+            //    bool okToRemove = true;
+            //    TasksForMachine currentQuery = new TasksForMachine();
+
+            //    foreach (TasksForMachine existing in _context.TasksForMachines)
+            //    {
+            //        currentQuery = existing;
+            //        if (existing.MaintenanceTaskId == needsToExist.MaintenanceTaskId && existing.Maintained == DateTimeOffset.MinValue)
+            //        {
+            //            okToRemove = false;
+            //            break;
+            //        }
+            //    }
+
+            //    if (okToRemove)
+            //    {
+            //        _context.TasksForMachines.Remove(currentQuery);
+            //    }
+            //    okToRemove = true;
+            //}
 
             return await _context.SaveChangesAsync() == 1;
         }
