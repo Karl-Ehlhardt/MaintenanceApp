@@ -469,7 +469,10 @@ namespace MaintenanceApp.WebAPI.Controllers
         public async Task<IHttpActionResult> ChangeUserActiveStatus([FromBody] UserEditStatus model)
         {
             ApplicationDbContext context = new ApplicationDbContext();
-            ApplicationUser user = context.Users.Find(User.Identity.GetUserName() == model.Email);
+            //ApplicationUser user = context.Users.Find(User.Identity.GetUserName() == model.Email);
+
+            ApplicationUser user = await context.Users.SingleAsync(u => u.Email == model.Email);
+
 
             if(user == null)
             {
