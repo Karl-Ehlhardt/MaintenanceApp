@@ -152,9 +152,12 @@ namespace MaintenanceApp.WebAPI.Controllers
             return BadRequest();
 
         }
-
+        /// <summary>
+        /// Get a specfic TasksForMachine using the machines Id
+        /// </summary>
         [HttpGet]
-        public async Task<IHttpActionResult> GetTasksByMachineId([FromUri] int id)
+        [ActionName("GetTasksAssignedToUserByMachineId")]
+        public async Task<IHttpActionResult> GetTasksAssignedToUserByMachineId([FromUri] int id)
         {
             TasksForMachineService service = CreateTasksForMachineService();
 
@@ -168,6 +171,7 @@ namespace MaintenanceApp.WebAPI.Controllers
         /// Mark task complete and set new turnover time for task to be completed
         /// </summary>
         [HttpPut]
+        [ActionName("CompleteAndGenerateNewTasksForMachineById")]
         public async Task<IHttpActionResult> CompleteAndGenerateNewTasksForMachineById([FromUri] int id)
         {
             if(!ModelState.IsValid)
@@ -189,6 +193,7 @@ namespace MaintenanceApp.WebAPI.Controllers
         /// Delete a task by Id--pass Id from URI
         /// </summary>
         [HttpDelete]
+        [ActionName("Clean")]
         public async Task<IHttpActionResult> DeleteMaintenanceTask([FromUri] int id)
         {
             {
