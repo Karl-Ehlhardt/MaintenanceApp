@@ -31,21 +31,20 @@ namespace MaintenanceApp.Services
         //[ActionName("CreateTasksForEverything")]
         public async Task<bool> CreateTasksForEverything()
         {
+            List<int> currentTasksForMachine = new List<int>();
+
+            bool okToAdd = true;
+
+            foreach (TasksForMachine existing in _context.TasksForMachines)
+            {
+                currentTasksForMachine.Add(existing.MaintenanceTaskId);
+            }
+
             foreach (MaintenanceTask task in _context.Tasks)
             {
-                bool okToAdd = true;
-                TasksForMachine taskMachine =
-                    new TasksForMachine()
-                    {
-                        MachineId = task.MachineId,
-                        NeedToBeMaintainedBy = DateTimeOffset.Now + task.MaintenanceTaskInterval,
-                        MaintenanceTaskId = task.MaintenanceTaskId, 
-                        ApplicationUserId = task.ApplicationUserId
-                    };
-
-                foreach (TasksForMachine existing in _context.TasksForMachines)
+                foreach (int existingId in currentTasksForMachine)
                 {
-                    if (existing.MaintenanceTaskId == taskMachine.MaintenanceTaskId)
+                    if (existingId == task.MaintenanceTaskId)
                     {
                         okToAdd = false;
                         break;
@@ -54,9 +53,49 @@ namespace MaintenanceApp.Services
 
                 if (okToAdd)
                 {
-                _context.TasksForMachines.Add(taskMachine);
+                    TasksForMachine taskMachine =
+                    new TasksForMachine()
+                    {
+                        MachineId = task.MachineId,
+                        NeedToBeMaintainedBy = DateTimeOffset.Now + task.MaintenanceTaskInterval,
+                        MaintenanceTaskId = task.MaintenanceTaskId,
+                        ApplicationUserId = task.ApplicationUserId
+                    };
+
+                    _context.TasksForMachines.Add(taskMachine);
                 }
+
+                okToAdd = true;
             }
+
+            //Remove the below comments when test is passed
+
+            //foreach (MaintenanceTask task in _context.Tasks)
+            //{
+            //    bool okToAdd = true;
+            //    TasksForMachine taskMachine =
+            //        new TasksForMachine()
+            //        {
+            //            MachineId = task.MachineId,
+            //            NeedToBeMaintainedBy = DateTimeOffset.Now + task.MaintenanceTaskInterval,
+            //            MaintenanceTaskId = task.MaintenanceTaskId, 
+            //            ApplicationUserId = task.ApplicationUserId
+            //        };
+
+            //    foreach (TasksForMachine existing in _context.TasksForMachines)
+            //    {
+            //        if (existing.MaintenanceTaskId == taskMachine.MaintenanceTaskId)
+            //        {
+            //            okToAdd = false;
+            //            break;
+            //        }
+            //    }
+
+            //    if (okToAdd)
+            //    {
+            //    _context.TasksForMachines.Add(taskMachine);
+            //    }
+            //}
 
             return await _context.SaveChangesAsync() == 1;
         }
@@ -243,7 +282,7 @@ namespace MaintenanceApp.Services
                                 {
                                     MachineId = m.MachineId,
                                     MachineName = m.MachineName,
-                                    TasksForMachineListItem = 
+                                    TasksForMachineListItem =
                                         _context.
                                         TasksForMachines.
                                         Where(tm => tm.MachineId == m.MachineId && tm.Maintained == DateTimeOffset.MinValue && tm.ApplicationUserId == null).
