@@ -172,10 +172,14 @@ namespace _00_HelperMethods
             {
                 //figure out the difference in time
                 TimeSpan fivePM = new TimeSpan(5, 0, 0);
-                TimeSpan difference = dateTimeOffset.TimeOfDay - fivePM;
+                TimeSpan difference = (dateTimeOffset.TimeOfDay - fivePM).Duration();
 
-                //add the difference
-                dateTimeOffset = dateTimeOffset + difference;
+                //resolve the difference
+                if(dateTimeOffset.TimeOfDay < fivePM)
+                {
+                    dateTimeOffset += difference;
+                }
+                dateTimeOffset -= difference;
             }
 
             return dateTimeOffset;
