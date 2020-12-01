@@ -160,5 +160,44 @@ namespace _00_HelperMethods
             DateTime first = new DateTime(nowDate.Year, nowDate.Month + 1, 1).AddDays(-1);
             return first;
         }
+
+        public DateTimeOffset ConvertToEndOfDayTime(DateTimeOffset dateTimeOffset)
+        {
+            //first we determine what the time is
+            string time = dateTimeOffset.ToString("t");
+
+
+            //if not equal to 5pm then change it to equal that time
+            if(time != "5:00 PM")
+            {
+                //figure out the difference in time
+                TimeSpan fivePM = new TimeSpan(5, 0, 0);
+                TimeSpan difference = dateTimeOffset.TimeOfDay - fivePM;
+
+                //add the difference
+                dateTimeOffset = dateTimeOffset + difference;
+            }
+
+            return dateTimeOffset;
+        }
+
+        public DateTimeOffset ConvertToDayOfWeek(DateTimeOffset dateTimeOffset)
+        {
+            //determine what day it is 
+            DayOfWeek dayOfWeek = dateTimeOffset.DayOfWeek;
+
+            if(dayOfWeek == DayOfWeek.Saturday)
+            {
+                dateTimeOffset.AddDays(2);
+            } else if(dayOfWeek == DayOfWeek.Sunday)
+            {
+                dateTimeOffset.AddDays(1);
+            } else
+            {
+                dateTimeOffset.AddDays(0);
+            }
+
+            return dateTimeOffset;
+        }
     }
 }
