@@ -53,7 +53,7 @@ namespace MaintenanceApp.Services
             var query =
                 await _context.
                 Buildings.
-                Select(e =>
+                Select(q =>
                 new BuildingListItem
                 {
                     BuildingId = q.BuildingId,

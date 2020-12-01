@@ -481,6 +481,71 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.AccountController.Register(MaintenanceApp.WebAPI.Models.RegisterBindingModel)">
+            <summary>
+            Register a new user--Enter Email, Password, and ConfirmPassord in body
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.AccountController.RegisterExternal(MaintenanceApp.WebAPI.Models.RegisterExternalBindingModel)">
+            <summary>
+            Register externally
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.AccountController.GetUserInfo">
+            <summary>
+            Get User Information
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.AccountController.Logout">
+            <summary>
+            Logout
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.AccountController.GetManageInfo(System.String,System.Boolean)">
+            <summary>
+            Get Manage Information
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.AccountController.SetPassword(MaintenanceApp.WebAPI.Models.SetPasswordBindingModel)">
+            <summary>
+            Set password 
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.AccountController.ChangePassword(MaintenanceApp.WebAPI.Models.ChangePasswordBindingModel)">
+            <summary>
+            Change Password by entering old password, new password, and confirmation of new password
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.AccountController.AddExternalLogin(MaintenanceApp.WebAPI.Models.AddExternalLoginBindingModel)">
+            <summary>
+            Timestamp new external login
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.AccountController.RemoveLogin(MaintenanceApp.WebAPI.Models.RemoveLoginBindingModel)">
+            <summary>
+            Remove login
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.AccountController.GetExternalLogin(System.String,System.String)">
+            <summary>
+            External Login--Enter string provider
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.AccountController.GetExternalLogins(System.String,System.Boolean)">
+            <summary>
+            Get External Logins
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.AccountController.Dispose(System.Boolean)">
+            <summary>
+            Dispose of User Manager
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.AccountController.ChangeUserActiveStatus(MaintenanceApp.Models.User.UserEditStatus)">
+            <summary>
+            Change User Status--Edit status to Active or Inactive from body
+            </summary>
+        </member>
         <member name="M:MaintenanceApp.WebAPI.Controllers.MaintenanceTaskController.Create(MaintenanceApp.Models.Task.MaintenanceTaskCreate)">
             <summary>
             Creates a Maintenance Task
@@ -499,6 +564,11 @@
         <member name="M:MaintenanceApp.WebAPI.Controllers.MaintenanceTaskController.AssignMaintenanceTaskById(System.Int32,MaintenanceApp.Models.Task.MaintenanceTaskAssign)">
             <summary>
             Assign Maintenance Tasks by Id--pass Id from URI
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.MaintenanceTaskController.ActiveMaintenanceTaskById(System.Int32,MaintenanceApp.Models.AllPurpose.ActiveChange)">
+            <summary>
+            Update the active status of the MaintenanceTask
             </summary>
         </member>
         <member name="M:MaintenanceApp.WebAPI.Controllers.MaintenanceTaskController.DeleteMaintenanceTask(System.Int32)">
@@ -524,6 +594,11 @@
         <member name="M:MaintenanceApp.WebAPI.Controllers.AreaController.UpdateArea(System.Int32,MaintenanceApp.Models.Area.AreaEdit)">
             <summary>
             Updates an area by Id--pass the Id in the URI
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.AreaController.ActiveAreaById(System.Int32,MaintenanceApp.Models.AllPurpose.ActiveChange)">
+            <summary>
+            Update the active status of the area, all machines in that area and all of those machines MaintenanceTasks
             </summary>
         </member>
         <member name="M:MaintenanceApp.WebAPI.Controllers.AreaController.DeleteArea(System.Int32)">
@@ -554,6 +629,11 @@
         <member name="M:MaintenanceApp.WebAPI.Controllers.BuildingController.Update(System.Int32,MaintenanceApp.Models.Building.BuildingCreateAndUpdate)">
             <summary>
             Updates a building by BuildingId--Enter Building Name
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.BuildingController.ActiveBuildingById(System.Int32,MaintenanceApp.Models.AllPurpose.ActiveChange)">
+            <summary>
+            Update the active status of the building, all areas within that building, all machines in those areas and all of those machines MaintenanceTasks
             </summary>
         </member>
         <member name="M:MaintenanceApp.WebAPI.Controllers.BuildingController.Delete(System.Int32)">
@@ -589,6 +669,11 @@
         <member name="M:MaintenanceApp.WebAPI.Controllers.MachineController.AssignAllTaskForMachineById(System.Int32,MaintenanceApp.Models.Task.MaintenanceTaskAssign)">
             <summary>
             Assign all tasks for a machine by id--pass Id in URI, enter assignment in body
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.MachineController.ActiveMachineById(System.Int32,MaintenanceApp.Models.AllPurpose.ActiveChange)">
+            <summary>
+            Update the active status of the machine and all of its MaintenanceTasks
             </summary>
         </member>
         <member name="M:MaintenanceApp.WebAPI.Controllers.MachineController.DeleteMachine(System.Int32)">
