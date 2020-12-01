@@ -488,7 +488,22 @@
         </member>
         <member name="M:MaintenanceApp.WebAPI.Controllers.MaintenanceTaskController.GetTasksAssignedToUser(MaintenanceApp.Models.Task.MaintenanceTaskAssign)">
             <summary>
-            Gets Maintenance Tasks assigned to a user--Enter a user ID in the body
+            Gets Maintenance Tasks assigned to a user--Enter a user string in the body
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.MaintenanceTaskController.UpdateMaintenanceTaskById(System.Int32,MaintenanceApp.Models.Task.MaintenanceTaskUpdate)">
+            <summary>
+            Update Maintenance Tasks by Id--pass Id from URI
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.MaintenanceTaskController.AssignMaintenanceTaskById(System.Int32,MaintenanceApp.Models.Task.MaintenanceTaskAssign)">
+            <summary>
+            Assign Maintenance Tasks by Id--pass Id from URI
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.MaintenanceTaskController.DeleteMaintenanceTask(System.Int32)">
+            <summary>
+            Delete Maintenance Tasks by Id--pass Id from URI
             </summary>
         </member>
         <member name="M:MaintenanceApp.WebAPI.Controllers.AreaController.CreateArea(MaintenanceApp.Models.Area.AreaCreate)">
@@ -579,6 +594,51 @@
         <member name="M:MaintenanceApp.WebAPI.Controllers.MachineController.DeleteMachine(System.Int32)">
             <summary>
             Delete a Machine by Id--Pass Id in URI
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.TasksForMachineController.CreateTasksForEverything">
+            <summary>
+            Create Tasks deadlines from Maintenance Tasks list
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.TasksForMachineController.GetAllTasksForMachine">
+            <summary>
+            Get all tasks for Machines
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.TasksForMachineController.GetTasksbyId(System.Int32)">
+            <summary>
+            Get tasks by Id--pass Id from URI
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.TasksForMachineController.GetAllActiveTasks">
+            <summary>
+            Get all active tasks
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.TasksForMachineController.GetAllCompletedTasks">
+            <summary>
+            Get all completed tasks
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.TasksForMachineController.GetAllActiveTasksAssignedToCurrentUser">
+            <summary>
+            Get all tasks assigned to current user
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.TasksForMachineController.GetAllActiveTasksThatAreUnassignedByIdForBuildingAreaOrMachine(MaintenanceApp.Models.TasksForMachine.TasksForMachineSearch)">
+            <summary>
+            Get all active tasks by building or area or machine--pass Id from Uri, and enter "Building", "Area", or "Machine in body.
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.TasksForMachineController.CompleteAndGenerateNewTasksForMachineById(System.Int32)">
+            <summary>
+            Mark task complete and set new turnover time for task to be completed
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.TasksForMachineController.DeleteMaintenanceTask(System.Int32)">
+            <summary>
+            Delete a task by Id--pass Id from URI
             </summary>
         </member>
     </members>

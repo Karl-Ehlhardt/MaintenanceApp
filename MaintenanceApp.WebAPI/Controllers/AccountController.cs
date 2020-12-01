@@ -54,6 +54,102 @@ namespace MaintenanceApp.WebAPI.Controllers
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
+
+        /// <summary>
+        /// Register a new user--Enter Email, Password, and ConfirmPassord in body
+        /// </summary>
+
+        // POST api/Account/Register
+        [AllowAnonymous]
+        [Route("Register")]
+        public async Task<IHttpActionResult> Register(RegisterBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            IdentityResult result;
+            using (var context = new ApplicationDbContext())
+
+            {
+                var roleStore = new RoleStore<IdentityRole>(context);
+                var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+                //await roleManager.CreateAsync(new IdentityRole() { Name = "Admin" });
+
+                var userStore = new UserStore<ApplicationUser>(context);
+                var userManager = new UserManager<ApplicationUser>(userStore);
+
+                var user = new ApplicationUser()
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    Active = true,
+                    StartDate = DateTimeOffset.Now
+                };
+
+                result = await UserManager.CreateAsync(user, model.Password);
+
+                if (model.Admin == true)
+                {
+                    await userManager.AddToRoleAsync(user.Id, "Admin");
+                }
+                else
+                {
+                    await userManager.AddToRoleAsync(user.Id, "User");
+                }
+            }
+
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            return Ok();
+        }
+
+
+        /// <summary>
+        /// Register externally
+        /// </summary>
+        // POST api/Account/RegisterExternal
+        [OverrideAuthentication]
+        [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
+        [Route("RegisterExternal")]
+        public async Task<IHttpActionResult> RegisterExternal(RegisterExternalBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var info = await Authentication.GetExternalLoginInfoAsync();
+            if (info == null)
+            {
+                return InternalServerError();
+            }
+
+            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+
+            IdentityResult result = await UserManager.CreateAsync(user);
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            result = await UserManager.AddLoginAsync(user.Id, info.Login);
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+            return Ok();
+        }
+
+
+        /// <summary>
+        /// Get User Information
+        /// </summary>
         // GET api/Account/UserInfo
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [Route("UserInfo")]
@@ -68,7 +164,10 @@ namespace MaintenanceApp.WebAPI.Controllers
                 LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
             };
         }
-
+        
+        /// <summary>
+        /// Logout
+        /// </summary>
         // POST api/Account/Logout
         [Route("Logout")]
         public IHttpActionResult Logout()
@@ -77,6 +176,10 @@ namespace MaintenanceApp.WebAPI.Controllers
             return Ok();
         }
 
+
+        /// <summary>
+        /// Get Manage Information
+        /// </summary>
         // GET api/Account/ManageInfo?returnUrl=%2F&generateState=true
         [Route("ManageInfo")]
         public async Task<ManageInfoViewModel> GetManageInfo(string returnUrl, bool generateState = false)
@@ -117,6 +220,32 @@ namespace MaintenanceApp.WebAPI.Controllers
             };
         }
 
+        /// <summary>
+        /// Set password 
+        /// </summary>
+        // POST api/Account/SetPassword
+        [Route("SetPassword")]
+        public async Task<IHttpActionResult> SetPassword(SetPasswordBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            IdentityResult result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
+
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            return Ok();
+        }
+
+
+        /// <summary>
+        /// Change Password by entering old password, new password, and confirmation of new password
+        /// </summary>
         // POST api/Account/ChangePassword
         [Route("ChangePassword")]
         public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
@@ -137,25 +266,9 @@ namespace MaintenanceApp.WebAPI.Controllers
             return Ok();
         }
 
-        // POST api/Account/SetPassword
-        [Route("SetPassword")]
-        public async Task<IHttpActionResult> SetPassword(SetPasswordBindingModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            IdentityResult result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
-
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result);
-            }
-
-            return Ok();
-        }
-
+        /// <summary>
+        /// Timestamp new external login
+        /// </summary>
         // POST api/Account/AddExternalLogin
         [Route("AddExternalLogin")]
         public async Task<IHttpActionResult> AddExternalLogin(AddExternalLoginBindingModel model)
@@ -194,6 +307,10 @@ namespace MaintenanceApp.WebAPI.Controllers
             return Ok();
         }
 
+
+        /// <summary>
+        /// Remove login
+        /// </summary>
         // POST api/Account/RemoveLogin
         [Route("RemoveLogin")]
         public async Task<IHttpActionResult> RemoveLogin(RemoveLoginBindingModel model)
@@ -223,6 +340,9 @@ namespace MaintenanceApp.WebAPI.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// External Login--Enter string provider
+        /// </summary>
         // GET api/Account/ExternalLogin
         [OverrideAuthentication]
         [HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
@@ -281,6 +401,9 @@ namespace MaintenanceApp.WebAPI.Controllers
         }
 
         // GET api/Account/ExternalLogins?returnUrl=%2F&generateState=true
+        /// <summary>
+        /// Get External Logins
+        /// </summary>
         [AllowAnonymous]
         [Route("ExternalLogins")]
         public IEnumerable<ExternalLoginViewModel> GetExternalLogins(string returnUrl, bool generateState = false)
@@ -321,117 +444,10 @@ namespace MaintenanceApp.WebAPI.Controllers
             return logins;
         }
 
-        // POST api/Account/Register
-        [AllowAnonymous]
-        [Route("Register")]
-        public async Task<IHttpActionResult> Register(RegisterBindingModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
 
-            IdentityResult result;
-            using (var context = new ApplicationDbContext())
-
-            {
-                var roleStore = new RoleStore<IdentityRole>(context);
-                var roleManager = new RoleManager<IdentityRole>(roleStore);
-
-                //await roleManager.CreateAsync(new IdentityRole() { Name = "Admin" });
-
-                var userStore = new UserStore<ApplicationUser>(context);
-                var userManager = new UserManager<ApplicationUser>(userStore);
-
-                var user = new ApplicationUser() {
-                    UserName = model.Email,
-                    Email = model.Email,
-                    Active = true,
-                    StartDate = DateTimeOffset.Now
-                };
-
-                result = await UserManager.CreateAsync(user, model.Password);
-
-                if (model.Admin == true)
-                {
-                    await userManager.AddToRoleAsync(user.Id, "Admin");
-                }
-                else
-                {
-                    await userManager.AddToRoleAsync(user.Id, "User");
-                }
-            }
-
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result);
-            }
-
-            return Ok();
-
-
-            //var user = new ApplicationUser()
-            //{
-            //    UserName = model.Email,
-            //    Email = model.Email,
-            //    Active = true,
-            //    StartDate = DateTime.UtcNow,
-            //    Admin = model.Admin
-            //};
-
-            //var userRole = new IdentityUserRole() { UserId = model.}
-
-            //IdentityResult result = await UserManager.CreateAsync(user, model.Password);
-
-            //if (!result.Succeeded)
-            //{
-            //    return GetErrorResult(result);
-            //}
-
-            //return Ok();
-
-
-
-
-
-
-
-
-        }
-
-        // POST api/Account/RegisterExternal
-        [OverrideAuthentication]
-        [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
-        [Route("RegisterExternal")]
-        public async Task<IHttpActionResult> RegisterExternal(RegisterExternalBindingModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var info = await Authentication.GetExternalLoginInfoAsync();
-            if (info == null)
-            {
-                return InternalServerError();
-            }
-
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
-
-            IdentityResult result = await UserManager.CreateAsync(user);
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result);
-            }
-
-            result = await UserManager.AddLoginAsync(user.Id, info.Login);
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result); 
-            }
-            return Ok();
-        }
-
+        /// <summary>
+        /// Dispose of User Manager
+        /// </summary>
         protected override void Dispose(bool disposing)
         {
             if (disposing && _userManager != null)
@@ -443,6 +459,10 @@ namespace MaintenanceApp.WebAPI.Controllers
             base.Dispose(disposing);
         }
 
+
+        /// <summary>
+        /// Change User Status--Edit status to Active or Inactive from body
+        /// </summary>
         [HttpPut]
         [Authorize(Roles ="Admin")]
         [ActionName("ChangeUserStatus")]
