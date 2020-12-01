@@ -293,7 +293,7 @@ namespace MaintenanceApp.Services
             var entity =
                 _context
                 .TasksForMachines
-                .Single(tm => tm.Id == id);
+                .SingleOrDefault(tm => tm.Id == id);
 
             entity.Maintained = DateTime.Now;
             entity.ApplicationUserId = _userId.ToString();
@@ -301,7 +301,7 @@ namespace MaintenanceApp.Services
             MaintenanceTask refrence =
                 _context
                 .Tasks
-                .Single(t => t.MaintenanceTaskId == id);
+                .SingleOrDefault(t => t.MaintenanceTaskId == id);
 
             TasksForMachine newTaskMachine = new TasksForMachine()
             {
