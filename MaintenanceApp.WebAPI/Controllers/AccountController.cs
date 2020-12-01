@@ -471,7 +471,13 @@ namespace MaintenanceApp.WebAPI.Controllers
             ApplicationDbContext context = new ApplicationDbContext();
             ApplicationUser user = context.Users.Find(User.Identity.GetUserName() == model.Email);
 
-            user.Active = Convert.ToBoolean(model.Active);
+            if(user == null)
+            {
+                return NotFound();
+            }
+
+            //user.Active = Convert.ToBoolean(model.Active);
+            user.Active = bool.Parse(model.Active.ToString());
 
             if (user.Active == true)
             {
@@ -486,7 +492,7 @@ namespace MaintenanceApp.WebAPI.Controllers
                 return InternalServerError();
             }
 
-            return Ok($"User status changed to{user.Active}");
+            return Ok($"User status changed to {user.Active}");
         }
 
         #region Helpers
