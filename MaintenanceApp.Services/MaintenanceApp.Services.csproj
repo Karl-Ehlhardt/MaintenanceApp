@@ -75,6 +75,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\00_HelperMethods\00_HelperMethods.csproj">
+      <Project>{71ab2af5-1e93-4e2a-81cc-c93b9a9c53eb}</Project>
+      <Name>00_HelperMethods</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MaintenanceApp.Data\MaintenanceApp.Data.csproj">
       <Project>{1AF1356F-B70C-43FB-8380-32CD7D89757F}</Project>
       <Name>MaintenanceApp.Data</Name>
