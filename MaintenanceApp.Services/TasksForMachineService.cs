@@ -381,7 +381,13 @@ namespace MaintenanceApp.Services
             {
                 foreach (int existingId in activeMaintenanceTasks)
                 {
-                    if (existingId == task.MaintenanceTaskId )
+                    if(task.Maintained > DateTimeOffset.MinValue)
+                    {
+                        okToRemove = false;
+                        break;
+                    }
+
+                    else if (existingId == task.MaintenanceTaskId)
                     {
                         okToRemove = false;
                         break;
