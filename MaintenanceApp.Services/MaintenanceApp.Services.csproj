@@ -63,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OversiteService.cs" />
     <Compile Include="MaintenanceTaskService.cs" />
     <Compile Include="AreaService.cs" />
     <Compile Include="BuildingService.cs" />

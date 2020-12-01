@@ -102,7 +102,7 @@ namespace MaintenanceApp.Services
             //    }
             //}
 
-            return await _context.SaveChangesAsync() == 1;
+            return await _context.SaveChangesAsync() >= 1;
         }
 
         //=================READ====================//
@@ -357,7 +357,7 @@ namespace MaintenanceApp.Services
 
             _context.TasksForMachines.Add(newTaskMachine);
 
-            return await _context.SaveChangesAsync() == 1;
+            return await _context.SaveChangesAsync() >= 1;
         }
 
         //========Delete============//
