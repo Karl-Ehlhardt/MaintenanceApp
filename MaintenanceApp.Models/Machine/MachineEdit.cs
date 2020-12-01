@@ -11,9 +11,6 @@ namespace MaintenanceApp.Models.Machine
     public class MachineEdit
     {
         [Required]
-        public int MachineId { get; set; }
-
-        [Required]
         public string MachineName { get; set; }
 
         [Required]
