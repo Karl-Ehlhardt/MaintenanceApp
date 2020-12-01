@@ -1,4 +1,5 @@
-﻿using MaintenanceApp.Data.MaintenanceData;
+﻿using _00_HelperMethods;
+using MaintenanceApp.Data.MaintenanceData;
 using MaintenanceApp.Data.UserData;
 using MaintenanceApp.Models.Machine;
 using MaintenanceApp.Models.TasksForMachine;
@@ -58,11 +59,20 @@ namespace MaintenanceApp.Services
 
                 if (okToAdd)
                 {
+                    //takes in a datetimeoffset and converts it to weekday
+                    DateTimeOffset dateTimeOffset = DateTimeOffset.Now + task.MaintenanceTaskInterval;
+                    Methods helperMethod = new Methods();
+
+                    DateTimeOffset modifiedDate = helperMethod.ConvertToDayOfWeek(dateTimeOffset);
+
+                    //takes in a datetimeoffset and converts only the time to 5:00pm
+                    DateTimeOffset modifiedTime = helperMethod.ConvertToEndOfDayTime(modifiedDate);
+
                     TasksForMachine taskMachine =
                     new TasksForMachine()
                     {
                         MachineId = task.MachineId,
-                        NeedToBeMaintainedBy = DateTimeOffset.Now + task.MaintenanceTaskInterval,
+                        NeedToBeMaintainedBy = modifiedTime,
                         MaintenanceTaskId = task.MaintenanceTaskId,
                         ApplicationUserId = task.ApplicationUserId
                     };
@@ -347,10 +357,21 @@ namespace MaintenanceApp.Services
                 .Tasks
                 .SingleOrDefault(t => t.MaintenanceTaskId == entity.MaintenanceTaskId);
 
+            //get datetimeoffset and modify time and day to be on a weekday at 5:00pm for need to be maintained by prop
+            //takes in a datetimeoffset and converts it to weekday
+            DateTimeOffset dateTimeOffset = DateTimeOffset.Now + refrence.MaintenanceTaskInterval;
+            Methods helperMethod = new Methods();
+
+            DateTimeOffset modifiedDate = helperMethod.ConvertToDayOfWeek(dateTimeOffset);
+
+            //takes in a datetimeoffset and converts only the time to 5:00pm
+            DateTimeOffset modifiedTime = helperMethod.ConvertToEndOfDayTime(modifiedDate);
+
+
             TasksForMachine newTaskMachine = new TasksForMachine()
             {
                 MachineId = refrence.MachineId,
-                NeedToBeMaintainedBy = DateTimeOffset.Now + refrence.MaintenanceTaskInterval,
+                NeedToBeMaintainedBy = modifiedTime,
                 MaintenanceTaskId = refrence.MaintenanceTaskId,
                 ApplicationUserId = refrence.ApplicationUserId
             };
