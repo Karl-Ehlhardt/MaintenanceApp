@@ -566,7 +566,7 @@
             Assign Maintenance Tasks by Id--pass Id from URI
             </summary>
         </member>
-        <member name="M:MaintenanceApp.WebAPI.Controllers.MaintenanceTaskController.ActiveMaintenanceTaskById(System.Int32,MaintenanceApp.Models.AllPurpose.ActiveChange)">
+        <member name="M:MaintenanceApp.WebAPI.Controllers.MaintenanceTaskController.ActiveMaintenanceTaskById(System.Int32)">
             <summary>
             Update the active status of the MaintenanceTask
             </summary>
@@ -596,7 +596,7 @@
             Updates an area by Id--pass the Id in the URI
             </summary>
         </member>
-        <member name="M:MaintenanceApp.WebAPI.Controllers.AreaController.ActiveAreaById(System.Int32,MaintenanceApp.Models.AllPurpose.ActiveChange)">
+        <member name="M:MaintenanceApp.WebAPI.Controllers.AreaController.ActiveAreaById(System.Int32)">
             <summary>
             Update the active status of the area, all machines in that area and all of those machines MaintenanceTasks
             </summary>
@@ -631,7 +631,7 @@
             Updates a building by BuildingId--Enter Building Name
             </summary>
         </member>
-        <member name="M:MaintenanceApp.WebAPI.Controllers.BuildingController.ActiveBuildingById(System.Int32,MaintenanceApp.Models.AllPurpose.ActiveChange)">
+        <member name="M:MaintenanceApp.WebAPI.Controllers.BuildingController.ActiveBuildingById(System.Int32)">
             <summary>
             Update the active status of the building, all areas within that building, all machines in those areas and all of those machines MaintenanceTasks
             </summary>
@@ -671,7 +671,7 @@
             Assign all tasks for a machine by id--pass Id in URI, enter assignment in body
             </summary>
         </member>
-        <member name="M:MaintenanceApp.WebAPI.Controllers.MachineController.ActiveMachineById(System.Int32,MaintenanceApp.Models.AllPurpose.ActiveChange)">
+        <member name="M:MaintenanceApp.WebAPI.Controllers.MachineController.ActiveMachineById(System.Int32)">
             <summary>
             Update the active status of the machine and all of its MaintenanceTasks
             </summary>
@@ -714,6 +714,11 @@
         <member name="M:MaintenanceApp.WebAPI.Controllers.TasksForMachineController.GetAllActiveTasksThatAreUnassignedByIdForBuildingAreaOrMachine(MaintenanceApp.Models.TasksForMachine.TasksForMachineSearch)">
             <summary>
             Get all active tasks by building or area or machine--pass Id from Uri, and enter "Building", "Area", or "Machine in body.
+            </summary>
+        </member>
+        <member name="M:MaintenanceApp.WebAPI.Controllers.TasksForMachineController.GetTasksAssignedToUserByMachineId(System.Int32)">
+            <summary>
+            Get a specfic TasksForMachine using the machines Id
             </summary>
         </member>
         <member name="M:MaintenanceApp.WebAPI.Controllers.TasksForMachineController.CompleteAndGenerateNewTasksForMachineById(System.Int32)">
