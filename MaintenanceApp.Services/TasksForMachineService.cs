@@ -43,14 +43,14 @@ namespace MaintenanceApp.Services
 
             foreach (MaintenanceTask task in _context.Tasks)
             {
+                if (task.Active == false)
+                {
+                    okToAdd = false;      
+                }
+
                 foreach (int existingId in currentTasksForMachine)
                 {
-                    if (existingId == task.MaintenanceTaskId)
-                    {
-                        okToAdd = false;
-                        break;
-                    }
-                    else if(task.Active == false)
+                    if(existingId == task.MaintenanceTaskId)
                     {
                         okToAdd = false;
                         break;
@@ -82,35 +82,6 @@ namespace MaintenanceApp.Services
 
                 okToAdd = true;
             }
-
-            //Remove the below comments when test is passed
-
-            //foreach (MaintenanceTask task in _context.Tasks)
-            //{
-            //    bool okToAdd = true;
-            //    TasksForMachine taskMachine =
-            //        new TasksForMachine()
-            //        {
-            //            MachineId = task.MachineId,
-            //            NeedToBeMaintainedBy = DateTimeOffset.Now + task.MaintenanceTaskInterval,
-            //            MaintenanceTaskId = task.MaintenanceTaskId, 
-            //            ApplicationUserId = task.ApplicationUserId
-            //        };
-
-            //    foreach (TasksForMachine existing in _context.TasksForMachines)
-            //    {
-            //        if (existing.MaintenanceTaskId == taskMachine.MaintenanceTaskId)
-            //        {
-            //            okToAdd = false;
-            //            break;
-            //        }
-            //    }
-
-            //    if (okToAdd)
-            //    {
-            //    _context.TasksForMachines.Add(taskMachine);
-            //    }
-            //}
 
             return await _context.SaveChangesAsync() >= 1;
         }
@@ -385,7 +356,6 @@ namespace MaintenanceApp.Services
         //[ActionName("RemoveExtra")]
         public async Task<bool> RemoveTasksThatAreNoLongerNeeded()
         {
-            //Remove comented section below if this runs
             List<int> activeMaintenanceTasks = new List<int>();
 
             bool okToRemove = true;
@@ -421,28 +391,6 @@ namespace MaintenanceApp.Services
                 }
                 okToRemove = true;
             }
-
-            //foreach (MaintenanceTask needsToExist in _context.Tasks)
-            //{
-            //    bool okToRemove = true;
-            //    TasksForMachine currentQuery = new TasksForMachine();
-
-            //    foreach (TasksForMachine existing in _context.TasksForMachines)
-            //    {
-            //        currentQuery = existing;
-            //        if (existing.MaintenanceTaskId == needsToExist.MaintenanceTaskId && existing.Maintained == DateTimeOffset.MinValue)
-            //        {
-            //            okToRemove = false;
-            //            break;
-            //        }
-            //    }
-
-            //    if (okToRemove)
-            //    {
-            //        _context.TasksForMachines.Remove(currentQuery);
-            //    }
-            //    okToRemove = true;
-            //}
 
             return await _context.SaveChangesAsync() == 1;
         }

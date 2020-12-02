@@ -38,7 +38,7 @@ namespace MaintenanceApp.Services
                     MaintenanceTaskName = model.MaintenanceTaskName,
                     MaintenanceTaskDescription = model.MaintenanceTaskDescription,
                     Active = true,
-                    MaintenanceTaskInterval = Convert.ToInt64(model.MaintenanceTaskIntervalHours * 3600000000000),
+                    MaintenanceTaskInterval = Convert.ToInt64(model.MaintenanceTaskIntervalHours * 36000000000),
                     MachineId = model.MachineId
                 };
 
@@ -99,7 +99,7 @@ namespace MaintenanceApp.Services
                 Single(e => e.MaintenanceTaskId == id);
             entity.MaintenanceTaskName = model.MaintenanceTaskName;
             entity.MaintenanceTaskDescription = model.MaintenanceTaskDescription;
-            entity.MaintenanceTaskInterval = Convert.ToInt64(model.MaintenanceTaskIntervalHours * 3600000000000);
+            entity.MaintenanceTaskInterval = Convert.ToInt64(model.MaintenanceTaskIntervalHours * 36000000000);
             entity.MachineId = model.MachineId;
 
             return await _context.SaveChangesAsync() == 1;

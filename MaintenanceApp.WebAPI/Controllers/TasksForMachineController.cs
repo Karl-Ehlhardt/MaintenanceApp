@@ -199,7 +199,7 @@ namespace MaintenanceApp.WebAPI.Controllers
         /// </summary>
         [HttpDelete]
         [ActionName("Clean")]
-        public async Task<IHttpActionResult> DeleteMaintenanceTask([FromUri] int id)
+        public async Task<IHttpActionResult> DeleteMaintenanceTask()
         {
             {
                 //instantiate service
