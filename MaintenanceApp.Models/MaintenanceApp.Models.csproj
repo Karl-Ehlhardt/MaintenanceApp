@@ -54,7 +54,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AllPurpose\ActiveChange.cs" />
     <Compile Include="Area\AreaCreate.cs" />
     <Compile Include="Area\AreaEdit.cs" />
     <Compile Include="Area\AreaGetAllMaintenceTasks.cs" />

@@ -1,7 +1,6 @@
 ﻿using MaintenanceApp.Data.MaintenanceData;
 using MaintenanceApp.Data.UserData;
 using MaintenanceApp.Models;
-using MaintenanceApp.Models.AllPurpose;
 using MaintenanceApp.Models.Building;
 using MaintenanceApp.Models.Task;
 using System;
