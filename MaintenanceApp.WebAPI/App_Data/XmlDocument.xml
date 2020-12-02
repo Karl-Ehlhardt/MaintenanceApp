@@ -726,7 +726,7 @@
             Mark task complete and set new turnover time for task to be completed
             </summary>
         </member>
-        <member name="M:MaintenanceApp.WebAPI.Controllers.TasksForMachineController.DeleteMaintenanceTask(System.Int32)">
+        <member name="M:MaintenanceApp.WebAPI.Controllers.TasksForMachineController.DeleteMaintenanceTask">
             <summary>
             Delete a task by Id--pass Id from URI
             </summary>
