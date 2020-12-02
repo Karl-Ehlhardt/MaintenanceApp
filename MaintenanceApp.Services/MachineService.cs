@@ -180,18 +180,19 @@ namespace MaintenanceApp.Services
         }
 
 
-        //Delete machine by id
-        public async Task<bool> DeleteMachineById([FromUri] int id)
-        {
-            Machine machine =
-                _context
-                .Machines
-                .Single(m => m.MachineId == id);
+        //Delete machine by id, we are using the Active status to get around having to delete
 
-            _context.Machines.Remove(machine);
+        //public async Task<bool> DeleteMachineById([FromUri] int id)
+        //{
+        //    Machine machine =
+        //        _context
+        //        .Machines
+        //        .Single(m => m.MachineId == id);
 
-            return await _context.SaveChangesAsync() == 1;
-        }
+        //    _context.Machines.Remove(machine);
+
+        //    return await _context.SaveChangesAsync() == 1;
+        //}
 
     }
 }

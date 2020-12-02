@@ -145,22 +145,25 @@ namespace MaintenanceApp.WebAPI.Controllers
             }
         }
 
-        //=====Delete=====//
-        /// <summary>
-        /// Deletes an area by Id--pass the Id in the URI
-        /// </summary>
-        [HttpDelete]
-        public async Task<IHttpActionResult> DeleteArea([FromUri] int id)
-        {
-            //instantiate service
-            AreaService service = CreateAreaService();
+        ////=====Delete=====//
 
-            if(await service.DeleteArea(id) == false)
-            {
-                return InternalServerError();
-            }
+        //we are using the Active status to get around having to delete
 
-            return Ok(); //200
-        }
+        ///// <summary>
+        ///// Deletes an area by Id--pass the Id in the URI
+        ///// </summary>
+        //[HttpDelete]
+        //public async Task<IHttpActionResult> DeleteArea([FromUri] int id)
+        //{
+        //    //instantiate service
+        //    AreaService service = CreateAreaService();
+
+        //    if(await service.DeleteArea(id) == false)
+        //    {
+        //        return InternalServerError();
+        //    }
+
+        //    return Ok(); //200
+        //}
     }
 }

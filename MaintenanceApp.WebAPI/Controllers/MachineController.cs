@@ -177,21 +177,23 @@ namespace MaintenanceApp.WebAPI.Controllers
 
         //======Delete=====//
 
-        /// <summary>
-        /// Delete a Machine by Id--Pass Id in URI
-        /// </summary>
-        [HttpDelete]
-        public async Task<IHttpActionResult> DeleteMachine([FromUri] int id)
-        {
-            //instantiate service
-            MachineService service = CreateMachineService();
+        //we are using the Active status to get around having to delete
 
-            if (await service.DeleteMachineById(id) == false)
-            {
-                return InternalServerError(); //500
-            }
+        ///// <summary>
+        ///// Delete a Machine by Id--Pass Id in URI
+        ///// </summary>
+        //[HttpDelete]
+        //public async Task<IHttpActionResult> DeleteMachine([FromUri] int id)
+        //{
+        //    //instantiate service
+        //    MachineService service = CreateMachineService();
 
-            return Ok(); //200
-        }
+        //    if (await service.DeleteMachineById(id) == false)
+        //    {
+        //        return InternalServerError(); //500
+        //    }
+
+        //    return Ok(); //200
+        //}
     }
 }

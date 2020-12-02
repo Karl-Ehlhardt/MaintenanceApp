@@ -205,17 +205,18 @@ namespace MaintenanceApp.Services
 
         //==========================DELETE===============================//
 
+        //we are using the Active status to get around having to delete
 
-        public async Task<bool> DeleteBuilding([FromUri] int id)
-        {
-            var query =
-                _context.
-                Buildings.
-                Single(q => q.BuildingId == id);
+        //public async Task<bool> DeleteBuilding([FromUri] int id)
+        //{
+        //    var query =
+        //        _context.
+        //        Buildings.
+        //        Single(q => q.BuildingId == id);
 
-            _context.Buildings.Remove(query);
+        //    _context.Buildings.Remove(query);
 
-            return await _context.SaveChangesAsync() == 1;
-        }
+        //    return await _context.SaveChangesAsync() == 1;
+        //}
     }
 }
