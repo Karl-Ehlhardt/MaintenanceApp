@@ -1,6 +1,5 @@
 ﻿using MaintenanceApp.Data.MaintenanceData;
 using MaintenanceApp.Data.UserData;
-using MaintenanceApp.Models.AllPurpose;
 using MaintenanceApp.Models.Area;
 using MaintenanceApp.Models.Building;
 using MaintenanceApp.Models.Machine;

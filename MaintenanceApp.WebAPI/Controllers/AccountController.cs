@@ -56,7 +56,7 @@ namespace MaintenanceApp.WebAPI.Controllers
 
 
         /// <summary>
-        /// Register a new user--Enter Email, Password, and ConfirmPassord in body
+        /// Register a new user--Enter Email, Password, and ConfirmPassword in body
         /// </summary>
 
         // POST api/Account/Register
@@ -81,6 +81,7 @@ namespace MaintenanceApp.WebAPI.Controllers
                 var userStore = new UserStore<ApplicationUser>(context);
                 var userManager = new UserManager<ApplicationUser>(userStore);
 
+                //added more fields to ApplicationUser in order to make our application viable
                 var user = new ApplicationUser()
                 {
                     UserName = model.Email,
@@ -93,11 +94,11 @@ namespace MaintenanceApp.WebAPI.Controllers
 
                 if (model.Admin == true)
                 {
-                    await userManager.AddToRoleAsync(user.Id, "Admin");
+                    await userManager.AddToRoleAsync(user.Id, "Admin"); //This makes the user and 'Admin' with full privileges
                 }
                 else
                 {
-                    await userManager.AddToRoleAsync(user.Id, "User");
+                    await userManager.AddToRoleAsync(user.Id, "User"); //This is a general user, e.g. a common employee
                 }
             }
 
@@ -469,9 +470,8 @@ namespace MaintenanceApp.WebAPI.Controllers
         public async Task<IHttpActionResult> ChangeUserActiveStatus([FromBody] UserEditStatus model)
         {
             ApplicationDbContext context = new ApplicationDbContext();
-            //ApplicationUser user = context.Users.Find(User.Identity.GetUserName() == model.Email);
 
-            ApplicationUser user = await context.Users.SingleAsync(u => u.Email == model.Email);
+            ApplicationUser user = await context.Users.SingleAsync(u => u.Email == model.Email); //finds user by email provided by admin
 
 
             if(user == null)
@@ -480,6 +480,7 @@ namespace MaintenanceApp.WebAPI.Controllers
             }
 
             //user.Active = Convert.ToBoolean(model.Active);
+            //Here we make sure that the input is recieved as a bool and not a string
             user.Active = bool.Parse(model.Active.ToString());
 
             if (user.Active == true)
