@@ -60,7 +60,7 @@ namespace MaintenanceApp.Services
                 if (okToAdd)
                 {
                     //takes in a datetimeoffset and converts it to weekday
-                    DateTimeOffset dateTimeOffset = DateTimeOffset.Now + task.MaintenanceTaskInterval;
+                    DateTimeOffset dateTimeOffset = DateTimeOffset.Now + TimeSpan.FromTicks(task.MaintenanceTaskInterval);
                     Methods helperMethod = new Methods();
 
                     DateTimeOffset modifiedDate = helperMethod.ConvertToDayOfWeek(dateTimeOffset);
@@ -359,7 +359,7 @@ namespace MaintenanceApp.Services
 
             //get datetimeoffset and modify time and day to be on a weekday at 5:00pm for need to be maintained by prop
             //takes in a datetimeoffset and converts it to weekday
-            DateTimeOffset dateTimeOffset = DateTimeOffset.Now + refrence.MaintenanceTaskInterval;
+            DateTimeOffset dateTimeOffset = DateTimeOffset.Now + TimeSpan.FromTicks(refrence.MaintenanceTaskInterval);
             Methods helperMethod = new Methods();
 
             DateTimeOffset modifiedDate = helperMethod.ConvertToDayOfWeek(dateTimeOffset);

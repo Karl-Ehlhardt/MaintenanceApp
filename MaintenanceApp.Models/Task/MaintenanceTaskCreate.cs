@@ -21,7 +21,7 @@ namespace MaintenanceApp.Models.Task
         public string MaintenanceTaskDescription { get; set; }
 
         [Required]
-        public TimeSpan MaintenanceTaskInterval { get; set; }
+        public double MaintenanceTaskIntervalHours { get; set; }//set as hours
 
         [Required]
         [ForeignKey(nameof(Data.MaintenanceData.Machine))]
