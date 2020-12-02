@@ -16,7 +16,7 @@ namespace MaintenanceApp.WebAPI.Controllers
 {
     public class MaintenanceTaskController : ApiController
     {
-
+        //create maintentance task service method
         private MaintenanceTaskService CreateMaintenanceTaskService()
         {
             Guid userId = Guid.Parse(User.Identity.GetUserId());
@@ -46,7 +46,7 @@ namespace MaintenanceApp.WebAPI.Controllers
                     return InternalServerError();
                 }
 
-                return Ok("Task Added");
+                return Ok("Task Added"); //200 with custom message
             }
         }
 
@@ -58,12 +58,13 @@ namespace MaintenanceApp.WebAPI.Controllers
         public async Task<IHttpActionResult> GetMaintenanceTaskById([FromUri] int id)
         {
             {
+                //instantiate service
                 MaintenanceTaskService service = CreateMaintenanceTaskService();
 
                 //return the values as an ienumerable
                 IEnumerable<MaintenanceTaskListItem> task = await service.GetMaintenanceTaskById(id);
 
-                return Ok(task);
+                return Ok(task); //200
             }
         }
         
@@ -75,12 +76,13 @@ namespace MaintenanceApp.WebAPI.Controllers
         public async Task<IHttpActionResult> GetTasksAssignedToUser([FromBody] MaintenanceTaskAssign model)
         {
             {
+                //instantiate service
                 MaintenanceTaskService service = CreateMaintenanceTaskService();
 
                 //return the values as an ienumerable
                 IEnumerable<MaintenanceTaskListItem> task = await service.GetTasksAssignedToUser(model);
 
-                return Ok(task);
+                return Ok(task); //200
             }
         }
 
@@ -105,7 +107,7 @@ namespace MaintenanceApp.WebAPI.Controllers
                     return InternalServerError();
                 }
 
-                return Ok("Task Updated");
+                return Ok("Task Updated"); //200 with custom message
             }
         }
 
@@ -131,7 +133,7 @@ namespace MaintenanceApp.WebAPI.Controllers
                     return InternalServerError();
                 }
 
-                return Ok("Task Assigned");
+                return Ok("Task Assigned"); //200 with custom message
             }
         }
 
@@ -153,7 +155,7 @@ namespace MaintenanceApp.WebAPI.Controllers
                     return InternalServerError();
                 }
 
-                return Ok("Active Status Updated");
+                return Ok("Active Status Updated"); //200 with custom message
             }
         }
 
@@ -165,6 +167,7 @@ namespace MaintenanceApp.WebAPI.Controllers
         public async Task<IHttpActionResult> DeleteMaintenanceTask([FromUri] int id)
         {
             {
+                //instantiate service
                 MaintenanceTaskService service = CreateMaintenanceTaskService();
 
                 if (await service.DeleteMaintenanceTask(id) == false)
@@ -172,7 +175,7 @@ namespace MaintenanceApp.WebAPI.Controllers
                     return InternalServerError();
                 }
 
-                return Ok("Task Removed");
+                return Ok("Task Removed"); //200 with custom message
             }
         }
     }

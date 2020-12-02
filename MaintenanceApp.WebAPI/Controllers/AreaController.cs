@@ -1,5 +1,4 @@
-﻿using MaintenanceApp.Models.AllPurpose;
-using MaintenanceApp.Models.Area;
+﻿using MaintenanceApp.Models.Area;
 using MaintenanceApp.Services;
 using Microsoft.AspNet.Identity;
 using System;
@@ -37,6 +36,7 @@ namespace MaintenanceApp.WebAPI.Controllers
                 return BadRequest(ModelState);
             }
 
+            //instantiate area service
             AreaService service = CreateAreaService();
 
             if(await service.CreateArea(area) == false)
@@ -44,7 +44,7 @@ namespace MaintenanceApp.WebAPI.Controllers
                 return InternalServerError();
             }
 
-            return Ok();
+            return Ok(); //200
         }
 
         //=======Read======//
@@ -56,11 +56,12 @@ namespace MaintenanceApp.WebAPI.Controllers
         [HttpGet]
         public async Task<IHttpActionResult> GetAllAreas()
         {
+            //instantiate area service
             AreaService service = CreateAreaService();
 
             var result = await service.GetAllAreas();
 
-            return Ok(result);
+            return Ok(result); //200
         }
 
         //get area by id
@@ -71,11 +72,12 @@ namespace MaintenanceApp.WebAPI.Controllers
         [HttpGet]
         public async Task<IHttpActionResult> GetAreaById([FromUri] int id)
         {
+            //instantiate area service
             AreaService service = CreateAreaService();
 
             var result = await service.GetAreaById(id);
 
-            return Ok(result);
+            return Ok(result); //200
         }
 
         [HttpGet]
@@ -85,11 +87,12 @@ namespace MaintenanceApp.WebAPI.Controllers
         /// </summary>
         public async Task<IHttpActionResult> GetAllTasksInAreaById([FromUri] int id)
         {
+            //instantiate area service
             AreaService service = CreateAreaService();
 
             var result = await service.GetAllTasksInAreaById(id);
 
-            return Ok(result);
+            return Ok(result); //200
         }
 
         //======Update====//
@@ -99,19 +102,21 @@ namespace MaintenanceApp.WebAPI.Controllers
         [HttpPut]
         public async Task<IHttpActionResult> UpdateArea([FromUri] int id, [FromBody] AreaEdit model)
         {
+            //check if the model is valid
             if(!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
+            //instantiate area service
             AreaService service = CreateAreaService();
 
             if(await service.UpdateArea(id, model) == false)
             {
-                return InternalServerError();
+                return InternalServerError(); //500
             }
 
-            return Ok();
+            return Ok(); //200
         }
 
         /// <summary>
@@ -136,7 +141,7 @@ namespace MaintenanceApp.WebAPI.Controllers
                     return InternalServerError();
                 }
 
-                return Ok("Active Status Updated");
+                return Ok("Active Status Updated"); //200 with custom message
             }
         }
 
@@ -147,6 +152,7 @@ namespace MaintenanceApp.WebAPI.Controllers
         [HttpDelete]
         public async Task<IHttpActionResult> DeleteArea([FromUri] int id)
         {
+            //instantiate service
             AreaService service = CreateAreaService();
 
             if(await service.DeleteArea(id) == false)
@@ -154,7 +160,7 @@ namespace MaintenanceApp.WebAPI.Controllers
                 return InternalServerError();
             }
 
-            return Ok();
+            return Ok(); //200
         }
     }
 }

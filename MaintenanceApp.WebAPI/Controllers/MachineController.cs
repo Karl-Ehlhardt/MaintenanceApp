@@ -13,11 +13,12 @@ using System.Web.Http;
 
 namespace MaintenanceApp.WebAPI.Controllers
 {
+    //only admins can access this route
     [Authorize(Roles = "Admin")]
     [RoutePrefix("api/Account")]
     public class MachineController : ApiController
     {
-        //initiate machine service
+        //create machine service method
         private MachineService CreateMachineService()
         {
             Guid userId = Guid.Parse(User.Identity.GetUserId());
@@ -47,7 +48,7 @@ namespace MaintenanceApp.WebAPI.Controllers
                 return InternalServerError();
             }
 
-            return Ok();
+            return Ok(); //200
         }
 
         //=======Read======//
@@ -64,7 +65,7 @@ namespace MaintenanceApp.WebAPI.Controllers
 
             List<MachineListItem> machines = await service.GetAllMachines();
 
-            return Ok(machines);
+            return Ok(machines); //200
         }
 
         //get machines by id
@@ -79,7 +80,7 @@ namespace MaintenanceApp.WebAPI.Controllers
 
             List<MachineListItem> machine = await service.GetMachineById(id);
 
-            return Ok(machine);
+            return Ok(machine); //200
         }
 
         /// <summary>
@@ -89,11 +90,12 @@ namespace MaintenanceApp.WebAPI.Controllers
         [ActionName("GetAllTasksForMachineById")]
         public async Task<IHttpActionResult> GetAllTasksForMachineById([FromUri] int id)
         {
+            //instantiate service
             MachineService service = CreateMachineService();
 
             var result = await service.GetAllTasksForMachineById(id);
 
-            return Ok(result);
+            return Ok(result); //200
         }
 
         //=====Update=====//
@@ -107,7 +109,7 @@ namespace MaintenanceApp.WebAPI.Controllers
             //check if model is valid
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState); //404
+                return BadRequest(ModelState);
             }
 
             //instantiate service
@@ -119,7 +121,7 @@ namespace MaintenanceApp.WebAPI.Controllers
                 return InternalServerError();
             }
 
-            return Ok();
+            return Ok(); //200
         }
         /// <summary>
         /// Assign all tasks for a machine by id--pass Id in URI, enter assignment in body
@@ -143,7 +145,7 @@ namespace MaintenanceApp.WebAPI.Controllers
                 return InternalServerError();
             }
 
-            return Ok("All Tasks Assigned");
+            return Ok("All Tasks Assigned"); //200 with custom message
 
         }
 
@@ -169,7 +171,7 @@ namespace MaintenanceApp.WebAPI.Controllers
                     return InternalServerError();
                 }
 
-                return Ok("Active Status Updated");
+                return Ok("Active Status Updated"); //200 with custom message
             }
         }
 
@@ -186,10 +188,10 @@ namespace MaintenanceApp.WebAPI.Controllers
 
             if (await service.DeleteMachineById(id) == false)
             {
-                return InternalServerError();
+                return InternalServerError(); //500
             }
 
-            return Ok();
+            return Ok(); //200
         }
     }
 }
