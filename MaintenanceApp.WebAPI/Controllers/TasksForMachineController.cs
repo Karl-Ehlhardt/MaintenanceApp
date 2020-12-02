@@ -15,6 +15,7 @@ namespace MaintenanceApp.WebAPI.Controllers
 
     public class TasksForMachineController : ApiController
     {
+        //create tasks for machine service method
         private TasksForMachineService CreateTasksForMachineService()
         {
             Guid userId = Guid.Parse(User.Identity.GetUserId());
@@ -45,7 +46,7 @@ namespace MaintenanceApp.WebAPI.Controllers
                 return InternalServerError();
             }
 
-            return Ok("All Tasks Generated");
+            return Ok("All Tasks Generated"); //200 with custom message
         }
 
         //read
@@ -62,7 +63,7 @@ namespace MaintenanceApp.WebAPI.Controllers
 
             List < TasksForMachineListItem > tasksForMachine = await service.GetAll();
 
-            return Ok(tasksForMachine);
+            return Ok(tasksForMachine); //200
         }
 
         /// <summary>
@@ -77,7 +78,7 @@ namespace MaintenanceApp.WebAPI.Controllers
 
             List<TasksForMachineListItem> task = await service.GetById(id);
 
-            return Ok(task);
+            return Ok(task); //200
         }
 
         /// <summary>
@@ -92,7 +93,7 @@ namespace MaintenanceApp.WebAPI.Controllers
 
             List<TasksForMachineListItem> tasksForMachine = await service.GetAllActiveTasks();
 
-            return Ok(tasksForMachine);
+            return Ok(tasksForMachine); //200
         }
 
         /// <summary>
@@ -107,7 +108,7 @@ namespace MaintenanceApp.WebAPI.Controllers
 
             List<TasksForMachineListItem> tasksForMachine = await service.GetAllCompletedTasks();
 
-            return Ok(tasksForMachine);
+            return Ok(tasksForMachine); //200
         }
 
 
@@ -123,7 +124,7 @@ namespace MaintenanceApp.WebAPI.Controllers
 
             List<TasksForMachineListItem> tasksForMachine = await service.GetAllActiveTasksAssignedToCurrentUser();
 
-            return Ok(tasksForMachine);
+            return Ok(tasksForMachine); //200
         }
 
         /// <summary>
@@ -133,6 +134,7 @@ namespace MaintenanceApp.WebAPI.Controllers
         [ActionName("GetAllActiveTasksThatAreUnassignedByIdForBuildingAreaOrMachine")]
         public async Task<IHttpActionResult> GetAllActiveTasksThatAreUnassignedByIdForBuildingAreaOrMachine([FromBody] TasksForMachineSearch search)
         {
+            //check if model is valid
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -145,11 +147,11 @@ namespace MaintenanceApp.WebAPI.Controllers
 
                 List<TasksForMachineByMachineIdLookup> tasksForMachine = await service.GetAllActiveTasksThatAreUnassignedByIdForBuildingAreaOrMachine(search);
 
-                return Ok(tasksForMachine);
+                return Ok(tasksForMachine); //200
 
             }
             
-            return BadRequest();
+            return BadRequest(); //400
 
         }
         /// <summary>
@@ -159,11 +161,12 @@ namespace MaintenanceApp.WebAPI.Controllers
         [ActionName("GetTasksAssignedToUserByMachineId")]
         public async Task<IHttpActionResult> GetTasksAssignedToUserByMachineId([FromUri] int id)
         {
-            TasksForMachineService service = CreateTasksForMachineService();
+            //instantiate service
+            TasksForMachineService service = CreateTasksForMachineService(); 
 
             List<TasksForMachineListItem> tasks = await service.GetTasksAssignedToUserByMachineId(id);
 
-            return Ok(tasks);
+            return Ok(tasks); //200 
         }
 
         //update
@@ -174,19 +177,21 @@ namespace MaintenanceApp.WebAPI.Controllers
         [ActionName("CompleteAndGenerateNewTasksForMachineById")]
         public async Task<IHttpActionResult> CompleteAndGenerateNewTasksForMachineById([FromUri] int id)
         {
+            //check if model is valid
             if(!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
+            //instantiate service
             TasksForMachineService service = CreateTasksForMachineService();
 
             if(await service.CompleteAndGenerateNewTasksForMachineById(id) == false)
             {
-                return InternalServerError();
+                return InternalServerError(); //500
             }
 
-            return Ok("Task Complete and new task added");
+            return Ok("Task Complete and new task added"); //200 with custom message
         }
 
         /// <summary>
@@ -197,11 +202,12 @@ namespace MaintenanceApp.WebAPI.Controllers
         public async Task<IHttpActionResult> DeleteMaintenanceTask([FromUri] int id)
         {
             {
+                //instantiate service
                 TasksForMachineService service = CreateTasksForMachineService();
 
                 await service.RemoveTasksThatAreNoLongerNeeded();
 
-                return Ok();
+                return Ok(); //200
             }
         }
 

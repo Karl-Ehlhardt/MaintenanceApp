@@ -1,6 +1,3 @@
-﻿using MaintenanceApp.Data.MaintenanceData;
-using MaintenanceApp.Data.UserData;
-
 using MaintenanceApp.Models.Building;
 using MaintenanceApp.Services;
 using Microsoft.AspNet.Identity;
@@ -14,10 +11,12 @@ using System.Web.Http;
 
 namespace MaintenanceApp.WebAPI.Controllers
 {
+    //authorize route so only admins can do CRUD on buildings
     [Authorize(Roles = "Admin")]
     [RoutePrefix("api/Account")]
     public class BuildingController : ApiController
     {
+        //building service constructor
         private BuildingService CreateBuildingService()
         {
             Guid userId = Guid.Parse(User.Identity.GetUserId());
@@ -44,10 +43,10 @@ namespace MaintenanceApp.WebAPI.Controllers
 
                 if (await service.CreateNewBuilding(model) == false)
                 {
-                    return InternalServerError();
+                    return InternalServerError(); //500
                 }
 
-                return Ok("Building Added");
+                return Ok("Building Added"); //200 with custom message
             }
         }
 
@@ -59,12 +58,13 @@ namespace MaintenanceApp.WebAPI.Controllers
         public async Task<IHttpActionResult> GetAllBuildings()
         {
             {
+                //instantiate building service
                 BuildingService service = CreateBuildingService();
 
                 //return the values as an ienumerable
                 IEnumerable<BuildingListItem> buildings = await service.GetBuildings();
 
-                return Ok(buildings);
+                return Ok(buildings); //200
             }
         }
 
@@ -75,12 +75,13 @@ namespace MaintenanceApp.WebAPI.Controllers
         public async Task<IHttpActionResult> GetBuildingsById([FromUri] int id)
         {
             {
+                //instantiate service
                 BuildingService service = CreateBuildingService();
 
                 //return the values as an ienumerable
                 IEnumerable<BuildingListItem> building = await service.GetBuildingById(id);
 
-                return Ok(building);
+                return Ok(building); //200
             }
         }
 
@@ -92,6 +93,7 @@ namespace MaintenanceApp.WebAPI.Controllers
         public async Task<IHttpActionResult> GetAllTasksForBuildingsById([FromUri] int id)
         {
             {
+                //instantiate service
                 BuildingService service = CreateBuildingService();
 
                 //return the values as an ienumerable
@@ -122,7 +124,7 @@ namespace MaintenanceApp.WebAPI.Controllers
                     return InternalServerError();
                 }
 
-                return Ok("Building Updated");
+                return Ok("Building Updated"); //200 with custom message
             }
         }
 
@@ -143,7 +145,7 @@ namespace MaintenanceApp.WebAPI.Controllers
                     return InternalServerError();
                 }
 
-                return Ok("Active Status Updated");
+                return Ok("Active Status Updated"); //200 with custom message
             }
         }
 
@@ -154,6 +156,7 @@ namespace MaintenanceApp.WebAPI.Controllers
         public async Task<IHttpActionResult> Delete([FromUri] int id)
         {
             {
+                //instantiate service
                 BuildingService service = CreateBuildingService();
 
                 if (await service.DeleteBuilding(id) == false)
@@ -161,7 +164,7 @@ namespace MaintenanceApp.WebAPI.Controllers
                     return InternalServerError();
                 }
 
-                return Ok($"Building Removed");
+                return Ok($"Building Removed"); //200 with custom message
             }
         }
     }
