@@ -1,5 +1,4 @@
 ﻿using MaintenanceApp.Models;
-using MaintenanceApp.Models.AllPurpose;
 using MaintenanceApp.Models.Machine;
 using MaintenanceApp.Models.Task;
 using MaintenanceApp.Services;
