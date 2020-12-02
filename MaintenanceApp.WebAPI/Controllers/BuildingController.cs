@@ -149,23 +149,25 @@ namespace MaintenanceApp.WebAPI.Controllers
             }
         }
 
-        /// <summary>
-        /// Deletes a Building--pass ID in the URI
-        /// </summary>
-        [HttpDelete]
-        public async Task<IHttpActionResult> Delete([FromUri] int id)
-        {
-            {
-                //instantiate service
-                BuildingService service = CreateBuildingService();
+        //we are using the Active status to get around having to delete
 
-                if (await service.DeleteBuilding(id) == false)
-                {
-                    return InternalServerError();
-                }
+        ///// <summary>
+        ///// Deletes a Building--pass ID in the URI
+        ///// </summary>
+        //[HttpDelete]
+        //public async Task<IHttpActionResult> Delete([FromUri] int id)
+        //{
+        //    {
+        //        //instantiate service
+        //        BuildingService service = CreateBuildingService();
 
-                return Ok($"Building Removed"); //200 with custom message
-            }
-        }
+        //        if (await service.DeleteBuilding(id) == false)
+        //        {
+        //            return InternalServerError();
+        //        }
+
+        //        return Ok($"Building Removed"); //200 with custom message
+        //    }
+        //}
     }
 }

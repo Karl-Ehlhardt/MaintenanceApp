@@ -67,7 +67,7 @@ namespace MaintenanceApp.WebAPI.Controllers
                 return Ok(task); //200
             }
         }
-        
+
         /// <summary>
         /// Gets Maintenance Tasks assigned to a user--Enter a user string in the body
         /// </summary>
@@ -160,23 +160,25 @@ namespace MaintenanceApp.WebAPI.Controllers
         }
 
 
-        /// <summary>
-        /// Delete Maintenance Tasks by Id--pass Id from URI
-        /// </summary>
-        [HttpDelete]
-        public async Task<IHttpActionResult> DeleteMaintenanceTask([FromUri] int id)
-        {
-            {
-                //instantiate service
-                MaintenanceTaskService service = CreateMaintenanceTaskService();
+        //we are using the Active status to get around having to delete
 
-                if (await service.DeleteMaintenanceTask(id) == false)
-                {
-                    return InternalServerError();
-                }
+        ///// <summary>
+        ///// Delete Maintenance Tasks by Id--pass Id from URI
+        ///// </summary>
+        //[HttpDelete]
+        //public async Task<IHttpActionResult> DeleteMaintenanceTask([FromUri] int id)
+        //{
+        //    {
+        //        //instantiate service
+        //        MaintenanceTaskService service = CreateMaintenanceTaskService();
 
-                return Ok("Task Removed"); //200 with custom message
-            }
-        }
+        //        if (await service.DeleteMaintenanceTask(id) == false)
+        //        {
+        //            return InternalServerError();
+        //        }
+
+        //        return Ok("Task Removed"); //200 with custom message
+        //    }
+        //}
     }
 }

@@ -182,16 +182,18 @@ namespace MaintenanceApp.Services
             return await _context.SaveChangesAsync() >= 1;
         }
 
-        //Delete area
-        public async Task<bool> DeleteArea([FromUri] int id)
-        {
-            Area area =
-                _context
-                .Areas
-                .Single(a => a.AreaId == id);
+        //we are using the Active status to get around having to delete
 
-            _context.Areas.Remove(area);
-            return await _context.SaveChangesAsync() == 1;
-        }
+        ////Delete area
+        //public async Task<bool> DeleteArea([FromUri] int id)
+        //{
+        //    Area area =
+        //        _context
+        //        .Areas
+        //        .Single(a => a.AreaId == id);
+
+        //    _context.Areas.Remove(area);
+        //    return await _context.SaveChangesAsync() == 1;
+        //}
     }
 }
