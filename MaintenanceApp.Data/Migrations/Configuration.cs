@@ -10,7 +10,6 @@ namespace MaintenanceApp.Data.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "MaintenanceApp.Data.UserData.ApplicationDbContext";
         }
 
         protected override void Seed(MaintenanceApp.Data.UserData.ApplicationDbContext context)
