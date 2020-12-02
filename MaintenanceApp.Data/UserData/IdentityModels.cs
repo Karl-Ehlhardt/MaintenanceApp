@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Security.Claims;
@@ -13,13 +14,21 @@ namespace MaintenanceApp.Data.UserData
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+        public DateTimeOffset StartDate { get; set; }
+        public bool Admin { get; set; }
+        public int AreaId { get; set; }
+        public bool Active { get; set; }
+        public DateTimeOffset InactiveDate { get; set; }
+        public DateTimeOffset ReactivatedDate { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {
-            // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
+             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);
             // Add custom user claims here
             return userIdentity;
         }
+
+        
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -35,9 +44,19 @@ namespace MaintenanceApp.Data.UserData
         }
 
         public DbSet<Building> Buildings { get; set; }
+        public DbSet<Machine> Machines { get; set; }
+        public DbSet<MaintenanceTask> Tasks { get; set; }
+        public DbSet<Area> Areas { get; set; }
+        public DbSet<TasksForMachine> TasksForMachines { get; set; }
 
+
+        //public DbSet<MachinesInArea> MachinesInAreas { get; set; }
+        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+
             modelBuilder
                 .Conventions
                 .Remove<PluralizingTableNameConvention>();

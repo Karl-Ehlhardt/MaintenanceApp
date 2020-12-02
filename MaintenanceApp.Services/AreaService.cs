@@ -1,7 +1,6 @@
 ﻿using MaintenanceApp.Data.MaintenanceData;
 using MaintenanceApp.Data.UserData;
 using MaintenanceApp.Models.Area;
-using MaintenanceApp.Models.Building;
 using MaintenanceApp.Models.Machine;
 using MaintenanceApp.Models.Task;
 using System;
@@ -14,91 +13,81 @@ using System.Web.Http;
 
 namespace MaintenanceApp.Services
 {
-    public class BuildingService
+    public class AreaService
     {
+        //private user field
         private readonly Guid _userId;
 
-        public BuildingService(Guid userId)
+        //private context
+        private ApplicationDbContext _context = new ApplicationDbContext();
+
+        //service constructor
+        public AreaService(Guid userId)
         {
             _userId = userId;
         }
 
-
-        //create a private context
-        private readonly ApplicationDbContext _context = new ApplicationDbContext();
-
-
-        //==========================CREATE===============================//
-
-
-        public async Task<bool> CreateNewBuilding(BuildingCreateAndUpdate model)
+        //Create new area
+        public async Task<bool> CreateArea(AreaCreate model)
         {
-            var entity =
-                new Building()
+            Area area =
+                new Area()
                 {
-                    BuildingName = model.BuildingName,
-                    Active = true
+                    AreaName = model.AreaName,
+                    Active = true,
+                    BuildingId = model.BuildingId
                 };
 
-            _context.Buildings.Add(entity);
+            _context.Areas.Add(area);
             return await _context.SaveChangesAsync() == 1;
         }
 
-        //============================READ===============================//
-
-
-        public async Task<List<BuildingListItem>> GetBuildings()
+        //Get all areas
+        public async Task<List<AreaListItem>> GetAllAreas()
         {
             var query =
-                await _context.
-                Buildings.
-                Select(q =>
-                new BuildingListItem
-                {
-                    BuildingId = q.BuildingId,
-                    BuildingName = q.BuildingName,
-                    BuildingActive = q.Active
-                }).ToListAsync();
-
+                await
+                _context
+                .Areas
+                .Select(
+                    a =>
+                    new AreaListItem()
+                    {
+                        AreaId = a.AreaId,
+                        AreaName = a.AreaName,
+                        AreaActive = a.Active,
+                        BuildingId = a.BuildingId
+                    }).ToListAsync();
             return query;
         }
 
-        //==========================Read===============================//
-
-
-        public async Task<List<BuildingListItem>> GetBuildingById([FromUri] int id)
-
+        //Get area by id
+        public async Task<List<AreaListItem>> GetAreaById([FromUri] int id)
         {
             var query =
-                await _context.
-                Buildings.
-                Where(q => q.BuildingId == id).
-                Select(q =>
-                new BuildingListItem
-                {
-                    BuildingId = q.BuildingId,
-                    BuildingName = q.BuildingName,
-                    BuildingActive = q.Active
-                }).ToListAsync();
-
+                await
+                _context
+                .Areas
+                .Where(a => a.AreaId == id)
+                .Select(
+                    a =>
+                    new AreaListItem()
+                    {
+                        AreaId = a.AreaId,
+                        AreaName = a.AreaName,
+                        AreaActive = a.Active,
+                        BuildingId = a.BuildingId
+                    }).ToListAsync();
             return query;
         }
 
-        //[ActionName("GetAllTasksInBuildingById")]
-        public async Task<List<BuildingGetAllMaintenceTasks>> GetAllTasksInBuildingById([FromUri] int id)
+        //[ActionName("GetAllTasksInAreaById")]
+        public async Task<List<AreaGetAllMaintenceTasks>> GetAllTasksInAreaById([FromUri] int id)
         {
             var query =
                 await _context.
-                Buildings.
-                Where(q => q.BuildingId == id).
-                Select(q =>
-                new BuildingGetAllMaintenceTasks
-                {
-                    BuildingName = q.BuildingName,
-                    BuildingActive = q.Active,
-                    AreaGetAllMaintenceTasks = _context.
                         Areas.
-                        Where(a => a.BuildingId == q.BuildingId).
+                        Where(a => a.AreaId == id).
                         Select(a =>
                         new AreaGetAllMaintenceTasks
                         {
@@ -129,31 +118,33 @@ namespace MaintenanceApp.Services
                                         MachineId = t.MachineId,
                                     }).ToList()
                             }).ToList()
-                        }).ToList()
                 }).ToListAsync();
 
             return query;
         }
 
-        public async Task<bool> UpdateBuilding([FromUri] int id, [FromBody] BuildingCreateAndUpdate model)
+        //Update area by id
+        public async Task<bool> UpdateArea([FromUri] int id, [FromBody] AreaEdit model)
         {
-            var entity =
-                _context.
-                Buildings.
-                Single(e => e.BuildingId == id);
-            entity.BuildingName = model.BuildingName;
+            Area area =
+                _context
+                .Areas
+                .Single(a => a.AreaId == id);
+            area.AreaName = model.AreaName;
+            area.BuildingId = model.BuildingId;
 
             return await _context.SaveChangesAsync() == 1;
         }
 
         //[ActionName("ActiveStatus")]
-        public async Task<bool> ActiveBuildingById([FromUri] int id)
+        public async Task<bool> ActiveAreaById([FromUri] int id)
         {
             bool switchBool;
             var entity =
                     _context.
-                    Buildings.
-                    Single(e => e.BuildingId == id);
+                    Areas.
+                    Single(e => e.AreaId == id);
+
             if (entity.Active)
             {
                 switchBool = false;
@@ -164,28 +155,16 @@ namespace MaintenanceApp.Services
                 switchBool = true;
                 entity.Active = switchBool;
             }
-            int BuildingId = entity.BuildingId;
 
-            List<int> AreaIds = new List<int>();
-            foreach (Area area in _context.Areas)
-            {
-                if (BuildingId == area.BuildingId)
-                {
-                    area.Active = switchBool;
-                    AreaIds.Add(area.AreaId);
-                }
-            }
+            int AreaId = entity.AreaId;
 
             List<int> MachineIds = new List<int>();
-            foreach (int AreaId in AreaIds)
+            foreach (Machine machine in _context.Machines)
             {
-                foreach (Machine machine in _context.Machines)
+                if (AreaId == machine.AreaId)
                 {
-                    if (AreaId == machine.AreaId)
-                    {
-                        machine.Active = switchBool;
-                        MachineIds.Add(machine.MachineId);
-                    }
+                    machine.Active = switchBool;
+                    MachineIds.Add(machine.MachineId);
                 }
             }
 
@@ -203,19 +182,17 @@ namespace MaintenanceApp.Services
             return await _context.SaveChangesAsync() >= 1;
         }
 
-        //==========================DELETE===============================//
-
         //we are using the Active status to get around having to delete
 
-        //public async Task<bool> DeleteBuilding([FromUri] int id)
+        ////Delete area
+        //public async Task<bool> DeleteArea([FromUri] int id)
         //{
-        //    var query =
-        //        _context.
-        //        Buildings.
-        //        Single(q => q.BuildingId == id);
+        //    Area area =
+        //        _context
+        //        .Areas
+        //        .Single(a => a.AreaId == id);
 
-        //    _context.Buildings.Remove(query);
-
+        //    _context.Areas.Remove(area);
         //    return await _context.SaveChangesAsync() == 1;
         //}
     }

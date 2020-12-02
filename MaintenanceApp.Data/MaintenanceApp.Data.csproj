@@ -84,8 +84,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MaintenanceData\Area.cs" />
     <Compile Include="MaintenanceData\Building.cs" />
+    <Compile Include="MaintenanceData\MaintenanceTask.cs" />
     <Compile Include="MaintenanceData\Machine.cs" />
+    <Compile Include="MaintenanceData\TasksForMachine.cs" />
+    <Compile Include="Migrations\202012021939391_LateTuesday.cs" />
+    <Compile Include="Migrations\202012021939391_LateTuesday.Designer.cs">
+      <DependentUpon>202012021939391_LateTuesday.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserData\IdentityModels.cs" />
   </ItemGroup>
@@ -93,6 +101,10 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202012021939391_LateTuesday.resx">
+      <DependentUpon>202012021939391_LateTuesday.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

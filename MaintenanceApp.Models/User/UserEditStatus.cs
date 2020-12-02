@@ -5,17 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaintenanceApp.Data.MaintenanceData
+namespace MaintenanceApp.Models.User
 {
-    public class Building
+    public class UserEditStatus
     {
-        [Key]
-        public int BuildingId { get; set; }
-
         [Required]
-        public string BuildingName { get; set; }
+        public string Email { get; set; }
 
-        [Required]
         public bool Active { get; set; }
     }
 }

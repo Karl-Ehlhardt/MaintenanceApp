@@ -54,16 +54,40 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Area\AreaCreate.cs" />
+    <Compile Include="Area\AreaEdit.cs" />
+    <Compile Include="Area\AreaGetAllMaintenceTasks.cs" />
+    <Compile Include="Area\AreaListItem.cs" />
     <Compile Include="Building\BuildingCreateAndUpdate.cs" />
-    <Compile Include="MachineCreate.cs" />
-    <Compile Include="MachineEdit.cs" />
-    <Compile Include="MachineListItem.cs" />
+    <Compile Include="Building\BuildingGetAllMaintenceTasks.cs" />
+    <Compile Include="Building\BuildingListItem.cs" />
+    <Compile Include="Machine\MachineCreate.cs" />
+    <Compile Include="Machine\MachineEdit.cs" />
+    <Compile Include="Machine\MachineGetAllMaintenceTasks.cs" />
+    <Compile Include="Machine\MachineListItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TasksForMachine\TasksForMachineByMachineIdLookup.cs" />
+    <Compile Include="TasksForMachine\TasksForMachineCreate.cs" />
+    <Compile Include="TasksForMachine\TasksForMachineSearch.cs" />
+    <Compile Include="TasksForMachine\TasksForMachineListItem.cs" />
+    <Compile Include="Task\MaintenanceTaskAssign.cs" />
+    <Compile Include="Task\MaintenanceTaskListItem.cs" />
+    <Compile Include="Task\MaintenanceTaskUpdate.cs" />
+    <Compile Include="Task\MaintenanceTaskCreate.cs" />
+    <Compile Include="User\UserEditStatus.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\MaintenanceApp.Data\MaintenanceApp.Data.csproj">
+      <Project>{1AF1356F-B70C-43FB-8380-32CD7D89757F}</Project>
+      <Name>MaintenanceApp.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Oversite\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

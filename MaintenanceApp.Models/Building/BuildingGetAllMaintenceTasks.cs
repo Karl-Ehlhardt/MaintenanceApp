@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaintenanceApp.Models.Area;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,10 +8,12 @@ using System.Threading.Tasks;
 
 namespace MaintenanceApp.Models.Building
 {
-    public class BuildingCreateAndUpdate
+    public class BuildingGetAllMaintenceTasks
     {
-        [Required]
-        [MaxLength(50, ErrorMessage = "Name of a Building cannot be greater than 50 characters")]
         public string BuildingName { get; set; }
+
+        public bool BuildingActive { get; set; }
+
+        public List<AreaGetAllMaintenceTasks> AreaGetAllMaintenceTasks { get; set; }
     }
 }

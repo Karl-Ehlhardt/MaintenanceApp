@@ -6,23 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaintenanceApp.Data.MaintenanceData
+namespace MaintenanceApp.Models.Machine
 {
-    public class Machine
+    public class MachineCreate
     {
-        [Key]
-        public int MachineId { get; set; }
-
         [Required]
+        [MaxLength(50, ErrorMessage = "Name of Machine cannot be greater than 50 characters")]
         public string MachineName { get; set; }
 
         [Required]
-        public bool Active { get; set; }
-
-        [Required]
-        [ForeignKey(nameof(Area))]
+        [ForeignKey(nameof(Data.MaintenanceData.Area))]
         public int AreaId { get; set; }
-
-        public virtual Area Area { get; set; }
     }
 }
