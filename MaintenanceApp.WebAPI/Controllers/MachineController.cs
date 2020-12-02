@@ -153,7 +153,7 @@ namespace MaintenanceApp.WebAPI.Controllers
         /// </summary>
         [HttpPut]
         [ActionName("ActiveStatus")]
-        public async Task<IHttpActionResult> ActiveMachineById([FromUri] int id, [FromBody] ActiveChange model)
+        public async Task<IHttpActionResult> ActiveMachineById([FromUri] int id)
         {
             {
                 //check if model is valid
@@ -165,7 +165,7 @@ namespace MaintenanceApp.WebAPI.Controllers
                 //instantiate the service
                 MachineService service = CreateMachineService();
 
-                if (await service.ActiveMachineById(id, model) == false)
+                if (await service.ActiveMachineById(id) == false)
                 {
                     return InternalServerError();
                 }

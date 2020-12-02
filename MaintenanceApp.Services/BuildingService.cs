@@ -148,13 +148,23 @@ namespace MaintenanceApp.Services
         }
 
         //[ActionName("ActiveStatus")]
-        public async Task<bool> ActiveBuildingById([FromUri] int id, [FromBody] ActiveChange model)
+        public async Task<bool> ActiveBuildingById([FromUri] int id)
         {
+            bool switchBool;
             var entity =
                     _context.
                     Buildings.
                     Single(e => e.BuildingId == id);
-            entity.Active = model.NewActive;
+            if (entity.Active)
+            {
+                switchBool = false;
+                entity.Active = switchBool;
+            }
+            else
+            {
+                switchBool = true;
+                entity.Active = switchBool;
+            }
             int BuildingId = entity.BuildingId;
 
             List<int> AreaIds = new List<int>();
@@ -162,7 +172,7 @@ namespace MaintenanceApp.Services
             {
                 if (BuildingId == area.BuildingId)
                 {
-                    area.Active = model.NewActive;
+                    area.Active = switchBool;
                     AreaIds.Add(area.AreaId);
                 }
             }
@@ -174,7 +184,7 @@ namespace MaintenanceApp.Services
                 {
                     if (AreaId == machine.AreaId)
                     {
-                        machine.Active = model.NewActive;
+                        machine.Active = switchBool;
                         MachineIds.Add(machine.MachineId);
                     }
                 }
@@ -186,12 +196,12 @@ namespace MaintenanceApp.Services
                 {
                     if (MachineId == task.MachineId)
                     {
-                        task.Active = model.NewActive;
+                        task.Active = switchBool;
                     }
                 }
             }
 
-            return await _context.SaveChangesAsync() == 1;
+            return await _context.SaveChangesAsync() >= 1;
         }
 
         //==========================DELETE===============================//

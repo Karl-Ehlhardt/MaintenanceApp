@@ -119,7 +119,7 @@ namespace MaintenanceApp.WebAPI.Controllers
         /// </summary>
         [HttpPut]
         [ActionName("ActiveStatus")]
-        public async Task<IHttpActionResult> ActiveAreaById([FromUri] int id, [FromBody] ActiveChange model)
+        public async Task<IHttpActionResult> ActiveAreaById([FromUri] int id)
         {
             {
                 //check if model is valid
@@ -131,7 +131,7 @@ namespace MaintenanceApp.WebAPI.Controllers
                 //instantiate the service
                 AreaService service = CreateAreaService();
 
-                if (await service.ActiveAreaById(id, model) == false)
+                if (await service.ActiveAreaById(id) == false)
                 {
                     return InternalServerError();
                 }

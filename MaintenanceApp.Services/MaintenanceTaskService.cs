@@ -119,13 +119,24 @@ namespace MaintenanceApp.Services
         }
 
         //[ActionName("ActiveStatus")]
-        public async Task<bool> ActiveMaintenanceTaskById([FromUri] int id, [FromBody] ActiveChange model)
+        public async Task<bool> ActiveMaintenanceTaskById([FromUri] int id)
         {
+            bool switchBool;
             var entity =
                 _context.
                 Tasks.
                 Single(e => e.MaintenanceTaskId == id);
-            entity.Active = model.NewActive;
+
+            if (entity.Active)
+            {
+                switchBool = false;
+                entity.Active = switchBool;
+            }
+            else
+            {
+                switchBool = true;
+                entity.Active = switchBool;
+            }
 
             return await _context.SaveChangesAsync() == 1;
         }
