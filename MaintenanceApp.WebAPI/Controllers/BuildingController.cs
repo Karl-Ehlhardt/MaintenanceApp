@@ -131,19 +131,14 @@ namespace MaintenanceApp.WebAPI.Controllers
         /// </summary>
         [HttpPut]
         [ActionName("ActiveStatus")]
-        public async Task<IHttpActionResult> ActiveBuildingById([FromUri] int id, [FromBody] ActiveChange model)
+        public async Task<IHttpActionResult> ActiveBuildingById([FromUri] int id)
         {
             {
-                //check if model is valid
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
 
                 //instantiate the service
                 BuildingService service = CreateBuildingService();
 
-                if (await service.ActiveBuildingById(id, model) == false)
+                if (await service.ActiveBuildingById(id) == false)
                 {
                     return InternalServerError();
                 }

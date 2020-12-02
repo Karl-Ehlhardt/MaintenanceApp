@@ -148,25 +148,36 @@ namespace MaintenanceApp.Services
         }
 
         //[ActionName("ActiveStatus")]
-        public async Task<bool> ActiveMachineById([FromUri] int id, [FromBody] ActiveChange model)
+        public async Task<bool> ActiveMachineById([FromUri] int id)
         {
-
+            bool switchBool;
             var entity =
                     _context.
                     Machines.
                     Single(e => e.MachineId == id);
-            entity.Active = model.NewActive;
+
+            if (entity.Active)
+            {
+                switchBool = false;
+                entity.Active = switchBool;
+            }
+            else
+            {
+                switchBool = true;
+                entity.Active = switchBool;
+            }
+
             int MachineId = entity.MachineId;
 
             foreach (MaintenanceTask task in _context.Tasks)
             {
                 if (MachineId == task.MachineId)
                 {
-                    task.Active = model.NewActive;
+                    task.Active = switchBool;
                 }
             }
 
-            return await _context.SaveChangesAsync() == 1;
+            return await _context.SaveChangesAsync() >= 1;
         }
 
 

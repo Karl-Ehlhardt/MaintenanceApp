@@ -138,13 +138,25 @@ namespace MaintenanceApp.Services
         }
 
         //[ActionName("ActiveStatus")]
-        public async Task<bool> ActiveAreaById([FromUri] int id, [FromBody] ActiveChange model)
+        public async Task<bool> ActiveAreaById([FromUri] int id)
         {
+            bool switchBool;
             var entity =
                     _context.
                     Areas.
                     Single(e => e.AreaId == id);
-            entity.Active = model.NewActive;
+
+            if (entity.Active)
+            {
+                switchBool = false;
+                entity.Active = switchBool;
+            }
+            else
+            {
+                switchBool = true;
+                entity.Active = switchBool;
+            }
+
             int AreaId = entity.AreaId;
 
             List<int> MachineIds = new List<int>();
@@ -152,7 +164,7 @@ namespace MaintenanceApp.Services
             {
                 if (AreaId == machine.AreaId)
                 {
-                    machine.Active = model.NewActive;
+                    machine.Active = switchBool;
                     MachineIds.Add(machine.MachineId);
                 }
             }
@@ -163,12 +175,12 @@ namespace MaintenanceApp.Services
                 {
                     if (MachineId == task.MachineId)
                     {
-                        task.Active = model.NewActive;
+                        task.Active = switchBool;
                     }
                 }
             }
 
-            return await _context.SaveChangesAsync() == 1;
+            return await _context.SaveChangesAsync() >= 1;
         }
 
         //Delete area

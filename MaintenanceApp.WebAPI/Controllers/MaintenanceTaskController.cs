@@ -142,19 +142,14 @@ namespace MaintenanceApp.WebAPI.Controllers
         /// </summary>
         [HttpPut]
         [ActionName("ActiveStatus")]
-        public async Task<IHttpActionResult> ActiveMaintenanceTaskById([FromUri] int id, [FromBody] ActiveChange model)
+        public async Task<IHttpActionResult> ActiveMaintenanceTaskById([FromUri] int id)
         {
             {
-                //check if model is valid
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
 
                 //instantiate the service
                 MaintenanceTaskService service = CreateMaintenanceTaskService();
 
-                if (await service.ActiveMaintenanceTaskById(id, model) == false)
+                if (await service.ActiveMaintenanceTaskById(id) == false)
                 {
                     return InternalServerError();
                 }
