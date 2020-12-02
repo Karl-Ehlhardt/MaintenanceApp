@@ -89,17 +89,13 @@
     <Compile Include="MaintenanceData\MaintenanceTask.cs" />
     <Compile Include="MaintenanceData\Machine.cs" />
     <Compile Include="MaintenanceData\TasksForMachine.cs" />
-    <Compile Include="Migrations\202011241639535_AdminPriv.cs" />
-    <Compile Include="Migrations\202011241639535_AdminPriv.Designer.cs">
-      <DependentUpon>202011241639535_AdminPriv.cs</DependentUpon>
+    <Compile Include="Migrations\202012021640526_InitialCreate.cs" />
+    <Compile Include="Migrations\202012021640526_InitialCreate.Designer.cs">
+      <DependentUpon>202012021640526_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202011251451306_newAppUserModel.cs" />
-    <Compile Include="Migrations\202011251451306_newAppUserModel.Designer.cs">
-      <DependentUpon>202011251451306_newAppUserModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202011251629044_FixUserId.cs" />
-    <Compile Include="Migrations\202011251629044_FixUserId.Designer.cs">
-      <DependentUpon>202011251629044_FixUserId.cs</DependentUpon>
+    <Compile Include="Migrations\202012021702255_1.cs" />
+    <Compile Include="Migrations\202012021702255_1.Designer.cs">
+      <DependentUpon>202012021702255_1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -110,14 +106,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202011241639535_AdminPriv.resx">
-      <DependentUpon>202011241639535_AdminPriv.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202012021640526_InitialCreate.resx">
+      <DependentUpon>202012021640526_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202011251451306_newAppUserModel.resx">
-      <DependentUpon>202011251451306_newAppUserModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202011251629044_FixUserId.resx">
-      <DependentUpon>202011251629044_FixUserId.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202012021702255_1.resx">
+      <DependentUpon>202012021702255_1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

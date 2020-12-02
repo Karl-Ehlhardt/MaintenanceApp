@@ -3,7 +3,7 @@ namespace MaintenanceApp.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AdminPriv : DbMigration
+    public partial class InitialCreate : DbMigration
     {
         public override void Up()
         {
@@ -13,6 +13,7 @@ namespace MaintenanceApp.Data.Migrations
                     {
                         AreaId = c.Int(nullable: false, identity: true),
                         AreaName = c.String(nullable: false),
+                        Active = c.Boolean(nullable: false),
                         BuildingId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.AreaId)
@@ -25,6 +26,7 @@ namespace MaintenanceApp.Data.Migrations
                     {
                         BuildingId = c.Int(nullable: false, identity: true),
                         BuildingName = c.String(nullable: false),
+                        Active = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.BuildingId);
             
@@ -34,6 +36,7 @@ namespace MaintenanceApp.Data.Migrations
                     {
                         MachineId = c.Int(nullable: false, identity: true),
                         MachineName = c.String(nullable: false),
+                        Active = c.Boolean(nullable: false),
                         AreaId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.MachineId)
@@ -71,7 +74,8 @@ namespace MaintenanceApp.Data.Migrations
                         MaintenanceTaskId = c.Int(nullable: false, identity: true),
                         MaintenanceTaskName = c.String(nullable: false),
                         MaintenanceTaskDescription = c.String(nullable: false),
-                        MaintenanceTaskInterval = c.Time(nullable: false, precision: 7),
+                        Active = c.Boolean(nullable: false),
+                        MaintenanceTaskInterval = c.Long(nullable: false),
                         ApplicationUserId = c.String(maxLength: 128),
                         MachineId = c.Int(nullable: false),
                     })
@@ -142,36 +146,23 @@ namespace MaintenanceApp.Data.Migrations
                         Maintained = c.DateTimeOffset(nullable: false, precision: 7),
                         NeedToBeMaintainedBy = c.DateTimeOffset(nullable: false, precision: 7),
                         MaintenanceTaskId = c.Int(nullable: false),
-                        UserInfoId = c.Int(nullable: false),
+                        ApplicationUserId = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.ApplicationUser", t => t.ApplicationUserId)
                 .ForeignKey("dbo.Machine", t => t.MachineId)
                 .ForeignKey("dbo.MaintenanceTask", t => t.MaintenanceTaskId)
-                .ForeignKey("dbo.UserInfo", t => t.UserInfoId)
                 .Index(t => t.MachineId)
                 .Index(t => t.MaintenanceTaskId)
-                .Index(t => t.UserInfoId);
-            
-            CreateTable(
-                "dbo.UserInfo",
-                c => new
-                    {
-                        UserInfoId = c.Int(nullable: false, identity: true),
-                        UserName = c.String(),
-                        StartDate = c.DateTimeOffset(nullable: false, precision: 7),
-                        Active = c.Boolean(nullable: false),
-                        InactiveDate = c.DateTimeOffset(nullable: false, precision: 7),
-                        ReactiveDate = c.DateTimeOffset(nullable: false, precision: 7),
-                    })
-                .PrimaryKey(t => t.UserInfoId);
+                .Index(t => t.ApplicationUserId);
             
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.TasksForMachine", "UserInfoId", "dbo.UserInfo");
             DropForeignKey("dbo.TasksForMachine", "MaintenanceTaskId", "dbo.MaintenanceTask");
             DropForeignKey("dbo.TasksForMachine", "MachineId", "dbo.Machine");
+            DropForeignKey("dbo.TasksForMachine", "ApplicationUserId", "dbo.ApplicationUser");
             DropForeignKey("dbo.MaintenanceTask", "MachineId", "dbo.Machine");
             DropForeignKey("dbo.MaintenanceTask", "ApplicationUserId", "dbo.ApplicationUser");
             DropForeignKey("dbo.IdentityUserRole", "ApplicationUser_Id", "dbo.ApplicationUser");
@@ -180,7 +171,7 @@ namespace MaintenanceApp.Data.Migrations
             DropForeignKey("dbo.IdentityUserRole", "IdentityRole_Id", "dbo.IdentityRole");
             DropForeignKey("dbo.Machine", "AreaId", "dbo.Area");
             DropForeignKey("dbo.Area", "BuildingId", "dbo.Building");
-            DropIndex("dbo.TasksForMachine", new[] { "UserInfoId" });
+            DropIndex("dbo.TasksForMachine", new[] { "ApplicationUserId" });
             DropIndex("dbo.TasksForMachine", new[] { "MaintenanceTaskId" });
             DropIndex("dbo.TasksForMachine", new[] { "MachineId" });
             DropIndex("dbo.IdentityUserLogin", new[] { "ApplicationUser_Id" });
@@ -191,7 +182,6 @@ namespace MaintenanceApp.Data.Migrations
             DropIndex("dbo.IdentityUserRole", new[] { "IdentityRole_Id" });
             DropIndex("dbo.Machine", new[] { "AreaId" });
             DropIndex("dbo.Area", new[] { "BuildingId" });
-            DropTable("dbo.UserInfo");
             DropTable("dbo.TasksForMachine");
             DropTable("dbo.IdentityUserLogin");
             DropTable("dbo.IdentityUserClaim");

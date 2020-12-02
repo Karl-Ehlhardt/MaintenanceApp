@@ -20,7 +20,7 @@ namespace MaintenanceApp.Models.Task
 
         public bool MaintenanceTaskActive { get; set; }
 
-        public TimeSpan MaintenanceTaskInterval { get; set; }
+        public Int64 MaintenanceTaskIntervalNanoseconds { get; set; }//set as hours
 
         [ForeignKey(nameof(ApplicationUser))]
         public string ApplicationUserId { get; set; }

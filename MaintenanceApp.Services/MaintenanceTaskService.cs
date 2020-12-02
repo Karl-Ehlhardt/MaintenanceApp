@@ -38,7 +38,7 @@ namespace MaintenanceApp.Services
                     MaintenanceTaskName = model.MaintenanceTaskName,
                     MaintenanceTaskDescription = model.MaintenanceTaskDescription,
                     Active = true,
-                    MaintenanceTaskInterval = model.MaintenanceTaskInterval,
+                    MaintenanceTaskInterval = Convert.ToInt64(model.MaintenanceTaskIntervalHours * 36000000000),
                     MachineId = model.MachineId
                 };
 
@@ -59,7 +59,7 @@ namespace MaintenanceApp.Services
                     MaintenanceTaskName = q.MaintenanceTaskName,
                     MaintenanceTaskDescription = q.MaintenanceTaskDescription,
                     MaintenanceTaskActive = q.Active,
-                    MaintenanceTaskInterval = q.MaintenanceTaskInterval,
+                    MaintenanceTaskIntervalNanoseconds = q.MaintenanceTaskInterval,
                     ApplicationUserId = q.ApplicationUserId,
                     MachineId = q.MachineId
                 }).ToListAsync();
@@ -81,7 +81,7 @@ namespace MaintenanceApp.Services
                     MaintenanceTaskName = q.MaintenanceTaskName,
                     MaintenanceTaskDescription = q.MaintenanceTaskDescription,
                     MaintenanceTaskActive = q.Active,
-                    MaintenanceTaskInterval = q.MaintenanceTaskInterval,
+                    MaintenanceTaskIntervalNanoseconds = q.MaintenanceTaskInterval,
                     ApplicationUserId = q.ApplicationUserId,
                     MachineId = q.MachineId
                 }).ToListAsync();
@@ -99,7 +99,7 @@ namespace MaintenanceApp.Services
                 Single(e => e.MaintenanceTaskId == id);
             entity.MaintenanceTaskName = model.MaintenanceTaskName;
             entity.MaintenanceTaskDescription = model.MaintenanceTaskDescription;
-            entity.MaintenanceTaskInterval = model.MaintenanceTaskInterval;
+            entity.MaintenanceTaskInterval = Convert.ToInt64(model.MaintenanceTaskIntervalHours * 36000000000);
             entity.MachineId = model.MachineId;
 
             return await _context.SaveChangesAsync() == 1;
